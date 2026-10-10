@@ -482,12 +482,14 @@ a {
   margin-bottom: 6px;
 }
 
-.spotlight-tamil {
-  font-size: 0.82rem;
+.spotlight-subtitle {
+  font-size: 0.84rem;
   color: var(--dusty-pink);
   margin-bottom: 18px;
   display: block;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-weight: 600;
 }
 
 .spotlight-price-box {

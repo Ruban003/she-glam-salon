@@ -141,8 +141,8 @@ const SERVICES_DATA = [
     category: 'bridal',
     title: 'Traditional Muhurtham Bridal HD Makeover',
     price: 'Custom Package',
-    description: 'Waterproof, sweat-resistant HD bridal makeup tailored for Tamil Nadu weddings. Flawless through long rituals.',
-    tag: 'முகூர்த்தம் • Muhurtham'
+    description: 'Waterproof, sweat-resistant HD bridal makeup tailored for weddings. Flawless through long rituals.',
+    tag: 'Muhurtham Bridal'
   },
   {
     id: 'reception-glam',
@@ -158,7 +158,7 @@ const SERVICES_DATA = [
     title: 'Kanjeevaram Saree Draping & Hair Flowers',
     price: 'From ₹999',
     description: 'Crisp, perfectly pinned pleats for traditional silk sarees, temple jewelry pinning, and fresh jasmine flower art.',
-    tag: 'சேலை அலங்காரம்'
+    tag: 'Saree Draping Art'
   },
   {
     id: 'pre-bridal',
@@ -328,7 +328,7 @@ export default function App() {
       {/* 1. Announcement Bar */}
       <div className="top-bar">
         <span>
-          தமிழ்நாடு • Karaikkudi Special: <strong>4-in-1 Mega Glow Combo at ₹1,999 Only!</strong> (Hair Spa + Facial + Haircut + Threading)
+          Karaikkudi Special Offer: <strong>4-in-1 Mega Glow Combo at ₹1,999 Only!</strong> (Hair Spa + Facial + Haircut + Threading)
         </span>
         <strong onClick={() => openBookingWithService('4-in-1 Mega Glow Combo (₹1999)')}>Book Slot &rarr;</strong>
       </div>
@@ -380,7 +380,7 @@ export default function App() {
           <div className="mobile-drawer">
             <a href="#offers" onClick={() => setMobileMenuOpen(false)}>Special ₹1,999 Offer</a>
             <a href="#services" onClick={() => setMobileMenuOpen(false)}>Services Menu</a>
-            <a href="#bridal" onClick={() => setMobileMenuOpen(false)}>Bridal & Muhurtham (முகூர்த்தம்)</a>
+            <a href="#bridal" onClick={() => setMobileMenuOpen(false)}>Bridal & Muhurtham</a>
             <a href="#academy" onClick={() => setMobileMenuOpen(false)}>Beauty Academy Courses</a>
             <a href="#reviews" onClick={() => setMobileMenuOpen(false)}>Client Testimonials</a>
             <a href="#location" onClick={() => setMobileMenuOpen(false)}>Location & Timings</a>
@@ -411,9 +411,11 @@ export default function App() {
             <div>
               <div className="hero-location-badge">
                 <span className="pill-tag pill-dusty">
-                  <MapPin size={12} /> KARAIKKUDI, TAMIL NADU
+                  <MapPin size={12} /> BURMA COLONY, KARAIKKUDI
                 </span>
-                <span className="tamil-subtitle">காரைக்குடி • பர்மா காலனி</span>
+                <span className="pill-tag pill-cream">
+                  <Clock size={11} /> DAILY 9:30 AM – 8:30 PM
+                </span>
               </div>
 
               <h1>
@@ -422,7 +424,7 @@ export default function App() {
               </h1>
 
               <p className="lead">
-                Karaikkudi’s premier salon & professional academy. Experience bespoke hair botox, rejuvenating skin facials, flawless South Indian bridal makeovers, and hands-on certified beautician masterclasses.
+                Karaikkudi’s premier salon & professional academy. Experience bespoke hair botox, rejuvenating skin facials, flawless bridal makeovers, and hands-on certified beautician masterclasses.
               </p>
 
               <div className="hero-actions">
@@ -468,7 +470,7 @@ export default function App() {
             <div className="burgundy-spotlight-card" id="offers">
               <span className="spotlight-eyebrow">MOST POPULAR IN KARAIKKUDI</span>
               <h3>4-in-1 Mega Glow Combo</h3>
-              <span className="spotlight-tamil">ஹேர் ஸ்பா + ஃபேஷியல் + ஹேர்கட் + த்ரெடிங்</span>
+              <span className="spotlight-subtitle">Hair Spa + Facial + Haircut + Threading</span>
 
               <div className="spotlight-price-box">
                 <span className="spotlight-price-now">₹1,999</span>
@@ -559,7 +561,7 @@ export default function App() {
       <section className="section" id="services">
         <div className="container">
           <div className="section-editorial-header">
-            <span className="pill-tag pill-dusty">OUR SERVICES • சேவைகள்</span>
+            <span className="pill-tag pill-dusty">OUR SERVICES • MENU</span>
             <h2>Curated Salon <em>Experiences</em></h2>
             <p>
               From science-backed hair rejuvenation to bridal couture and nail art, explore personalized care tailored for you in Burma Colony, Karaikkudi.
@@ -589,7 +591,7 @@ export default function App() {
               className={`filter-btn ${activeTab === 'bridal' ? 'active' : ''}`}
               onClick={() => setActiveTab('bridal')}
             >
-              Bridal & Muhurtham (முகூர்த்தம்)
+              Bridal & Muhurtham
             </button>
             <button 
               className={`filter-btn ${activeTab === 'nails' ? 'active' : ''}`}
@@ -638,7 +640,7 @@ export default function App() {
           <div className="bridal-editorial-box">
             <div>
               <span className="pill-tag pill-burgundy" style={{ marginBottom: '14px' }}>
-                BRIDAL LOUNGE • மணப்பெண் அலங்காரம்
+                BRIDAL LOUNGE • WEDDING SUITE
               </span>
               <h2>Bespoke Bridal <em>Artistry</em></h2>
               <p>
@@ -648,7 +650,7 @@ export default function App() {
               <ul className="bridal-checklist">
                 <li>
                   <CheckCircle2 size={18} color="#722F37" />
-                  <span><strong>Traditional Muhurtham Makeup (முகூர்த்தம்):</strong> Sweatproof HD finish that preserves natural beauty without flashback.</span>
+                  <span><strong>Traditional Muhurtham Makeup:</strong> Sweatproof HD finish that preserves natural beauty without flashback.</span>
                 </li>
                 <li>
                   <CheckCircle2 size={18} color="#722F37" />
@@ -712,7 +714,7 @@ export default function App() {
         <div className="container">
           <div className="section-editorial-header">
             <span className="pill-tag pill-dusty">
-              <GraduationCap size={13} /> BEAUTY ACADEMY • பயிற்சி மையம்
+              <GraduationCap size={13} /> BEAUTY ACADEMY • CERTIFIED COURSES
             </span>
             <h2>Certified Beauty <em>Academy</em></h2>
             <p>
@@ -871,7 +873,7 @@ export default function App() {
       <section className="section" id="location" style={{ background: 'var(--cream-card)' }}>
         <div className="container">
           <div className="section-editorial-header">
-            <span className="pill-tag pill-dusty">VISIT US • எங்களை சந்திக்க</span>
+            <span className="pill-tag pill-dusty">VISIT US • BURMA COLONY, KARAIKKUDI</span>
             <h2>Find Us in <em>Karaikkudi</em></h2>
             <p>
               Conveniently located at Burma Colony, near the Water Tank on Kottaiyur Main Road.
@@ -1049,7 +1051,7 @@ export default function App() {
               &copy; {new Date().getFullYear()} She GLAM Salon & Academy. All Rights Reserved.
             </div>
             <div>
-              <span>Karaikkudi, Tamil Nadu • தமிழ்நாடு</span>
+              <span>Karaikkudi, Tamil Nadu - 630002</span>
             </div>
           </div>
         </div>
@@ -1104,7 +1106,7 @@ export default function App() {
                   <option value="She GLAM Signature Brightening Facial">She GLAM Signature Brightening Facial</option>
                   <option value="Hydra Deep Pore Cleanse & Hydration">Hydra Deep Pore Cleanse & Hydration</option>
                   <option value="24K Gold Luxury Pre-Bridal Facial">24K Gold Luxury Pre-Bridal Facial</option>
-                  <option value="Traditional Muhurtham Bridal HD Makeover">Traditional Muhurtham Bridal HD Makeover (முகூர்த்தம்)</option>
+                  <option value="Traditional Muhurtham Bridal HD Makeover">Traditional Muhurtham Bridal HD Makeover</option>
                   <option value="Contemporary Reception & Engagement Glam">Contemporary Reception & Engagement Glam</option>
                   <option value="Kanjeevaram Saree Draping & Hair Flowers">Kanjeevaram Saree Draping & Hair Flowers</option>
                   <option value="Acrylic & UV Gel Nail Extensions">Acrylic & UV Gel Nail Extensions</option>
