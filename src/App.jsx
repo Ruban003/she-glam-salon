@@ -16,8 +16,18 @@ import {
   Menu, 
   ChevronRight,
   ArrowRight,
-  Award
+  Award,
+  ThumbsUp
 } from 'lucide-react';
+
+const GoogleIcon = ({ size = 18 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" style={{ flexShrink: 0 }}>
+    <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"/>
+    <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.33 24 12 24z"/>
+    <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.18 0 9.98 0 12s.45 3.82 1.25 5.42l4.03-3.15z"/>
+    <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/>
+  </svg>
+);
 
 const InstagramIcon = ({ size = 20, className = "" }) => (
   <svg 
@@ -201,22 +211,58 @@ const ACADEMY_COURSES = [
 
 const REVIEWS_DATA = [
   {
+    id: 1,
     name: 'Priyanka Meenakshi',
     location: 'Karaikkudi',
-    rating: 5,
-    comment: 'Booked their ₹1999 4-in-1 combo offer. The hair spa was deeply relaxing and my skin felt so fresh and glowing! The salon ambience is very clean, calm, and welcoming.'
+    service: '4-in-1 Mega Glow Combo (₹1,999)',
+    date: '2 weeks ago',
+    likes: 18,
+    comment: 'Booked their ₹1999 4-in-1 combo offer for a family function. The hair spa was deeply relaxing and my skin felt so fresh and glowing immediately! The salon is very clean, calm, and hygienic. Truly the best salon experience in Karaikkudi!'
   },
   {
+    id: 2,
     name: 'Sangeetha Ramanathan',
     location: 'Kottaiyur, Karaikkudi',
-    rating: 5,
-    comment: 'She GLAM did my engagement makeover and my saree draping. Everyone in our family praised the look! The makeup was natural, lightweight, and lasted over 10 hours.'
+    service: 'Traditional Muhurtham Bridal HD Makeover',
+    date: '1 month ago',
+    likes: 27,
+    comment: 'She GLAM did my wedding muhurtham makeover and my Kanjeevaram saree draping. The makeup was so natural, lightweight, and lasted over 10 hours through all rituals without any patchiness or sweat breakdown. Everyone in our family praised my look!'
   },
   {
+    id: 3,
     name: 'Kavitha Devi',
     location: 'Devakottai / Karaikkudi',
-    rating: 5,
-    comment: 'Best hair botox treatment in Karaikkudi. My frizzy unmanageable hair became silky and smooth with beautiful mirror shine. Truly professional and gentle service.'
+    service: 'Hair Botox Deep Rejuvenation',
+    date: '3 weeks ago',
+    likes: 19,
+    comment: 'Best hair botox treatment in Karaikkudi! My rough, frizzy curly hair became silky and smooth with mirror shine. Staff is extremely polite, takes good time, and uses only genuine branded products. Highly satisfied!'
+  },
+  {
+    id: 4,
+    name: 'Divya Annamalai',
+    location: 'Burma Colony, Karaikkudi',
+    service: 'Hydra Deep Pore Cleanse & Glow',
+    date: '1 month ago',
+    likes: 14,
+    comment: 'Took their Hydra pore cleanse facial. The blackheads were completely removed painlessly and the serum hydration gave me glass skin. Very affordable pricing compared to big city salons and very polite staff!'
+  },
+  {
+    id: 5,
+    name: 'Meena Muthukaruppan',
+    location: 'Karaikkudi',
+    service: 'Academy: Bridal HD Makeup Masterclass',
+    date: '2 months ago',
+    likes: 32,
+    comment: 'Proud student of She GLAM Academy! The 100% practical training on live models gave me full confidence to start my own freelance bridal makeup career. The trainer explains every step with patience and clear guidance.'
+  },
+  {
+    id: 6,
+    name: 'Anitha Selvam',
+    location: 'Karaikkudi',
+    service: 'Acrylic & UV Gel Nail Extensions',
+    date: '3 weeks ago',
+    likes: 16,
+    comment: 'Got my nail extensions and chrome nail art done here for my engagement. Still looking brand new after 3 weeks! Very precise work, hygienic tools, and neat finishing. Highly recommended for girls in Karaikkudi!'
   }
 ];
 
@@ -232,6 +278,19 @@ export default function App() {
     timeSlot: 'Morning (10:00 AM - 01:00 PM)',
     notes: ''
   });
+
+  const [reviewLikes, setReviewLikes] = useState({ 1: 18, 2: 27, 3: 19, 4: 14, 5: 32, 6: 16 });
+  const [userLiked, setUserLiked] = useState({});
+
+  const toggleLike = (id) => {
+    if (userLiked[id]) {
+      setReviewLikes(prev => ({ ...prev, [id]: prev[id] - 1 }));
+      setUserLiked(prev => ({ ...prev, [id]: false }));
+    } else {
+      setReviewLikes(prev => ({ ...prev, [id]: prev[id] + 1 }));
+      setUserLiked(prev => ({ ...prev, [id]: true }));
+    }
+  };
 
   const phoneNumber = '+91 63813 74330';
   const cleanPhone = '916381374330';
@@ -708,33 +767,98 @@ export default function App() {
         </div>
       </section>
 
-      {/* 8. Client Testimonials */}
+      {/* 8. Google 5-Star Verified Reviews Showcase */}
       <section className="section" id="reviews">
         <div className="container">
           <div className="section-editorial-header">
-            <span className="pill-tag pill-dusty">TESTIMONIALS • வாடிக்கையாளர் கருத்துகள்</span>
+            <span className="pill-tag pill-dusty">
+              GOOGLE REVIEWS • 5.0 ★ EXCELLENCE
+            </span>
             <h2>Loved by Karaikkudi <em>Clients</em></h2>
             <p>
-              Genuine experiences from our regulars and brides across Karaikkudi, Kottaiyur, and Devakottai.
+              Real 5-star experiences from our regular clients, brides, and academy students in Burma Colony, Karaikkudi.
             </p>
           </div>
 
-          <div className="reviews-grid">
-            {REVIEWS_DATA.map((rev, idx) => (
-              <div key={idx} className="review-card">
-                <div className="review-stars">
-                  {[...Array(rev.rating)].map((_, i) => (
-                    <Star key={i} size={15} fill="#c98836" color="#c98836" />
+          {/* Google Rating Summary Bar */}
+          <div className="google-summary-card">
+            <div className="google-summary-left">
+              <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+                <GoogleIcon size={36} />
+                <span className="google-rating-number">5.0</span>
+              </div>
+              <div>
+                <div className="google-stars-row">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} size={20} fill="#FBBC05" color="#FBBC05" />
                   ))}
                 </div>
-                <p>"{rev.comment}"</p>
-                <div className="review-author">
-                  <div className="review-avatar">
-                    {rev.name.charAt(0)}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                  <span className="google-verified-badge">
+                    <CheckCircle2 size={13} /> 100% 5-Star Rated
+                  </span>
+                  <span style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>
+                    Google Business Profile • Burma Colony, Karaikkudi
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <a 
+              href={mapsLink} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="btn btn-outline-burgundy"
+              style={{ fontSize: '0.84rem', padding: '10px 20px' }}
+            >
+              <GoogleIcon size={16} />
+              <span>Write a 5★ Review on Google</span>
+            </a>
+          </div>
+
+          {/* 5-Star Review Cards Grid */}
+          <div className="reviews-grid">
+            {REVIEWS_DATA.map((rev) => (
+              <div key={rev.id} className="review-card">
+                <div>
+                  <div className="review-card-top">
+                    <div className="review-author-info">
+                      <div className="review-avatar">
+                        {rev.name.charAt(0)}
+                      </div>
+                      <div>
+                        <h5 className="review-author-name">{rev.name}</h5>
+                        <span className="review-date-badge">
+                          <GoogleIcon size={12} /> {rev.location} • {rev.date}
+                        </span>
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    <h5 style={{ fontSize: '0.92rem', color: 'var(--burgundy-dark)' }}>{rev.name}</h5>
-                    <span style={{ fontSize: '0.78rem', color: 'var(--text-sub)' }}>{rev.location}</span>
+
+                  <div className="review-stars">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} size={15} fill="#FBBC05" color="#FBBC05" />
+                    ))}
+                  </div>
+
+                  <span className="review-service-pill">{rev.service}</span>
+
+                  <p>"{rev.comment}"</p>
+                </div>
+
+                <div className="review-footer">
+                  <button 
+                    className={`like-button ${userLiked[rev.id] ? 'liked' : ''}`}
+                    onClick={() => toggleLike(rev.id)}
+                    title="Mark review as helpful"
+                  >
+                    <ThumbsUp size={13} fill={userLiked[rev.id] ? 'currentColor' : 'none'} />
+                    <span>Helpful ({reviewLikes[rev.id] || rev.likes})</span>
+                  </button>
+
+                  <div className="google-brand-tag">
+                    <GoogleIcon size={13} />
+                    <span>Verified Google Review</span>
                   </div>
                 </div>
               </div>

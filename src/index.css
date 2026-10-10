@@ -877,37 +877,197 @@ a {
   padding: 26px;
 }
 
-.review-stars {
-  color: #c98836;
+/* Google 5-Star Reviews Showcase */
+.google-summary-card {
+  background: var(--cream-light);
+  border: 1.5px solid var(--cream-border);
+  border-radius: var(--radius-md);
+  padding: 24px 32px;
   display: flex;
-  gap: 4px;
-  margin-bottom: 12px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 36px;
+  gap: 20px;
+  box-shadow: var(--shadow-subtle);
 }
 
-.review-card p {
-  font-size: 0.92rem;
-  color: var(--text-dark);
-  font-style: italic;
-  line-height: 1.6;
+@media (max-width: 850px) {
+  .google-summary-card {
+    flex-direction: column;
+    text-align: center;
+    padding: 24px;
+  }
 }
 
-.review-author {
+.google-summary-left {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+@media (max-width: 850px) {
+  .google-summary-left {
+    flex-direction: column;
+  }
+}
+
+.google-rating-number {
+  font-size: 3.2rem;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  color: var(--burgundy-dark);
+  line-height: 1;
+}
+
+.google-stars-row {
+  display: flex;
+  gap: 3px;
+  color: #FBBC05;
+  margin-bottom: 4px;
+}
+
+.google-verified-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #1a73e8;
+  background: rgba(26, 115, 232, 0.08);
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+}
+
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+  gap: 24px;
+}
+
+.review-card {
+  background: var(--cream-light);
+  border: 1.5px solid var(--cream-border);
+  border-radius: var(--radius-md);
+  padding: 26px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: var(--transition);
+  position: relative;
+}
+
+.review-card:hover {
+  border-color: var(--dusty-pink);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-card);
+}
+
+.review-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.review-author-info {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-top: 18px;
 }
 
 .review-avatar {
-  width: 38px;
-  height: 38px;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
-  background: var(--dusty-pink);
-  color: var(--burgundy-dark);
+  background: var(--dusty-pink-light);
+  border: 1.5px solid var(--dusty-pink);
+  color: var(--burgundy);
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.review-author-name {
+  font-size: 0.94rem;
+  font-weight: 700;
+  color: var(--burgundy-dark);
+  line-height: 1.2;
+}
+
+.review-date-badge {
+  font-size: 0.74rem;
+  color: var(--text-sub);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 2px;
+}
+
+.review-stars {
+  color: #FBBC05;
+  display: flex;
+  gap: 3px;
+  margin-bottom: 8px;
+}
+
+.review-service-pill {
+  display: inline-block;
+  background: var(--dusty-pink-light);
+  color: var(--burgundy);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  margin-bottom: 12px;
+  letter-spacing: 0.04em;
+}
+
+.review-card p {
+  font-size: 0.9rem;
+  color: var(--text-dark);
+  line-height: 1.65;
+  margin-bottom: 18px;
+}
+
+.review-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 14px;
+  border-top: 1px solid var(--cream-border);
+}
+
+.like-button {
+  background: transparent;
+  border: 1px solid var(--cream-border);
+  border-radius: var(--radius-full);
+  padding: 5px 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.like-button:hover, .like-button.liked {
+  background: var(--dusty-pink-light);
+  border-color: var(--dusty-pink);
+  color: var(--burgundy);
+  transform: scale(1.05);
+}
+
+.google-brand-tag {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.72rem;
+  color: var(--text-sub);
+  font-weight: 500;
 }
 
 /* Location Card */
