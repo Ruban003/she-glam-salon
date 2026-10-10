@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import logoImg from './assets/logo.png';
 import { 
   Sparkles, 
@@ -270,6 +270,50 @@ export default function App() {
   const [activeTab, setActiveTab] = useState('all');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const headerRef = useRef(null);
+
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+
+    // Close menu when tapping anywhere on the remaining screen
+    const handleClickOutside = (event) => {
+      if (headerRef.current && !headerRef.current.contains(event.target)) {
+        setMobileMenuOpen(false);
+      }
+    };
+
+    // Close on Escape key
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        setMobileMenuOpen(false);
+      }
+    };
+
+    // Close if resized to desktop breakpoint
+    const handleResize = () => {
+      if (window.innerWidth > 960) {
+        setMobileMenuOpen(false);
+      }
+    };
+
+    // Lock body scrolling when drawer is open
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('touchstart', handleClickOutside, { passive: true });
+    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [mobileMenuOpen]);
+
   const [bookingData, setBookingData] = useState({
     name: '',
     phone: '',
@@ -334,7 +378,7 @@ export default function App() {
       </div>
 
       {/* 2. Header & Nav */}
-      <header className="header">
+      <header className="header" ref={headerRef}>
         <div className="nav-container">
           <a href="#" className="brand-logo-link" aria-label="She GLAM Home">
             <img src={logoImg} alt="She GLAM Salon & Academy" className="brand-logo-img" />
@@ -365,17 +409,22 @@ export default function App() {
               <span>Book</span>
             </button>
             <button 
-              className="mobile-menu-btn" 
-              aria-label="Toggle Menu"
+              className={`mobile-menu-btn ${mobileMenuOpen ? 'is-active' : ''}`}
+              aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={mobileMenuOpen}
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
-              {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+              <span className="burger-box">
+                <span className="burger-line line-1"></span>
+                <span className="burger-line line-2"></span>
+                <span className="burger-line line-3"></span>
+              </span>
             </button>
           </div>
         </div>
 
         {mobileMenuOpen && (
-          <div className="mobile-drawer">
+          <div className="mobile-drawer" role="dialog" aria-modal="true" aria-label="Mobile navigation menu">
             <a href="#offers" onClick={() => setMobileMenuOpen(false)}>
               <span>Special ₹1,999 Offer</span>
               <ChevronRight size={16} />
@@ -403,6 +452,16 @@ export default function App() {
           </div>
         )}
       </header>
+
+      {/* Backdrop overlay to close drawer when clicking or touching the remaining screen */}
+      {mobileMenuOpen && (
+        <div 
+          className="mobile-drawer-backdrop" 
+          onClick={() => setMobileMenuOpen(false)}
+          onTouchStart={() => setMobileMenuOpen(false)}
+          aria-hidden="true"
+        />
+      )}
 
       {/* 3. Hero Section (Editorial Minimalist) */}
       <section className="hero-editorial">
@@ -1056,7 +1115,7 @@ export default function App() {
       </footer>
 
       {/* 11. Sticky Mobile Bottom Action Bar */}
-      <div className="mobile-bottom-bar">
+      <div className={`mobile-bottom-bar ${mobileMenuOpen ? 'drawer-is-open' : ''}`}>
         <a 
           href={`tel:${cleanPhone}`} 
           className="bottom-bar-btn btn-call"
