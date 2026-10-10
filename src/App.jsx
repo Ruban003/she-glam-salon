@@ -327,10 +327,10 @@ export default function App() {
     <div className="she-glam-app">
       {/* 1. Announcement Bar */}
       <div className="top-bar">
-        <span>
-          Karaikkudi Special Offer: <strong>4-in-1 Mega Glow Combo at ₹1,999 Only!</strong> (Hair Spa + Facial + Haircut + Threading)
+        <span className="top-bar-text">
+          Karaikkudi Special: <strong>₹1,999 Mega Glow Combo</strong> (Hair Spa + Facial + Haircut + Threading)
         </span>
-        <strong onClick={() => openBookingWithService('4-in-1 Mega Glow Combo (₹1999)')}>Book Slot &rarr;</strong>
+        <strong className="top-bar-cta" onClick={() => openBookingWithService('4-in-1 Mega Glow Combo (₹1999)')}>Book Slot &rarr;</strong>
       </div>
 
       {/* 2. Header & Nav */}
@@ -352,19 +352,17 @@ export default function App() {
           <div className="nav-actions">
             <a 
               href={`tel:${cleanPhone}`} 
-              className="btn btn-outline-burgundy" 
-              style={{ padding: '9px 18px', fontSize: '0.84rem' }}
+              className="btn btn-outline-burgundy nav-call-btn" 
             >
               <Phone size={14} />
               <span>Call Now</span>
             </a>
             <button 
-              className="btn btn-burgundy btn-shimmer" 
-              style={{ padding: '9px 20px', fontSize: '0.84rem' }}
+              className="btn btn-burgundy btn-shimmer nav-book-btn" 
               onClick={() => setIsModalOpen(true)}
             >
               <Calendar size={14} />
-              <span>Book Appointment</span>
+              <span>Book</span>
             </button>
             <button 
               className="mobile-menu-btn" 
@@ -378,28 +376,30 @@ export default function App() {
 
         {mobileMenuOpen && (
           <div className="mobile-drawer">
-            <a href="#offers" onClick={() => setMobileMenuOpen(false)}>Special ₹1,999 Offer</a>
-            <a href="#services" onClick={() => setMobileMenuOpen(false)}>Services Menu</a>
-            <a href="#bridal" onClick={() => setMobileMenuOpen(false)}>Bridal & Muhurtham</a>
-            <a href="#academy" onClick={() => setMobileMenuOpen(false)}>Beauty Academy Courses</a>
-            <a href="#reviews" onClick={() => setMobileMenuOpen(false)}>Client Testimonials</a>
-            <a href="#location" onClick={() => setMobileMenuOpen(false)}>Location & Timings</a>
-            <div style={{ display: 'flex', gap: '10px', marginTop: '12px' }}>
-              <a 
-                href={`tel:${cleanPhone}`} 
-                className="btn btn-outline-burgundy" 
-                style={{ flex: 1, textAlign: 'center' }}
-              >
-                <Phone size={15} /> Call
-              </a>
-              <button 
-                className="btn btn-burgundy" 
-                style={{ flex: 1 }}
-                onClick={() => { setMobileMenuOpen(false); setIsModalOpen(true); }}
-              >
-                Book
-              </button>
-            </div>
+            <a href="#offers" onClick={() => setMobileMenuOpen(false)}>
+              <span>Special ₹1,999 Offer</span>
+              <ChevronRight size={16} />
+            </a>
+            <a href="#services" onClick={() => setMobileMenuOpen(false)}>
+              <span>Services Menu</span>
+              <ChevronRight size={16} />
+            </a>
+            <a href="#bridal" onClick={() => setMobileMenuOpen(false)}>
+              <span>Bridal & Muhurtham</span>
+              <ChevronRight size={16} />
+            </a>
+            <a href="#academy" onClick={() => setMobileMenuOpen(false)}>
+              <span>Beauty Academy Courses</span>
+              <ChevronRight size={16} />
+            </a>
+            <a href="#reviews" onClick={() => setMobileMenuOpen(false)}>
+              <span>Client Testimonials</span>
+              <ChevronRight size={16} />
+            </a>
+            <a href="#location" onClick={() => setMobileMenuOpen(false)}>
+              <span>Location & Timings</span>
+              <ChevronRight size={16} />
+            </a>
           </div>
         )}
       </header>
@@ -666,7 +666,7 @@ export default function App() {
                 </li>
               </ul>
 
-              <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
+              <div className="bridal-actions">
                 <button 
                   className="btn btn-burgundy"
                   onClick={() => openBookingWithService('Bridal Consultation & Package')}
@@ -935,13 +935,12 @@ export default function App() {
                 </div>
               </div>
 
-              <div style={{ display: 'flex', gap: '12px', marginTop: '24px', flexWrap: 'wrap' }}>
+              <div className="location-actions">
                 <a 
                   href={mapsLink} 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="btn btn-burgundy"
-                  style={{ flex: 1 }}
                 >
                   <MapPin size={16} /> Open in Google Maps
                 </a>
@@ -950,7 +949,6 @@ export default function App() {
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="btn btn-whatsapp"
-                  style={{ flex: 1 }}
                 >
                   <Sparkles size={16} /> WhatsApp Us
                 </a>
@@ -1057,7 +1055,37 @@ export default function App() {
         </div>
       </footer>
 
-      {/* 11. Floating Quick WhatsApp Button */}
+      {/* 11. Sticky Mobile Bottom Action Bar */}
+      <div className="mobile-bottom-bar">
+        <a 
+          href={`tel:${cleanPhone}`} 
+          className="bottom-bar-btn btn-call"
+          aria-label="Call She GLAM"
+        >
+          <Phone size={18} />
+          <span>Call</span>
+        </a>
+        <a 
+          href={`https://wa.me/${cleanPhone}?text=${encodeURIComponent('Hello She GLAM, I would like to inquire about your salon services and appointments.')}`}
+          target="_blank" 
+          rel="noopener noreferrer" 
+          className="bottom-bar-btn btn-wa"
+          aria-label="Chat on WhatsApp"
+        >
+          <Sparkles size={18} />
+          <span>WhatsApp</span>
+        </a>
+        <button 
+          className="bottom-bar-btn btn-booking btn-shimmer"
+          onClick={() => setIsModalOpen(true)}
+          aria-label="Book Appointment"
+        >
+          <Calendar size={18} />
+          <span>Book Now</span>
+        </button>
+      </div>
+
+      {/* 12. Floating Quick WhatsApp Button (Desktop) */}
       <a 
         href={`https://wa.me/${cleanPhone}?text=${encodeURIComponent('Hello She GLAM, I would like to book an appointment.')}`}
         target="_blank" 
@@ -1069,7 +1097,7 @@ export default function App() {
         <Sparkles size={28} />
       </a>
 
-      {/* 12. Minimalist Booking Modal */}
+      {/* 13. Minimalist Booking Modal */}
       {isModalOpen && (
         <div className="modal-overlay" onClick={() => setIsModalOpen(false)}>
           <div className="modal-content-box" onClick={(e) => e.stopPropagation()}>
@@ -1142,7 +1170,7 @@ export default function App() {
                 />
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '16px' }}>
+              <div className="modal-form-row">
                 <div>
                   <label className="form-label">Preferred Date</label>
                   <input 
