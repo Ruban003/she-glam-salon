@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import logoImg from './assets/logo.png';
 import { 
   Sparkles, 
   Phone, 
@@ -15,7 +16,6 @@ import {
   Menu, 
   ChevronRight,
   ArrowRight,
-  Sparkle,
   Award
 } from 'lucide-react';
 
@@ -26,7 +26,7 @@ const InstagramIcon = ({ size = 20, className = "" }) => (
     viewBox="0 0 24 24" 
     fill="none" 
     stroke="currentColor" 
-    strokeWidth="2" 
+    strokeWidth="1.8" 
     strokeLinecap="round" 
     strokeLinejoin="round" 
     className={className}
@@ -45,8 +45,8 @@ const SERVICES_DATA = [
     title: '4-in-1 Mega Glow Combo',
     price: '₹1,999',
     originalPrice: '₹4,500',
-    description: 'Our most viral Karaikkudi package! Hair Spa + Skin Lightening Facial + Haircut & Blowdry + Threading.',
-    tag: 'Viral Offer • 55% Off',
+    description: 'Our most viral Karaikkudi package: Deep Hair Spa + Skin Lightening Facial + Pro Haircut & Blowdry + Eyebrow Threading.',
+    tag: 'Limited Festive Offer',
     popular: true
   },
   // Hair
@@ -55,40 +55,40 @@ const SERVICES_DATA = [
     category: 'hair',
     title: 'Hair Botox Deep Rejuvenation',
     price: 'From ₹2,499',
-    description: 'Intense anti-aging moisture infusion that repairs extreme damage, tames frizz, and leaves mirror-like glossy shine.',
-    tag: 'Bestseller'
+    description: 'Intense moisture infusion that repairs extreme chemical & heat damage, eliminates frizz, and imparts mirror-glass shine.',
+    tag: 'Signature Hair'
   },
   {
     id: 'keratin-treatment',
     category: 'hair',
     title: 'Keratin Silk Smooth Therapy',
     price: 'From ₹2,999',
-    description: 'Semi-permanent protein treatment giving straight, manageable, and frizz-free hair for up to 5 months.',
+    description: 'Semi-permanent protein treatment delivering sleek, straight, manageable hair lasting up to 5 months.',
     tag: 'Client Favorite'
   },
   {
     id: 'hair-spa',
     category: 'hair',
-    title: 'Luxury Herbal Hair Spa & Scalp Detox',
+    title: 'Nourishing Herbal Hair Spa',
     price: 'From ₹799',
-    description: 'Deep conditioning scalp massage, steam therapy, and protein serum for stress relief and root nourishment.',
-    tag: 'Relaxation'
+    description: 'Deep conditioning scalp acupressure massage, herbal steam bath, and intense restorative protein mask.',
+    tag: 'Scalp Detox'
   },
   {
     id: 'hair-color',
     category: 'hair',
     title: 'Global Color & Balayage Highlights',
     price: 'From ₹1,499',
-    description: 'Rich multidimensional shades using premium ammonia-free formulas. Custom caramel, honey, or burgundy tones.',
-    tag: 'Styling'
+    description: 'Ammonia-free multidimensional color artistry. Caramel, chocolate, hazelnut, and bespoke fashion hues.',
+    tag: 'Hair Color'
   },
   {
     id: 'layer-haircut',
     category: 'hair',
     title: 'Precision Layer Cut & Signature Blowdry',
     price: '₹450',
-    description: 'Bespoke haircut personalized to your face shape, followed by volume bounce blowdry and finishing serum.',
-    tag: 'Quick Refresh'
+    description: 'Face-framing haircut customized to your jawline, finished with high-volume blowout and shine serum.',
+    tag: 'Daily Glam'
   },
 
   // Skin & Facials
@@ -97,84 +97,84 @@ const SERVICES_DATA = [
     category: 'skin',
     title: 'She GLAM Signature Brightening Facial',
     price: '₹1,299',
-    description: 'Multi-step skin hydration and glow boost that fades pigmentation, dark spots, and restores instant radiance.',
-    tag: 'Top Rated'
+    description: 'Gentle exfoliation, vitamin-rich serum massage, and brightening botanical mask that eliminates dullness and tan.',
+    tag: 'Glow Therapy'
   },
   {
     id: 'hydra-facial',
     category: 'skin',
-    title: 'Hydra Deep Pore Cleanse & Glow',
+    title: 'Hydra Deep Pore Cleanse & Hydration',
     price: '₹1,899',
-    description: 'Painless blackhead suction, gentle enzymatic exfoliation, and antioxidant serum infusion for glass skin.',
-    tag: 'Advanced'
+    description: 'Painless vortex pore extraction, blackhead clearing, and hyaluronic acid infusion for healthy glass skin.',
+    tag: 'Deep Cleanse'
   },
   {
     id: 'detan-cleanup',
     category: 'skin',
-    title: 'Intense De-Tan & Herbal Cleanup',
+    title: 'Instant De-Tan & Herbal Cleanup',
     price: '₹699',
-    description: 'Quick sunburn reversal and pore detoxification for refreshed, even-toned skin.',
-    tag: 'Essentials'
+    description: 'Targeted sun damage reversal, dead skin removal, and cooling pack for instant freshness and even skin tone.',
+    tag: 'Express Care'
   },
   {
     id: 'gold-facial',
     category: 'skin',
-    title: 'Luxury 24K Gold Pre-Bridal Facial',
+    title: '24K Gold Luxury Pre-Bridal Facial',
     price: '₹2,199',
-    description: 'Pure gold leaves and peptides that promote collagen elasticity and luminous bridal luminescence.',
-    tag: 'Luxury'
+    description: 'Pure gold bio-peptides that stimulate collagen synthesis, fine line softening, and lasting wedding-ready glow.',
+    tag: 'Luxury Bridal'
   },
 
   // Bridal & Makeover
   {
     id: 'muhurtham-bridal',
     category: 'bridal',
-    title: 'Muhurtham Traditional Bridal HD Makeover',
+    title: 'Traditional Muhurtham Bridal HD Makeover',
     price: 'Custom Package',
-    description: 'Long-lasting, sweat-proof, and tears-proof HD makeup with traditional saree draping and fresh flower setting.',
-    tag: 'Signature Bridal'
+    description: 'Waterproof, sweat-resistant HD bridal makeup tailored for Tamil Nadu weddings. Flawless through long rituals.',
+    tag: 'முகூர்த்தம் • Muhurtham'
   },
   {
     id: 'reception-glam',
     category: 'bridal',
-    title: 'Reception & Engagement Glam Look',
+    title: 'Contemporary Reception & Engagement Glam',
     price: 'Custom Package',
-    description: 'Modern sculpted contouring, statement eyes, glass-skin finish, and contemporary bridal hairstyling.',
-    tag: 'Bridal Series'
+    description: 'Sculpted soft-matte contouring, statement eyes, glass-skin radiant finish, and high-fashion bridal hairdo.',
+    tag: 'Evening Reception'
+  },
+  {
+    id: 'saree-draping',
+    category: 'bridal',
+    title: 'Kanjeevaram Saree Draping & Hair Flowers',
+    price: 'From ₹999',
+    description: 'Crisp, perfectly pinned pleats for traditional silk sarees, temple jewelry pinning, and fresh jasmine flower art.',
+    tag: 'சேலை அலங்காரம்'
   },
   {
     id: 'pre-bridal',
     category: 'bridal',
     title: 'Complete 30-Day Pre-Bridal Glow Suite',
     price: 'Consult For Pricing',
-    description: 'Full body polishing, gold facials, hair botox, luxury mani-pedi, and bikini waxing leading up to your wedding day.',
-    tag: 'All-in-One'
-  },
-  {
-    id: 'saree-draping',
-    category: 'bridal',
-    title: 'Advanced Saree Draping & Hair Design',
-    price: 'From ₹999',
-    description: 'Flawless pleating for Kanjeevaram silks, modern lehenga draping, and intricate bridal braid ornamentation.',
-    tag: 'Special Occasion'
+    description: 'Holistic bridal preparation: full body polishing, gold facials, hair botox, luxury mani-pedi, and organic waxing.',
+    tag: 'All-in-One Bride'
   },
 
   // Nails & Spa
   {
     id: 'gel-extensions',
     category: 'nails',
-    title: 'Acrylic & Gel Nail Extensions',
+    title: 'Acrylic & UV Gel Nail Extensions',
     price: 'From ₹1,499',
-    description: 'Natural length extension with long-lasting gel polish, ombre shades, and chrome shimmer art.',
-    tag: 'Trending'
+    description: 'Flawless nail extensions with long-lasting gel polish, ombre blush tones, chrome sheen, and minimal nail art.',
+    tag: 'Trending Nails'
   },
   {
     id: 'spa-pedicure',
     category: 'nails',
-    title: 'Luxury Rose Petal Pedicure & Manicure',
+    title: 'Rose Petal Spa Pedicure & Manicure',
     price: '₹899',
-    description: 'Warm floral foot soak, dead skin scrubbing, massage with essential oils, and premium nail shaping.',
-    tag: 'Pampering'
+    description: 'Warm rose petal herbal foot soak, gentle callus buffing, stress-relief essential oil massage, and nail buffing.',
+    tag: 'Relaxation'
   }
 ];
 
@@ -182,41 +182,41 @@ const ACADEMY_COURSES = [
   {
     title: 'Professional Beautician Diploma',
     duration: '3 Months Comprehensive',
-    desc: 'Master skin anatomy, facial therapies, waxing, threading, advanced hair treatments (botox/keratin), and salon client management.',
-    perks: ['Govt Aligned Syllabus', '100% Hands-on Practicals', 'Live Model Demos', 'Job & Salon Placement Help']
+    desc: 'Complete mastery of skincare science, advanced facial therapies, hair treatments (botox, keratin), and salon business operations.',
+    perks: ['Govt-Aligned Syllabus', '100% Practical on Live Models', 'Starter Kit Guidance', 'Salon Placement Assistance']
   },
   {
     title: 'Masterclass in Bridal HD Makeup',
     duration: '1 Month Intensive',
-    desc: 'Specialized bridal techniques: color correction, HD contouring, eye cut-crease, Kanjeevaram saree draping, and muhurtham styling.',
-    perks: ['Portfolio Shoot Session', 'Vanity Kit Guidance', 'Bridal Consultation Coaching', 'Certificate of Excellence']
+    desc: 'Specialized in South Indian & Chettinad bridal aesthetics: skin prep, non-oxidizing HD makeup, Kanjeevaram saree draping, and hair artistry.',
+    perks: ['Vanity Kit Curation', 'Live Muhurtham Demos', 'Portfolio Photo Shoot', 'Recognized Certificate']
   },
   {
     title: 'Nail Art & Gel Extensions Specialist',
     duration: '15 Days Certification',
-    desc: 'Acrylics, UV gel curing, nail tip extensions, 3D floral art, chrome glazing, French tips, and safe removal techniques.',
-    perks: ['Complete Practice Kit', 'Salon-Ready Skills', 'One-on-One Mentorship', 'Authorized Certificate']
+    desc: 'Hands-on practice in nail tip application, UV gel curing, 3D floral accents, French ombre, chrome glazing, and safe removal.',
+    perks: ['Complete Practice Kit', 'Salon-Ready Techniques', 'One-on-One Mentorship', 'Authorized Certificate']
   }
 ];
 
 const REVIEWS_DATA = [
   {
-    name: 'Priyanka M.',
+    name: 'Priyanka Meenakshi',
     location: 'Karaikkudi',
     rating: 5,
-    comment: 'Booked their ₹1999 4-in-1 combo last week and it was beyond expectations! The hair spa was so relaxing and my skin was glowing immediately. Very clean and hygienic salon.'
+    comment: 'Booked their ₹1999 4-in-1 combo offer. The hair spa was deeply relaxing and my skin felt so fresh and glowing! The salon ambience is very clean, calm, and welcoming.'
   },
   {
-    name: 'Sangeetha R.',
-    location: 'Kottaiyur',
+    name: 'Sangeetha Ramanathan',
+    location: 'Kottaiyur, Karaikkudi',
     rating: 5,
-    comment: 'She GLAM did my engagement makeover and everybody praised my look! The makeup was so natural and lasted for more than 10 hours without any patchiness. Highly recommended!'
+    comment: 'She GLAM did my engagement makeover and my saree draping. Everyone in our family praised the look! The makeup was natural, lightweight, and lasted over 10 hours.'
   },
   {
     name: 'Kavitha Devi',
     location: 'Devakottai / Karaikkudi',
     rating: 5,
-    comment: 'Best hair botox treatment in Karaikkudi. My frizzy curly hair is now super smooth and shiny. The staff is so gentle and polite. Definitely my regular salon now!'
+    comment: 'Best hair botox treatment in Karaikkudi. My frizzy unmanageable hair became silky and smooth with beautiful mirror shine. Truly professional and gentle service.'
   }
 ];
 
@@ -246,14 +246,14 @@ export default function App() {
 
   const handleBookingSubmit = (e) => {
     e.preventDefault();
-    const text = `✨ *Appointment Booking Request - She GLAM Salon & Academy* ✨\n\n` +
+    const text = `✨ *She GLAM Salon & Academy - Appointment Booking* ✨\n\n` +
       `👤 *Name:* ${bookingData.name || 'Not provided'}\n` +
       `📞 *Phone:* ${bookingData.phone || 'Not provided'}\n` +
       `💅 *Service:* ${bookingData.service}\n` +
       `📅 *Date:* ${bookingData.date || 'Earliest available'}\n` +
       `⏰ *Time Slot:* ${bookingData.timeSlot}\n` +
-      (bookingData.notes ? `📝 *Notes/Requirements:* ${bookingData.notes}\n` : '') +
-      `\n_Sent via She GLAM official website_`;
+      (bookingData.notes ? `📝 *Notes:* ${bookingData.notes}\n` : '') +
+      `\n_Sent from sheglam.rvsmps.store (Karaikkudi, Tamil Nadu)_`;
 
     const whatsappUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(text)}`;
     window.open(whatsappUrl, '_blank');
@@ -267,30 +267,25 @@ export default function App() {
   return (
     <div className="she-glam-app">
       {/* 1. Announcement Bar */}
-      <div className="announcement-bar">
-        <span>✨ <strong>Grand Offer in Karaikkudi:</strong> 4-in-1 Mega Glow Combo at just <strong>₹1,999/-</strong> (Hair Spa + Facial + Haircut + Threading)</span>
-        <a href="#combo-offer" onClick={() => openBookingWithService('4-in-1 Mega Glow Combo (₹1999)')}>Book Now &rarr;</a>
+      <div className="top-bar">
+        <span>
+          தமிழ்நாடு • Karaikkudi Special: <strong>4-in-1 Mega Glow Combo at ₹1,999 Only!</strong> (Hair Spa + Facial + Haircut + Threading)
+        </span>
+        <strong onClick={() => openBookingWithService('4-in-1 Mega Glow Combo (₹1999)')}>Book Slot &rarr;</strong>
       </div>
 
-      {/* 2. Header & Navigation */}
+      {/* 2. Header & Nav */}
       <header className="header">
         <div className="nav-container">
-          <div className="logo-wrapper">
-            <div className="logo-icon">
-              <Sparkles size={22} />
-            </div>
-            <div className="logo-text">
-              <h1 className="font-serif">She GLAM</h1>
-              <p>Salon & Academy • Karaikkudi</p>
-            </div>
-          </div>
+          <a href="#" className="brand-logo-link" aria-label="She GLAM Home">
+            <img src={logoImg} alt="She GLAM Salon & Academy" className="brand-logo-img" />
+          </a>
 
-          <nav className="nav-links">
+          <nav className="nav-menu">
             <a href="#offers">Special Offers</a>
             <a href="#services">Services</a>
             <a href="#bridal">Bridal Lounge</a>
-            <a href="#academy">Academy Courses</a>
-            <a href="#why-us">Why Us</a>
+            <a href="#academy">Academy</a>
             <a href="#reviews">Reviews</a>
             <a href="#location">Find Us</a>
           </nav>
@@ -298,18 +293,18 @@ export default function App() {
           <div className="nav-actions">
             <a 
               href={`tel:${cleanPhone}`} 
-              className="btn btn-outline" 
-              style={{ padding: '10px 18px', fontSize: '0.85rem' }}
+              className="btn btn-outline-burgundy" 
+              style={{ padding: '9px 18px', fontSize: '0.84rem' }}
             >
-              <Phone size={15} />
-              <span className="hide-sm">Call Now</span>
+              <Phone size={14} />
+              <span>Call Now</span>
             </a>
             <button 
-              className="btn btn-primary" 
-              style={{ padding: '10px 22px', fontSize: '0.88rem' }}
+              className="btn btn-burgundy" 
+              style={{ padding: '9px 20px', fontSize: '0.84rem' }}
               onClick={() => setIsModalOpen(true)}
             >
-              <Calendar size={15} />
+              <Calendar size={14} />
               <span>Book Appointment</span>
             </button>
             <button 
@@ -317,7 +312,7 @@ export default function App() {
               aria-label="Toggle Menu"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
-              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
             </button>
           </div>
         </div>
@@ -326,21 +321,20 @@ export default function App() {
           <div className="mobile-drawer">
             <a href="#offers" onClick={() => setMobileMenuOpen(false)}>Special ₹1,999 Offer</a>
             <a href="#services" onClick={() => setMobileMenuOpen(false)}>Services Menu</a>
-            <a href="#bridal" onClick={() => setMobileMenuOpen(false)}>Bridal & Muhurtham</a>
-            <a href="#academy" onClick={() => setMobileMenuOpen(false)}>Academy Courses</a>
-            <a href="#why-us" onClick={() => setMobileMenuOpen(false)}>Why She GLAM</a>
-            <a href="#reviews" onClick={() => setMobileMenuOpen(false)}>Client Reviews</a>
+            <a href="#bridal" onClick={() => setMobileMenuOpen(false)}>Bridal & Muhurtham (முகூர்த்தம்)</a>
+            <a href="#academy" onClick={() => setMobileMenuOpen(false)}>Beauty Academy Courses</a>
+            <a href="#reviews" onClick={() => setMobileMenuOpen(false)}>Client Testimonials</a>
             <a href="#location" onClick={() => setMobileMenuOpen(false)}>Location & Timings</a>
-            <div style={{ display: 'flex', gap: '10px', marginTop: '10px' }}>
+            <div style={{ display: 'flex', gap: '10px', marginTop: '12px' }}>
               <a 
                 href={`tel:${cleanPhone}`} 
-                className="btn btn-outline" 
+                className="btn btn-outline-burgundy" 
                 style={{ flex: 1, textAlign: 'center' }}
               >
-                <Phone size={16} /> Call
+                <Phone size={15} /> Call
               </a>
               <button 
-                className="btn btn-primary" 
+                className="btn btn-burgundy" 
                 style={{ flex: 1 }}
                 onClick={() => { setMobileMenuOpen(false); setIsModalOpen(true); }}
               >
@@ -351,260 +345,225 @@ export default function App() {
         )}
       </header>
 
-      {/* 3. Hero Section */}
-      <section className="hero-section">
+      {/* 3. Hero Section (Editorial Minimalist) */}
+      <section className="hero-editorial">
         <div className="container">
-          <div className="hero-grid">
-            <div className="hero-content">
-              <div className="badge badge-gold">
-                <Sparkle size={14} /> Karaikkudi's Premier Luxury Salon & Academy
+          <div className="hero-editorial-grid">
+            <div>
+              <div className="hero-location-badge">
+                <span className="pill-tag pill-dusty">
+                  <MapPin size={12} /> KARAIKKUDI, TAMIL NADU
+                </span>
+                <span className="tamil-subtitle">காரைக்குடி • பர்மா காலனி</span>
               </div>
-              <h2 className="font-serif">
-                Beauty That <span className="text-gold-gradient">Shines</span>,<br />
-                Confidence That <span className="text-rose-gradient">Stays</span>.
-              </h2>
-              <p className="subtitle">
-                Welcome to She GLAM in Burma Colony, Karaikkudi. Experience rejuvenating hair botox, luxury skin lightening facials, picture-perfect bridal makeovers, and certified beautician masterclasses in an intimate, hygienic sanctuary.
+
+              <h1>
+                Beauty that <em>shines</em>,<br />
+                confidence that <em>stays</em>.
+              </h1>
+
+              <p className="lead">
+                Karaikkudi’s premier salon & professional academy. Experience bespoke hair botox, rejuvenating skin facials, flawless South Indian bridal makeovers, and hands-on certified beautician masterclasses.
               </p>
 
-              <div className="hero-cta-group">
+              <div className="hero-actions">
                 <button 
-                  className="btn btn-primary"
+                  className="btn btn-burgundy"
                   onClick={() => setIsModalOpen(true)}
                 >
-                  <Calendar size={18} />
+                  <Calendar size={17} />
                   <span>Book Appointment</span>
                 </button>
                 <a 
-                  href={`https://wa.me/${cleanPhone}?text=${encodeURIComponent('Hi She GLAM, I want to inquire about appointments and pricing.')}`}
+                  href={`https://wa.me/${cleanPhone}?text=${encodeURIComponent('Hello She GLAM, I would like to inquire about your salon appointments and pricing.')}`}
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="btn btn-whatsapp"
                 >
-                  <Sparkles size={18} />
+                  <Sparkles size={17} />
                   <span>Chat on WhatsApp</span>
                 </a>
-                <a href="#offers" className="btn btn-outline">
+                <a href="#offers" className="btn btn-outline-burgundy">
                   <span>View ₹1,999 Offer</span>
-                  <ArrowRight size={16} />
+                  <ArrowRight size={15} />
                 </a>
               </div>
 
-              <div className="hero-stats">
-                <div className="stat-item">
-                  <h4 className="font-serif">4.9 ★</h4>
-                  <p>Google Verified Rating</p>
+              <div className="hero-metrics">
+                <div className="metric-item">
+                  <h4>4.9 ★</h4>
+                  <p>Google Rating</p>
                 </div>
-                <div className="stat-item">
-                  <h4 className="font-serif">100%</h4>
-                  <p>Certified Stylists & Hygienic</p>
+                <div className="metric-item">
+                  <h4>100%</h4>
+                  <p>Hygienic & Certified</p>
                 </div>
-                <div className="stat-item">
-                  <h4 className="font-serif">1,200+</h4>
-                  <p>Happy Makeovers Delivered</p>
+                <div className="metric-item">
+                  <h4>1,200+</h4>
+                  <p>Happy Makeovers</p>
                 </div>
               </div>
             </div>
 
-            {/* Hero Visual Card / Spotlight */}
-            <div className="hero-card" id="offers">
-              <div className="hero-card-glow"></div>
-              <span className="hero-offer-tag">🔥 MOST VIRAL COMBO IN KARAIKKUDI</span>
-              <h3 className="font-serif" style={{ fontSize: '1.7rem', marginTop: '6px' }}>4-in-1 Mega Glow Combo</h3>
-              <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginTop: '4px' }}>
-                Complete head-to-toe pampering package crafted for immediate radiance and hair nourishment.
-              </p>
+            {/* Hero Burgundy Spotlight Card */}
+            <div className="burgundy-spotlight-card" id="offers">
+              <span className="spotlight-eyebrow">MOST POPULAR IN KARAIKKUDI</span>
+              <h3>4-in-1 Mega Glow Combo</h3>
+              <span className="spotlight-tamil">ஹேர் ஸ்பா + ஃபேஷியல் + ஹேர்கட் + த்ரெடிங்</span>
 
-              <div className="hero-price-box">
-                <span className="price-main">₹1,999</span>
-                <span className="price-sub">₹4,500</span>
-                <span style={{ fontSize: '0.85rem', color: '#25D366', fontWeight: 700, marginLeft: '8px' }}>
-                  (Save 55%)
-                </span>
+              <div className="spotlight-price-box">
+                <span className="spotlight-price-now">₹1,999</span>
+                <span className="spotlight-price-was">₹4,500</span>
+                <span className="spotlight-discount-badge">SAVE 55%</span>
               </div>
 
-              <ul className="hero-offer-list">
+              <ul className="spotlight-inclusions">
                 <li>
-                  <CheckCircle2 className="check-icon" />
-                  <span><strong>Relaxing Hair Spa</strong> (Deep conditioning & scalp massage)</span>
+                  <CheckCircle2 className="spotlight-check" />
+                  <span><strong>Deep Herbal Hair Spa:</strong> Moisture infusion & scalp massage</span>
                 </li>
                 <li>
-                  <CheckCircle2 className="check-icon" />
-                  <span><strong>Skin Lightening Facial</strong> (De-tan & luminous glow)</span>
+                  <CheckCircle2 className="spotlight-check" />
+                  <span><strong>Skin Lightening Facial:</strong> De-tan therapy & radiant glow</span>
                 </li>
                 <li>
-                  <CheckCircle2 className="check-icon" />
-                  <span><strong>Pro Haircut & Blowdry</strong> (Styling tailored to you)</span>
+                  <CheckCircle2 className="spotlight-check" />
+                  <span><strong>Pro Haircut & Blowdry:</strong> Custom styling suited for your face</span>
                 </li>
                 <li>
-                  <CheckCircle2 className="check-icon" />
-                  <span><strong>Eyebrow Threading & Shaping</strong> (Clean defined arches)</span>
+                  <CheckCircle2 className="spotlight-check" />
+                  <span><strong>Eyebrow Threading & Shaping:</strong> Clean, defined arch lines</span>
                 </li>
               </ul>
 
               <button 
-                className="btn btn-primary" 
+                className="btn btn-cream" 
                 style={{ width: '100%' }}
                 onClick={() => openBookingWithService('4-in-1 Mega Glow Combo (₹1999)')}
               >
-                <span>Claim This ₹1,999 Offer</span>
-                <ChevronRight size={18} />
+                <span>Claim Offer on WhatsApp</span>
+                <ChevronRight size={17} />
               </button>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 4. Detailed Viral Combo Banner */}
-      <section className="section combo-section" id="combo-offer">
+      {/* 4. Minimalist Feature Strip */}
+      <div className="features-strip">
         <div className="container">
-          <div className="combo-container">
-            <div>
-              <div className="badge badge-rose" style={{ marginBottom: '14px' }}>
-                <Sparkles size={14} /> Limited Period Festive Offer
+          <div className="features-strip-grid">
+            <div className="feature-strip-item">
+              <div className="feature-strip-icon">
+                <ShieldCheck size={20} />
               </div>
-              <h2 className="font-serif" style={{ fontSize: '2.5rem', marginBottom: '16px' }}>
-                Everything You Need For An <span className="text-gold-gradient">Effortless Glow</span>.
-              </h2>
-              <p style={{ color: 'var(--text-muted)', fontSize: '1.05rem', lineHeight: '1.7', marginBottom: '24px' }}>
-                Tired of dry hair and sun-tanned skin? Our signature 4-in-1 Mega Combo at She GLAM is Karaikkudi's favorite salon service. Book on WhatsApp to reserve your slot before weekend spots fill up.
-              </p>
-
-              <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
-                <button 
-                  className="btn btn-primary"
-                  onClick={() => openBookingWithService('4-in-1 Mega Glow Combo (₹1999)')}
-                >
-                  Book Combo for ₹1,999
-                </button>
-                <a 
-                  href={`https://wa.me/${cleanPhone}?text=${encodeURIComponent('Hi She GLAM, I want to book the ₹1999 4-in-1 combo. What slots are open?')}`}
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="btn btn-whatsapp"
-                >
-                  Reserve on WhatsApp
-                </a>
+              <div>
+                <h5>100% Sanitized Tools</h5>
+                <p>UV sterilizers & single-use kits</p>
               </div>
             </div>
 
-            <div className="combo-grid-items">
-              <div className="combo-item-box">
-                <div className="combo-icon-circle">
-                  <Scissors size={22} />
-                </div>
-                <h4 style={{ fontSize: '1.15rem', marginBottom: '6px' }}>1. Deep Hair Spa</h4>
-                <p style={{ color: 'var(--text-muted)', fontSize: '0.88rem' }}>
-                  Restores dehydrated hair fibers, controls split ends, and leaves soft touchable bounce.
-                </p>
+            <div className="feature-strip-item">
+              <div className="feature-strip-icon">
+                <Sparkles size={20} />
               </div>
-
-              <div className="combo-item-box">
-                <div className="combo-icon-circle">
-                  <Sparkles size={22} />
-                </div>
-                <h4 style={{ fontSize: '1.15rem', marginBottom: '6px' }}>2. Lightening Facial</h4>
-                <p style={{ color: 'var(--text-muted)', fontSize: '0.88rem' }}>
-                  Deep cleansing with botanical extracts to remove tan and revive dull skin.
-                </p>
+              <div>
+                <h5>Premium Products</h5>
+                <p>L'Oréal, Matrix, Lotus & O3+</p>
               </div>
+            </div>
 
-              <div className="combo-item-box">
-                <div className="combo-icon-circle">
-                  <Sparkle size={22} />
-                </div>
-                <h4 style={{ fontSize: '1.15rem', marginBottom: '6px' }}>3. Haircut & Style</h4>
-                <p style={{ color: 'var(--text-muted)', fontSize: '0.88rem' }}>
-                  Expert cut with texturizing and professional blowdry finish.
-                </p>
+            <div className="feature-strip-item">
+              <div className="feature-strip-icon">
+                <Award size={20} />
               </div>
+              <div>
+                <h5>Certified Master Artists</h5>
+                <p>Skilled in modern hair & HD makeup</p>
+              </div>
+            </div>
 
-              <div className="combo-item-box">
-                <div className="combo-icon-circle">
-                  <HeartHandshake size={22} />
-                </div>
-                <h4 style={{ fontSize: '1.15rem', marginBottom: '6px' }}>4. Eyebrow Threading</h4>
-                <p style={{ color: 'var(--text-muted)', fontSize: '0.88rem' }}>
-                  Gentle precision hair removal for sculpted, well-defined brows.
-                </p>
+            <div className="feature-strip-item">
+              <div className="feature-strip-icon">
+                <HeartHandshake size={20} />
+              </div>
+              <div>
+                <h5>Fair & Honest Pricing</h5>
+                <p>Zero hidden charges or pushy sales</p>
               </div>
             </div>
           </div>
         </div>
-      </section>
+      </div>
 
-      {/* 5. Services Menu & Catalog */}
+      {/* 5. Services Menu & Filtering */}
       <section className="section" id="services">
         <div className="container">
-          <div className="section-header">
-            <div className="badge badge-gold">
-              <Scissors size={14} /> Full Treatment Menu
-            </div>
-            <h2 className="font-serif">Curated Salon <span className="text-gold-gradient">Experiences</span></h2>
+          <div className="section-editorial-header">
+            <span className="pill-tag pill-dusty">OUR SERVICES • சேவைகள்</span>
+            <h2>Curated Salon <em>Experiences</em></h2>
             <p>
-              From science-backed hair rejuvenation to bridal glam and nail couture, discover our full suite of personalized services in Karaikkudi.
+              From science-backed hair rejuvenation to bridal couture and nail art, explore personalized care tailored for you in Burma Colony, Karaikkudi.
             </p>
           </div>
 
-          {/* Tabs */}
-          <div className="services-tabs">
+          <div className="filter-pills">
             <button 
-              className={`tab-btn ${activeTab === 'all' ? 'active' : ''}`}
+              className={`filter-btn ${activeTab === 'all' ? 'active' : ''}`}
               onClick={() => setActiveTab('all')}
             >
               All Services
             </button>
             <button 
-              className={`tab-btn ${activeTab === 'hair' ? 'active' : ''}`}
+              className={`filter-btn ${activeTab === 'hair' ? 'active' : ''}`}
               onClick={() => setActiveTab('hair')}
             >
               Hair & Botox
             </button>
             <button 
-              className={`tab-btn ${activeTab === 'skin' ? 'active' : ''}`}
+              className={`filter-btn ${activeTab === 'skin' ? 'active' : ''}`}
               onClick={() => setActiveTab('skin')}
             >
               Skin & Facials
             </button>
             <button 
-              className={`tab-btn ${activeTab === 'bridal' ? 'active' : ''}`}
+              className={`filter-btn ${activeTab === 'bridal' ? 'active' : ''}`}
               onClick={() => setActiveTab('bridal')}
             >
-              Bridal & Muhurtham
+              Bridal & Muhurtham (முகூர்த்தம்)
             </button>
             <button 
-              className={`tab-btn ${activeTab === 'nails' ? 'active' : ''}`}
+              className={`filter-btn ${activeTab === 'nails' ? 'active' : ''}`}
               onClick={() => setActiveTab('nails')}
             >
               Nails & Spa
             </button>
           </div>
 
-          {/* Grid */}
-          <div className="services-grid">
+          <div className="editorial-services-grid">
             {filteredServices.map((service) => (
-              <div key={service.id} className="service-card">
+              <div key={service.id} className="service-box">
                 <div>
-                  <div className="service-card-tag">{service.tag}</div>
-                  <h3 className="font-serif">{service.title}</h3>
+                  <div className="service-box-tag">{service.tag}</div>
+                  <h3>{service.title}</h3>
                   <p>{service.description}</p>
                 </div>
 
-                <div className="service-card-meta">
+                <div className="service-box-footer">
                   <div>
-                    <span className="service-price">{service.price}</span>
+                    <span className="service-box-price">{service.price}</span>
                     {service.originalPrice && (
-                      <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)', textDecoration: 'line-through', marginLeft: '6px' }}>
+                      <span style={{ fontSize: '0.85rem', color: 'var(--text-sub)', textDecoration: 'line-through', marginLeft: '6px' }}>
                         {service.originalPrice}
                       </span>
                     )}
                   </div>
                   <button 
-                    className="btn btn-outline"
-                    style={{ padding: '8px 16px', fontSize: '0.82rem' }}
+                    className="btn btn-outline-burgundy" 
+                    style={{ padding: '7px 16px', fontSize: '0.82rem' }}
                     onClick={() => openBookingWithService(`${service.title} (${service.price})`)}
                   >
-                    <span>Book Service</span>
+                    <span>Book</span>
                     <ChevronRight size={14} />
                   </button>
                 </div>
@@ -614,74 +573,74 @@ export default function App() {
         </div>
       </section>
 
-      {/* 6. Bridal Lounge Spotlight */}
+      {/* 6. Bridal Lounge (Chettinad & Tamil Nadu Heritage) */}
       <section className="section" id="bridal" style={{ paddingTop: '20px' }}>
         <div className="container">
-          <div className="bridal-banner">
+          <div className="bridal-editorial-box">
             <div>
-              <div className="badge badge-rose" style={{ marginBottom: '14px' }}>
-                <Sparkles size={14} /> She GLAM Bridal Lounge
-              </div>
-              <h2 className="font-serif" style={{ fontSize: '2.5rem', marginBottom: '16px' }}>
-                Every Bride Deserves Her <span className="text-rose-gradient">Fairytale Moment</span>.
-              </h2>
-              <p style={{ color: 'var(--text-muted)', fontSize: '1rem', lineHeight: '1.7', marginBottom: '24px' }}>
-                We understand that your wedding day in Karaikkudi or Chettinad is once in a lifetime. Our certified bridal specialists craft customized HD waterproof makeup that stays fresh under bright lights, smiles, and celebrations.
+              <span className="pill-tag pill-burgundy" style={{ marginBottom: '14px' }}>
+                BRIDAL LOUNGE • மணப்பெண் அலங்காரம்
+              </span>
+              <h2>Bespoke Bridal <em>Artistry</em></h2>
+              <p>
+                Honoring the timeless traditions of Karaikkudi and Chettinad weddings. Our certified bridal specialists craft waterproof HD makeovers and authentic Kanjeevaram saree drapery designed to stay radiant through morning muhurthams and evening receptions.
               </p>
 
-              <div className="bridal-features" style={{ marginBottom: '28px' }}>
-                <div className="bridal-feature-row">
-                  <CheckCircle2 size={18} color="#d4af37" />
-                  <span>Traditional Muhurtham Makeup with authentic Kanjeevaram draping</span>
-                </div>
-                <div className="bridal-feature-row">
-                  <CheckCircle2 size={18} color="#d4af37" />
-                  <span>Modern Reception Glam, Sculpted Contouring & Glass Skin finish</span>
-                </div>
-                <div className="bridal-feature-row">
-                  <CheckCircle2 size={18} color="#d4af37" />
-                  <span>Custom Pre-Bridal skincare roadmap 30 to 60 days before the wedding</span>
-                </div>
-                <div className="bridal-feature-row">
-                  <CheckCircle2 size={18} color="#d4af37" />
-                  <span>On-location bridal party makeovers across Karaikkudi & surrounding districts</span>
-                </div>
-              </div>
+              <ul className="bridal-checklist">
+                <li>
+                  <CheckCircle2 size={18} color="#722F37" />
+                  <span><strong>Traditional Muhurtham Makeup (முகூர்த்தம்):</strong> Sweatproof HD finish that preserves natural beauty without flashback.</span>
+                </li>
+                <li>
+                  <CheckCircle2 size={18} color="#722F37" />
+                  <span><strong>Authentic Kanjeevaram Saree Draping:</strong> Crisp, tight pleating and temple jewelry pinning for graceful comfort.</span>
+                </li>
+                <li>
+                  <CheckCircle2 size={18} color="#722F37" />
+                  <span><strong>Jasmine Floral Hair Art:</strong> Intricate poola jada, traditional flower weaves, or modern floral bridal buns.</span>
+                </li>
+                <li>
+                  <CheckCircle2 size={18} color="#722F37" />
+                  <span><strong>Pre-Bridal Skincare Roadmap:</strong> Tailored treatments 30 to 60 days before your wedding day.</span>
+                </li>
+              </ul>
 
               <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
                 <button 
-                  className="btn btn-primary"
+                  className="btn btn-burgundy"
                   onClick={() => openBookingWithService('Bridal Consultation & Package')}
                 >
                   Book Bridal Consultation
                 </button>
                 <a 
-                  href={`https://wa.me/${cleanPhone}?text=${encodeURIComponent('Hi She GLAM, I would like to enquire about your Bridal Makeover packages and dates.')}`}
+                  href={`https://wa.me/${cleanPhone}?text=${encodeURIComponent('Hello She GLAM, I would like to inquire about your Bridal Makeover packages for my wedding.')}`}
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="btn btn-whatsapp"
                 >
-                  Enquire Bridal Dates
+                  WhatsApp Bridal Enquiry
                 </a>
               </div>
             </div>
 
-            <div style={{ background: 'rgba(23, 18, 22, 0.9)', border: '1px solid var(--border)', borderRadius: 'var(--radius-md)', padding: '30px' }}>
-              <h3 className="font-serif" style={{ fontSize: '1.5rem', marginBottom: '16px', color: 'var(--primary-light)' }}>
-                Bridal Package Highlights
-              </h3>
-              <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '14px', color: 'var(--text-muted)', fontSize: '0.92rem' }}>
-                <li style={{ paddingBottom: '12px', borderBottom: '1px solid var(--border-light)' }}>
-                  <strong style={{ color: '#fff' }}>Trial & Skin Analysis:</strong> Matching skin tone with premium HD formulations for 0% oxidation.
-                </li>
-                <li style={{ paddingBottom: '12px', borderBottom: '1px solid var(--border-light)' }}>
-                  <strong style={{ color: '#fff' }}>Hairstyling Artistry:</strong> Intricate jasmine flower setting, contemporary messy buns, or royal waves.
-                </li>
-                <li style={{ paddingBottom: '12px', borderBottom: '1px solid var(--border-light)' }}>
-                  <strong style={{ color: '#fff' }}>Attire Perfection:</strong> Iron-pressed pleats and saree draping that stays locked throughout rituals.
+            <div className="bridal-highlight-panel">
+              <h4>Bridal Highlights</h4>
+              <ul className="bridal-spec-list">
+                <li>
+                  <strong>HD Skin Preparation:</strong>
+                  Hydrating prep to ensure flawless camera and stage-light appearance.
                 </li>
                 <li>
-                  <strong style={{ color: '#fff' }}>Family & Bridesmaids:</strong> Special group makeover packages for mother, sisters, and friends.
+                  <strong>Trial & Tone Matching:</strong>
+                  Detailed consultation to match your bridal saree border and jewelry palette.
+                </li>
+                <li>
+                  <strong>Bridesmaids & Family:</strong>
+                  Custom packages for mother, sisters, and bridal party.
+                </li>
+                <li>
+                  <strong>Karaikkudi & Surrounding:</strong>
+                  On-location artist booking available across Sivaganga & Pudukkottai districts.
                 </li>
               </ul>
             </div>
@@ -690,39 +649,37 @@ export default function App() {
       </section>
 
       {/* 7. She GLAM Academy */}
-      <section className="section academy-section" id="academy">
+      <section className="section" id="academy" style={{ background: 'var(--cream-card)' }}>
         <div className="container">
-          <div className="section-header">
-            <div className="badge badge-gold">
-              <GraduationCap size={14} /> Professional Training
-            </div>
-            <h2 className="font-serif">She GLAM <span className="text-gold-gradient">Beauty Academy</span></h2>
+          <div className="section-editorial-header">
+            <span className="pill-tag pill-dusty">
+              <GraduationCap size={13} /> BEAUTY ACADEMY • பயிற்சி மையம்
+            </span>
+            <h2>Certified Beauty <em>Academy</em></h2>
             <p>
-              Launch your successful career as a certified beautician or bridal makeup artist. Learn hands-on practical skills from seasoned professionals right here in Karaikkudi.
+              Transform your passion into a high-earning profession. Practical, hands-on salon diploma courses certified right in Karaikkudi.
             </p>
           </div>
 
-          <div className="academy-grid">
+          <div className="academy-editorial-grid">
             {ACADEMY_COURSES.map((course, idx) => (
-              <div key={idx} className="course-card">
-                <span className="course-duration">{course.duration}</span>
-                <h3 className="font-serif" style={{ fontSize: '1.35rem', marginBottom: '12px' }}>{course.title}</h3>
-                <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '20px', lineHeight: '1.6' }}>
-                  {course.desc}
-                </p>
+              <div key={idx} className="course-box">
+                <span className="course-duration-pill">{course.duration}</span>
+                <h3>{course.title}</h3>
+                <p>{course.desc}</p>
 
-                <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '24px' }}>
+                <ul className="course-perks">
                   {course.perks.map((perk, pIdx) => (
-                    <li key={pIdx} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.85rem' }}>
-                      <CheckCircle2 size={15} color="#d4af37" />
+                    <li key={pIdx}>
+                      <CheckCircle2 size={15} color="#722F37" />
                       <span>{perk}</span>
                     </li>
                   ))}
                 </ul>
 
                 <button 
-                  className="btn btn-outline" 
-                  style={{ width: '100%', fontSize: '0.85rem' }}
+                  className="btn btn-outline-burgundy" 
+                  style={{ width: '100%', fontSize: '0.84rem' }}
                   onClick={() => openBookingWithService(`Academy Enquiry: ${course.title}`)}
                 >
                   Enquire Syllabus & Fees
@@ -731,19 +688,19 @@ export default function App() {
             ))}
           </div>
 
-          <div style={{ textAlign: 'center', background: 'rgba(212, 175, 55, 0.05)', border: '1px solid var(--border)', borderRadius: 'var(--radius-md)', padding: '28px', maxWidth: '800px', margin: '0 auto' }}>
-            <Award size={36} color="#d4af37" style={{ marginBottom: '10px' }} />
-            <h3 className="font-serif" style={{ fontSize: '1.4rem', marginBottom: '8px' }}>
-              Why Enroll At She GLAM Academy?
+          <div style={{ textAlign: 'center', background: 'var(--cream-light)', border: '1.5px solid var(--dusty-pink)', borderRadius: 'var(--radius-md)', padding: '32px 24px', maxWidth: '750px', margin: '0 auto' }}>
+            <Award size={34} color="#722F37" style={{ marginBottom: '8px' }} />
+            <h3 style={{ fontSize: '1.6rem', color: 'var(--burgundy-dark)', marginBottom: '8px' }}>
+              Why Join She GLAM Academy?
             </h3>
-            <p style={{ color: 'var(--text-muted)', fontSize: '0.92rem', marginBottom: '18px' }}>
-              We believe in 90% practical hands-on training on real live clients rather than only theory. Our graduates gain immediate confidence to start their own salon or freelance bridal career.
+            <p style={{ color: 'var(--text-muted)', fontSize: '0.92rem', marginBottom: '20px', lineHeight: '1.6' }}>
+              Unlike theory-only centers, our students get 100% hands-on practical experience on live clients. Graduate with confidence, professional portfolio guidance, and real-world salon skills.
             </p>
             <a 
-              href={`https://wa.me/${cleanPhone}?text=${encodeURIComponent('Hi She GLAM, I am interested in joining your Academy courses. Please share admission details and fee structure.')}`}
+              href={`https://wa.me/${cleanPhone}?text=${encodeURIComponent('Hi She GLAM, I would like to join your Academy courses. Please send course fee and batch details.')}`}
               target="_blank" 
               rel="noopener noreferrer" 
-              className="btn btn-primary"
+              className="btn btn-burgundy"
             >
               Get Course Brochure on WhatsApp
             </a>
@@ -751,94 +708,33 @@ export default function App() {
         </div>
       </section>
 
-      {/* 8. Why Choose She GLAM */}
-      <section className="section" id="why-us">
+      {/* 8. Client Testimonials */}
+      <section className="section" id="reviews">
         <div className="container">
-          <div className="section-header">
-            <div className="badge badge-gold">
-              <ShieldCheck size={14} /> The She GLAM Difference
-            </div>
-            <h2 className="font-serif">Why Karaikkudi <span className="text-gold-gradient">Trusts Us</span></h2>
+          <div className="section-editorial-header">
+            <span className="pill-tag pill-dusty">TESTIMONIALS • வாடிக்கையாளர் கருத்துகள்</span>
+            <h2>Loved by Karaikkudi <em>Clients</em></h2>
             <p>
-              We bring metropolitan salon standards, international beauty products, and unmatched hygiene to Burma Colony, Karaikkudi.
+              Genuine experiences from our regulars and brides across Karaikkudi, Kottaiyur, and Devakottai.
             </p>
           </div>
 
-          <div className="usps-grid">
-            <div className="usp-box">
-              <div className="usp-icon">
-                <ShieldCheck size={28} />
-              </div>
-              <h3 className="font-serif" style={{ fontSize: '1.25rem', marginBottom: '8px' }}>100% Sanitized & Hygienic</h3>
-              <p style={{ color: 'var(--text-muted)', fontSize: '0.88rem' }}>
-                UV-sterilized tools, disposable towels, and sanitized stations between every client for your peace of mind.
-              </p>
-            </div>
-
-            <div className="usp-box">
-              <div className="usp-icon">
-                <Sparkles size={28} />
-              </div>
-              <h3 className="font-serif" style={{ fontSize: '1.25rem', marginBottom: '8px' }}>Branded Products Only</h3>
-              <p style={{ color: 'var(--text-muted)', fontSize: '0.88rem' }}>
-                We exclusively use authentic salon grade brands including L'Oréal, Matrix, Lotus Professional, and O3+.
-              </p>
-            </div>
-
-            <div className="usp-box">
-              <div className="usp-icon">
-                <Award size={28} />
-              </div>
-              <h3 className="font-serif" style={{ fontSize: '1.25rem', marginBottom: '8px' }}>Certified Master Stylists</h3>
-              <p style={{ color: 'var(--text-muted)', fontSize: '0.88rem' }}>
-                Experienced beauticians trained in modern hair science, gentle skincare, and precise bridal contouring.
-              </p>
-            </div>
-
-            <div className="usp-box">
-              <div className="usp-icon">
-                <HeartHandshake size={28} />
-              </div>
-              <h3 className="font-serif" style={{ fontSize: '1.25rem', marginBottom: '8px' }}>Transparent & Affordable</h3>
-              <p style={{ color: 'var(--text-muted)', fontSize: '0.88rem' }}>
-                No surprise pricing or pushy sales. Clear package pricing with genuine value for money.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 9. Reviews & Testimonials */}
-      <section className="section" id="reviews" style={{ background: 'var(--bg-surface)' }}>
-        <div className="container">
-          <div className="section-header">
-            <div className="badge badge-gold">
-              <Star size={14} /> Client Stories
-            </div>
-            <h2 className="font-serif">Loved By Karaikkudi <span className="text-gold-gradient">Clients</span></h2>
-            <p>
-              Read genuine experiences from our valued customers who visit us for their regular pampering and milestones.
-            </p>
-          </div>
-
-          <div className="testimonials-grid">
+          <div className="reviews-grid">
             {REVIEWS_DATA.map((rev, idx) => (
-              <div key={idx} className="testimonial-card">
-                <div className="testimonial-stars">
+              <div key={idx} className="review-card">
+                <div className="review-stars">
                   {[...Array(rev.rating)].map((_, i) => (
-                    <Star key={i} size={16} fill="#ffb703" color="#ffb703" />
+                    <Star key={i} size={15} fill="#c98836" color="#c98836" />
                   ))}
                 </div>
-                <p style={{ color: 'var(--text-main)', fontSize: '0.95rem', fontStyle: 'italic', lineHeight: '1.6' }}>
-                  "{rev.comment}"
-                </p>
-                <div className="testimonial-author">
-                  <div className="avatar-circle">
+                <p>"{rev.comment}"</p>
+                <div className="review-author">
+                  <div className="review-avatar">
                     {rev.name.charAt(0)}
                   </div>
                   <div>
-                    <h4 style={{ fontSize: '0.95rem', color: '#fff' }}>{rev.name}</h4>
-                    <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>{rev.location}</p>
+                    <h5 style={{ fontSize: '0.92rem', color: 'var(--burgundy-dark)' }}>{rev.name}</h5>
+                    <span style={{ fontSize: '0.78rem', color: 'var(--text-sub)' }}>{rev.location}</span>
                   </div>
                 </div>
               </div>
@@ -847,68 +743,65 @@ export default function App() {
         </div>
       </section>
 
-      {/* 10. Location, Hours & Direct Map */}
-      <section className="section" id="location">
+      {/* 9. Location & Contact Section */}
+      <section className="section" id="location" style={{ background: 'var(--cream-card)' }}>
         <div className="container">
-          <div className="section-header">
-            <div className="badge badge-gold">
-              <MapPin size={14} /> Visit She GLAM
-            </div>
-            <h2 className="font-serif">Find Us In <span className="text-gold-gradient">Karaikkudi</span></h2>
+          <div className="section-editorial-header">
+            <span className="pill-tag pill-dusty">VISIT US • எங்களை சந்திக்க</span>
+            <h2>Find Us in <em>Karaikkudi</em></h2>
             <p>
-              Conveniently located at Burma Colony near the Water Tank on Kottaiyur Main Road.
+              Conveniently located at Burma Colony, near the Water Tank on Kottaiyur Main Road.
             </p>
           </div>
 
-          <div className="location-grid">
-            {/* Address & Timings Card */}
-            <div className="info-card">
+          <div className="location-editorial-grid">
+            <div className="location-info-card">
               <div>
-                <h3 className="font-serif" style={{ fontSize: '1.6rem', marginBottom: '24px', color: 'var(--primary-light)' }}>
+                <h3 style={{ fontSize: '1.6rem', color: 'var(--burgundy-dark)', marginBottom: '24px' }}>
                   Salon & Academy Details
                 </h3>
 
-                <div className="info-row">
-                  <MapPin className="info-icon" />
+                <div className="location-info-item">
+                  <MapPin className="location-info-icon" />
                   <div>
-                    <strong style={{ display: 'block', color: '#fff', marginBottom: '4px' }}>Address</strong>
-                    <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem' }}>
+                    <strong style={{ display: 'block', color: 'var(--burgundy-dark)', marginBottom: '4px' }}>Address</strong>
+                    <p style={{ color: 'var(--text-muted)', fontSize: '0.92rem' }}>
                       {locationAddress}
                     </p>
-                    <span style={{ fontSize: '0.82rem', color: 'var(--rose-light)' }}>Landmark: Near Water Tank, Burma Colony</span>
+                    <span style={{ fontSize: '0.8rem', color: 'var(--burgundy)', fontWeight: 600 }}>Landmark: Near Water Tank, Burma Colony</span>
                   </div>
                 </div>
 
-                <div className="info-row">
-                  <Phone className="info-icon" />
+                <div className="location-info-item">
+                  <Phone className="location-info-icon" />
                   <div>
-                    <strong style={{ display: 'block', color: '#fff', marginBottom: '4px' }}>Phone / WhatsApp</strong>
-                    <a href={`tel:${cleanPhone}`} style={{ color: 'var(--primary-light)', fontWeight: 600, fontSize: '1.05rem', display: 'block' }}>
+                    <strong style={{ display: 'block', color: 'var(--burgundy-dark)', marginBottom: '4px' }}>Phone / WhatsApp</strong>
+                    <a href={`tel:${cleanPhone}`} style={{ color: 'var(--burgundy)', fontWeight: 700, fontSize: '1.05rem', display: 'block' }}>
                       {phoneNumber}
                     </a>
                   </div>
                 </div>
 
-                <div className="info-row">
-                  <Clock className="info-icon" />
+                <div className="location-info-item">
+                  <Clock className="location-info-icon" />
                   <div>
-                    <strong style={{ display: 'block', color: '#fff', marginBottom: '4px' }}>Business Hours</strong>
-                    <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem' }}>
+                    <strong style={{ display: 'block', color: 'var(--burgundy-dark)', marginBottom: '4px' }}>Working Hours</strong>
+                    <p style={{ color: 'var(--text-muted)', fontSize: '0.92rem' }}>
                       Monday – Sunday: <strong>9:30 AM – 8:30 PM</strong>
                     </p>
-                    <span style={{ fontSize: '0.82rem', color: '#25D366' }}>Open 7 Days a Week</span>
+                    <span style={{ fontSize: '0.8rem', color: '#25D366', fontWeight: 600 }}>Open All 7 Days a Week</span>
                   </div>
                 </div>
 
-                <div className="info-row">
-                  <InstagramIcon className="info-icon" />
+                <div className="location-info-item">
+                  <InstagramIcon className="location-info-icon" />
                   <div>
-                    <strong style={{ display: 'block', color: '#fff', marginBottom: '4px' }}>Instagram Official</strong>
+                    <strong style={{ display: 'block', color: 'var(--burgundy-dark)', marginBottom: '4px' }}>Instagram Official</strong>
                     <a 
                       href={instagramLink} 
                       target="_blank" 
                       rel="noopener noreferrer" 
-                      style={{ color: 'var(--rose-light)', textDecoration: 'underline', fontSize: '0.95rem' }}
+                      style={{ color: 'var(--burgundy)', textDecoration: 'underline', fontSize: '0.92rem', fontWeight: 600 }}
                     >
                       @__she_glam__
                     </a>
@@ -916,12 +809,12 @@ export default function App() {
                 </div>
               </div>
 
-              <div style={{ display: 'flex', gap: '14px', marginTop: '24px', flexWrap: 'wrap' }}>
+              <div style={{ display: 'flex', gap: '12px', marginTop: '24px', flexWrap: 'wrap' }}>
                 <a 
                   href={mapsLink} 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className="btn btn-primary"
+                  className="btn btn-burgundy"
                   style={{ flex: 1 }}
                 >
                   <MapPin size={16} /> Open in Google Maps
@@ -938,11 +831,9 @@ export default function App() {
               </div>
             </div>
 
-            {/* Google Maps Visual Box */}
-            <div className="map-wrapper">
+            <div className="map-editorial-frame">
               <iframe 
-                title="She GLAM Salon Location"
-                className="map-iframe"
+                title="She GLAM Salon Karaikkudi Location"
                 src="https://maps.google.com/maps?q=Burma%20Colony,%20Kottaiyur%20Main%20Road,%20Karaikkudi,%20Tamil%20Nadu%20630002&t=&z=15&ie=UTF8&iwloc=&output=embed"
                 loading="lazy"
               ></iframe>
@@ -951,30 +842,24 @@ export default function App() {
         </div>
       </section>
 
-      {/* 11. Footer */}
-      <footer className="footer">
+      {/* 10. Minimalist Editorial Footer */}
+      <footer className="footer-editorial">
         <div className="container">
-          <div className="footer-grid">
+          <div className="footer-editorial-grid">
             <div>
-              <div className="logo-wrapper" style={{ marginBottom: '14px' }}>
-                <div className="logo-icon">
-                  <Sparkles size={20} />
-                </div>
-                <div className="logo-text">
-                  <h3 className="font-serif" style={{ fontSize: '1.4rem' }}>She GLAM</h3>
-                  <p>Salon & Academy • Karaikkudi</p>
-                </div>
-              </div>
-              <p style={{ color: 'var(--text-muted)', fontSize: '0.88rem', lineHeight: '1.6', marginBottom: '16px' }}>
-                Karaikkudi's trusted destination for luxury hair botox, skin brightening facials, picture-perfect bridal makeovers, and certified beautician masterclasses.
+              <a href="#" className="brand-logo-link" style={{ display: 'inline-block', marginBottom: '16px' }}>
+                <img src={logoImg} alt="She GLAM Salon" className="brand-logo-img" />
+              </a>
+              <p style={{ color: 'var(--dusty-pink)', fontSize: '0.88rem', lineHeight: '1.6', marginBottom: '20px' }}>
+                Karaikkudi’s destination for luxury hair botox, skin brightening facials, traditional Tamil Nadu bridal makeovers, and certified beautician masterclasses.
               </p>
               <div style={{ display: 'flex', gap: '12px' }}>
                 <a 
                   href={instagramLink} 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  style={{ width: '38px', height: '38px', borderRadius: '50%', background: 'rgba(255,255,255,0.06)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff' }}
-                  aria-label="She GLAM Instagram"
+                  style={{ width: '38px', height: '38px', borderRadius: '50%', background: 'rgba(251, 244, 231, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff' }}
+                  aria-label="Instagram"
                 >
                   <InstagramIcon size={18} />
                 </a>
@@ -982,8 +867,8 @@ export default function App() {
                   href={`https://wa.me/${cleanPhone}`} 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  style={{ width: '38px', height: '38px', borderRadius: '50%', background: 'rgba(37,211,102,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#25D366' }}
-                  aria-label="She GLAM WhatsApp"
+                  style={{ width: '38px', height: '38px', borderRadius: '50%', background: 'rgba(37, 211, 102, 0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#25D366' }}
+                  aria-label="WhatsApp"
                 >
                   <Sparkles size={18} />
                 </a>
@@ -991,7 +876,7 @@ export default function App() {
                   href={mapsLink} 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  style={{ width: '38px', height: '38px', borderRadius: '50%', background: 'rgba(212,175,55,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#d4af37' }}
+                  style={{ width: '38px', height: '38px', borderRadius: '50%', background: 'rgba(251, 244, 231, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#FBF4E7' }}
                   aria-label="Google Maps"
                 >
                   <MapPin size={18} />
@@ -1000,70 +885,68 @@ export default function App() {
             </div>
 
             <div>
-              <h4 className="footer-title">Quick Links</h4>
-              <ul className="footer-links">
-                <li><a href="#offers">₹1,999 Combo Offer</a></li>
-                <li><a href="#services">Hair & Botox</a></li>
-                <li><a href="#services">Facials & Skincare</a></li>
+              <h4 className="footer-title">Salon Menu</h4>
+              <ul className="footer-nav">
+                <li><a href="#offers">₹1,999 Glow Combo</a></li>
+                <li><a href="#services">Hair Botox Therapy</a></li>
+                <li><a href="#services">Keratin Silk Treatment</a></li>
+                <li><a href="#services">Signature Facials</a></li>
                 <li><a href="#bridal">Bridal Packages</a></li>
-                <li><a href="#academy">Academy Courses</a></li>
               </ul>
             </div>
 
             <div>
               <h4 className="footer-title">Academy</h4>
-              <ul className="footer-links">
+              <ul className="footer-nav">
                 <li><a href="#academy">Diploma in Cosmetology</a></li>
                 <li><a href="#academy">Bridal HD Makeup Course</a></li>
-                <li><a href="#academy">Nail Extension Art</a></li>
-                <li><a href="#academy">Self-Grooming Masterclass</a></li>
-                <li><a href="#academy">Certification & Syllabus</a></li>
+                <li><a href="#academy">Nail Extensions Art</a></li>
+                <li><a href="#academy">Course Brochure</a></li>
+                <li><a href="#academy">Placement Help</a></li>
               </ul>
             </div>
 
             <div>
-              <h4 className="footer-title">Contact Karaikkudi</h4>
-              <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem', marginBottom: '8px' }}>
+              <h4 className="footer-title">Contact</h4>
+              <p style={{ color: 'var(--cream)', fontSize: '0.85rem', marginBottom: '8px' }}>
                 No: 84/1, Water Tank, Kottaiyur Main Road, Burma Colony, Karaikkudi - 630002
               </p>
-              <p style={{ color: 'var(--primary-light)', fontWeight: 600, fontSize: '0.95rem', marginBottom: '12px' }}>
+              <p style={{ color: 'var(--dusty-pink)', fontWeight: 600, fontSize: '0.92rem', marginBottom: '12px' }}>
                 📞 {phoneNumber}
               </p>
-              <p style={{ color: 'var(--text-muted)', fontSize: '0.82rem' }}>
+              <p style={{ color: 'var(--dusty-pink)', fontSize: '0.82rem' }}>
                 Daily: 9:30 AM – 8:30 PM
               </p>
             </div>
           </div>
 
-          <div className="footer-bottom">
+          <div className="footer-editorial-bottom">
             <div>
               &copy; {new Date().getFullYear()} She GLAM Salon & Academy. All Rights Reserved.
             </div>
             <div>
-              <span>Karaikkudi, Tamil Nadu</span>
+              <span>Karaikkudi, Tamil Nadu • தமிழ்நாடு</span>
             </div>
           </div>
         </div>
       </footer>
 
-      {/* 12. Floating Quick Contact Widgets */}
-      <div className="floating-actions">
-        <a 
-          href={`https://wa.me/${cleanPhone}?text=${encodeURIComponent('Hi She GLAM, I would like to book an appointment.')}`}
-          target="_blank" 
-          rel="noopener noreferrer" 
-          className="fab-whatsapp"
-          title="Chat on WhatsApp"
-        >
-          <div className="fab-ping"></div>
-          <Sparkles size={28} />
-        </a>
-      </div>
+      {/* 11. Floating Quick WhatsApp Button */}
+      <a 
+        href={`https://wa.me/${cleanPhone}?text=${encodeURIComponent('Hello She GLAM, I would like to book an appointment.')}`}
+        target="_blank" 
+        rel="noopener noreferrer" 
+        className="floating-whatsapp"
+        title="Chat with She GLAM"
+      >
+        <div className="floating-ping"></div>
+        <Sparkles size={28} />
+      </a>
 
-      {/* 13. Interactive Booking Modal */}
+      {/* 12. Minimalist Booking Modal */}
       {isModalOpen && (
         <div className="modal-overlay" onClick={() => setIsModalOpen(false)}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+          <div className="modal-content-box" onClick={(e) => e.stopPropagation()}>
             <button 
               className="modal-close-btn" 
               onClick={() => setIsModalOpen(false)}
@@ -1072,19 +955,17 @@ export default function App() {
               <X size={20} />
             </button>
 
-            <div style={{ textAlign: 'center', marginBottom: '24px' }}>
-              <div className="logo-icon" style={{ margin: '0 auto 12px' }}>
-                <Sparkles size={20} />
-              </div>
-              <h3 className="font-serif" style={{ fontSize: '1.6rem' }}>Book Your Appointment</h3>
-              <p style={{ color: 'var(--text-muted)', fontSize: '0.88rem' }}>
-                She GLAM Salon & Academy • Burma Colony, Karaikkudi
+            <div style={{ textAlign: 'center', marginBottom: '22px' }}>
+              <img src={logoImg} alt="She GLAM" style={{ height: '42px', margin: '0 auto 10px', mixBlendMode: 'multiply' }} />
+              <h3 style={{ fontSize: '1.6rem', color: 'var(--burgundy-dark)' }}>Book Your Appointment</h3>
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.86rem' }}>
+                Burma Colony, Karaikkudi • Direct WhatsApp Confirmation
               </p>
             </div>
 
             <form onSubmit={handleBookingSubmit}>
-              <div className="form-group">
-                <label className="form-label">Selected Service / Offer *</label>
+              <div style={{ marginBottom: '16px' }}>
+                <label className="form-label">Service / Treatment *</label>
                 <select 
                   className="form-select"
                   value={bookingData.service}
@@ -1094,16 +975,16 @@ export default function App() {
                   <option value="4-in-1 Mega Glow Combo (₹1999)">4-in-1 Mega Glow Combo (₹1,999 Special)</option>
                   <option value="Hair Botox Deep Rejuvenation">Hair Botox Deep Rejuvenation</option>
                   <option value="Keratin Silk Smooth Therapy">Keratin Silk Smooth Therapy</option>
-                  <option value="Luxury Herbal Hair Spa">Luxury Herbal Hair Spa</option>
+                  <option value="Nourishing Herbal Hair Spa">Nourishing Herbal Hair Spa</option>
                   <option value="Precision Layer Cut & Blowdry">Precision Layer Cut & Blowdry</option>
                   <option value="She GLAM Signature Brightening Facial">She GLAM Signature Brightening Facial</option>
-                  <option value="Hydra Deep Pore Cleanse & Glow">Hydra Deep Pore Cleanse & Glow</option>
-                  <option value="Luxury 24K Gold Facial">Luxury 24K Gold Facial</option>
-                  <option value="Muhurtham Traditional Bridal HD Makeover">Muhurtham Traditional Bridal HD Makeover</option>
-                  <option value="Reception & Engagement Glam Look">Reception & Engagement Glam Look</option>
-                  <option value="Complete 30-Day Pre-Bridal Suite">Complete 30-Day Pre-Bridal Suite</option>
-                  <option value="Acrylic & Gel Nail Extensions">Acrylic & Gel Nail Extensions</option>
-                  <option value="Rose Petal Pedicure & Manicure">Rose Petal Pedicure & Manicure</option>
+                  <option value="Hydra Deep Pore Cleanse & Hydration">Hydra Deep Pore Cleanse & Hydration</option>
+                  <option value="24K Gold Luxury Pre-Bridal Facial">24K Gold Luxury Pre-Bridal Facial</option>
+                  <option value="Traditional Muhurtham Bridal HD Makeover">Traditional Muhurtham Bridal HD Makeover (முகூர்த்தம்)</option>
+                  <option value="Contemporary Reception & Engagement Glam">Contemporary Reception & Engagement Glam</option>
+                  <option value="Kanjeevaram Saree Draping & Hair Flowers">Kanjeevaram Saree Draping & Hair Flowers</option>
+                  <option value="Acrylic & UV Gel Nail Extensions">Acrylic & UV Gel Nail Extensions</option>
+                  <option value="Rose Petal Spa Pedicure & Manicure">Rose Petal Spa Pedicure & Manicure</option>
                   <option value="Academy Enquiry: Beautician Diploma">Academy Enquiry: Beautician Diploma</option>
                   <option value="Academy Enquiry: Bridal Makeup Course">Academy Enquiry: Bridal Makeup Course</option>
                   <option value="Academy Enquiry: Nail Art Specialist">Academy Enquiry: Nail Art Specialist</option>
@@ -1111,8 +992,8 @@ export default function App() {
                 </select>
               </div>
 
-              <div className="form-group">
-                <label className="form-label">Your Full Name *</label>
+              <div style={{ marginBottom: '16px' }}>
+                <label className="form-label">Full Name *</label>
                 <input 
                   type="text" 
                   className="form-input"
@@ -1123,7 +1004,7 @@ export default function App() {
                 />
               </div>
 
-              <div className="form-group">
+              <div style={{ marginBottom: '16px' }}>
                 <label className="form-label">Phone / WhatsApp Number *</label>
                 <input 
                   type="tel" 
@@ -1135,8 +1016,8 @@ export default function App() {
                 />
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
-                <div className="form-group">
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '16px' }}>
+                <div>
                   <label className="form-label">Preferred Date</label>
                   <input 
                     type="date" 
@@ -1145,7 +1026,7 @@ export default function App() {
                     onChange={(e) => setBookingData({ ...bookingData, date: e.target.value })}
                   />
                 </div>
-                <div className="form-group">
+                <div>
                   <label className="form-label">Time Slot</label>
                   <select 
                     className="form-select"
@@ -1159,12 +1040,12 @@ export default function App() {
                 </div>
               </div>
 
-              <div className="form-group">
-                <label className="form-label">Special Notes / Queries (Optional)</label>
+              <div style={{ marginBottom: '20px' }}>
+                <label className="form-label">Special Notes (Optional)</label>
                 <textarea 
                   className="form-textarea"
                   rows={2}
-                  placeholder="Any hair/skin condition or questions..."
+                  placeholder="Any hair/skin details or questions..."
                   value={bookingData.notes}
                   onChange={(e) => setBookingData({ ...bookingData, notes: e.target.value })}
                 ></textarea>
@@ -1173,14 +1054,14 @@ export default function App() {
               <button 
                 type="submit" 
                 className="btn btn-whatsapp" 
-                style={{ width: '100%', padding: '14px', fontSize: '1rem', marginTop: '8px' }}
+                style={{ width: '100%', padding: '14px', fontSize: '0.98rem' }}
               >
-                <Sparkles size={18} />
+                <Sparkles size={17} />
                 <span>Confirm & Send on WhatsApp</span>
               </button>
 
-              <p style={{ textAlign: 'center', fontSize: '0.78rem', color: 'var(--text-muted)', marginTop: '12px' }}>
-                Directly sends details to She GLAM WhatsApp (+91 63813 74330). Instant confirmation!
+              <p style={{ textAlign: 'center', fontSize: '0.78rem', color: 'var(--text-sub)', marginTop: '10px' }}>
+                Sends details directly to She GLAM WhatsApp (+91 63813 74330). Instant confirmation!
               </p>
             </form>
           </div>
