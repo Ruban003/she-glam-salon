@@ -1296,3 +1296,183 @@ a {
   background: var(--burgundy);
   border: 2px solid #fff;
 }
+
+/* ==========================================================================
+   SUBTLE 60FPS LUXURY ANIMATIONS (HARDWARE-ACCELERATED / 0% LAG)
+   ========================================================================== */
+
+/* 1. Shimmer Sheen for Key CTAs */
+.btn-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-shimmer::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -75%;
+  width: 50%;
+  height: 200%;
+  background: linear-gradient(
+    60deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.28) 50%,
+    transparent 100%
+  );
+  transform: rotate(25deg);
+  animation: shimmerSheen 4.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes shimmerSheen {
+  0%, 75% {
+    left: -75%;
+  }
+  100% {
+    left: 145%;
+  }
+}
+
+/* Button Active Press Micro-interaction */
+.btn:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+/* 2. Hero Spotlight Card Breathing Float */
+.burgundy-spotlight-card {
+  animation: subtleFloat 6s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+@keyframes subtleFloat {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-7px);
+  }
+}
+
+.burgundy-spotlight-card:hover {
+  transform: translateY(-9px);
+}
+
+/* 3. Floating WhatsApp Radar Ring */
+.floating-whatsapp {
+  animation: floatBounce 4s ease-in-out infinite;
+  will-change: transform;
+}
+
+.floating-whatsapp::before {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 2px solid rgba(37, 211, 102, 0.55);
+  animation: radarPulse 2.8s ease-out infinite;
+  pointer-events: none;
+}
+
+@keyframes floatBounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes radarPulse {
+  0% {
+    transform: scale(0.92);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1.48);
+    opacity: 0;
+  }
+}
+
+/* 4. Smooth Page Entrance Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-editorial h1 {
+  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+}
+
+.hero-editorial p.lead {
+  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.22s both;
+}
+
+.hero-editorial .hero-actions {
+  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.35s both;
+}
+
+.hero-editorial .hero-metrics {
+  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.48s both;
+}
+
+/* 5. Smooth Modal Pop */
+.modal-overlay {
+  animation: overlayFade 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes overlayFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal-content-box {
+  animation: modalPop 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes modalPop {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* 6. Like Button Heart/Thumb Pop */
+@keyframes likePop {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.22);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.like-button.liked {
+  animation: likePop 0.35s ease;
+}
+
+/* 7. Respect Accessibility Preferences */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

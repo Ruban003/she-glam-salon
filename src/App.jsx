@@ -359,7 +359,7 @@ export default function App() {
               <span>Call Now</span>
             </a>
             <button 
-              className="btn btn-burgundy" 
+              className="btn btn-burgundy btn-shimmer" 
               style={{ padding: '9px 20px', fontSize: '0.84rem' }}
               onClick={() => setIsModalOpen(true)}
             >
@@ -429,7 +429,7 @@ export default function App() {
 
               <div className="hero-actions">
                 <button 
-                  className="btn btn-burgundy"
+                  className="btn btn-burgundy btn-shimmer"
                   onClick={() => setIsModalOpen(true)}
                 >
                   <Calendar size={17} />
@@ -498,7 +498,7 @@ export default function App() {
               </ul>
 
               <button 
-                className="btn btn-cream" 
+                className="btn btn-cream btn-shimmer" 
                 style={{ width: '100%' }}
                 onClick={() => openBookingWithService('4-in-1 Mega Glow Combo (₹1999)')}
               >
@@ -1179,7 +1179,7 @@ export default function App() {
 
               <button 
                 type="submit" 
-                className="btn btn-whatsapp" 
+                className="btn btn-whatsapp btn-shimmer" 
                 style={{ width: '100%', padding: '14px', fontSize: '0.98rem' }}
               >
                 <Sparkles size={17} />
