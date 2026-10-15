@@ -216,7 +216,6 @@ const REVIEWS_DATA = [
     location: 'Karaikkudi',
     service: '4-in-1 Mega Glow Combo (₹1,999)',
     date: '2 weeks ago',
-    likes: 18,
     comment: 'Booked their ₹1999 4-in-1 combo offer for a family function. The hair spa was deeply relaxing and my skin felt so fresh and glowing immediately! The salon is very clean, calm, and hygienic. Truly the best salon experience in Karaikkudi!'
   },
   {
@@ -225,7 +224,6 @@ const REVIEWS_DATA = [
     location: 'Kottaiyur, Karaikkudi',
     service: 'Traditional Muhurtham Bridal HD Makeover',
     date: '1 month ago',
-    likes: 27,
     comment: 'She GLAM did my wedding muhurtham makeover and my Kanjeevaram saree draping. The makeup was so natural, lightweight, and lasted over 10 hours through all rituals without any patchiness or sweat breakdown. Everyone in our family praised my look!'
   },
   {
@@ -234,7 +232,6 @@ const REVIEWS_DATA = [
     location: 'Devakottai / Karaikkudi',
     service: 'Hair Botox Deep Rejuvenation',
     date: '3 weeks ago',
-    likes: 19,
     comment: 'Best hair botox treatment in Karaikkudi! My rough, frizzy curly hair became silky and smooth with mirror shine. Staff is extremely polite, takes good time, and uses only genuine branded products. Highly satisfied!'
   },
   {
@@ -243,7 +240,6 @@ const REVIEWS_DATA = [
     location: 'Burma Colony, Karaikkudi',
     service: 'Hydra Deep Pore Cleanse & Glow',
     date: '1 month ago',
-    likes: 14,
     comment: 'Took their Hydra pore cleanse facial. The blackheads were completely removed painlessly and the serum hydration gave me glass skin. Very affordable pricing compared to big city salons and very polite staff!'
   },
   {
@@ -252,7 +248,6 @@ const REVIEWS_DATA = [
     location: 'Karaikkudi',
     service: 'Academy: Bridal HD Makeup Masterclass',
     date: '2 months ago',
-    likes: 32,
     comment: 'Proud student of She GLAM Academy! The 100% practical training on live models gave me full confidence to start my own freelance bridal makeup career. The trainer explains every step with patience and clear guidance.'
   },
   {
@@ -261,7 +256,6 @@ const REVIEWS_DATA = [
     location: 'Karaikkudi',
     service: 'Acrylic & UV Gel Nail Extensions',
     date: '3 weeks ago',
-    likes: 16,
     comment: 'Got my nail extensions and chrome nail art done here for my engagement. Still looking brand new after 3 weeks! Very precise work, hygienic tools, and neat finishing. Highly recommended for girls in Karaikkudi!'
   }
 ];
@@ -323,18 +317,8 @@ export default function App() {
     notes: ''
   });
 
-  const [reviewLikes, setReviewLikes] = useState({ 1: 18, 2: 27, 3: 19, 4: 14, 5: 32, 6: 16 });
-  const [userLiked, setUserLiked] = useState({});
-
-  const toggleLike = (id) => {
-    if (userLiked[id]) {
-      setReviewLikes(prev => ({ ...prev, [id]: prev[id] - 1 }));
-      setUserLiked(prev => ({ ...prev, [id]: false }));
-    } else {
-      setReviewLikes(prev => ({ ...prev, [id]: prev[id] + 1 }));
-      setUserLiked(prev => ({ ...prev, [id]: true }));
-    }
-  };
+  const [privacyModalOpen, setPrivacyModalOpen] = useState(false);
+  const [termsModalOpen, setTermsModalOpen] = useState(false);
 
   const phoneNumber = '+91 63813 74330';
   const cleanPhone = '916381374330';
@@ -519,8 +503,8 @@ export default function App() {
                   <p>Hygienic & Certified</p>
                 </div>
                 <div className="metric-item">
-                  <h4>1,200+</h4>
-                  <p>Happy Makeovers</p>
+                  <h4>Govt Aligned</h4>
+                  <p>Certified Academy</p>
                 </div>
               </div>
             </div>
@@ -907,20 +891,20 @@ export default function App() {
                   <p>"{rev.comment}"</p>
                 </div>
 
-                <div className="review-footer">
-                  <button 
-                    className={`like-button ${userLiked[rev.id] ? 'liked' : ''}`}
-                    onClick={() => toggleLike(rev.id)}
-                    title="Mark review as helpful"
-                  >
-                    <ThumbsUp size={13} fill={userLiked[rev.id] ? 'currentColor' : 'none'} />
-                    <span>Helpful ({reviewLikes[rev.id] || rev.likes})</span>
-                  </button>
-
+                <div className="review-footer" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <div className="google-brand-tag">
                     <GoogleIcon size={13} />
-                    <span>Verified Google Review</span>
+                    <span>Google Review</span>
                   </div>
+                  <a 
+                    href={mapsLink}
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    style={{ fontSize: '0.78rem', color: 'var(--burgundy-dark)', textDecoration: 'none', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '4px' }}
+                  >
+                    <span>View on Maps</span>
+                    <ArrowRight size={12} />
+                  </a>
                 </div>
               </div>
             ))}
@@ -1107,8 +1091,22 @@ export default function App() {
             <div>
               &copy; {new Date().getFullYear()} She GLAM Salon & Academy. All Rights Reserved.
             </div>
-            <div>
-              <span>Karaikkudi, Tamil Nadu - 630002</span>
+            <div style={{ display: 'flex', gap: '16px', alignItems: 'center', flexWrap: 'wrap' }}>
+              <button 
+                type="button" 
+                onClick={() => setPrivacyModalOpen(true)}
+                style={{ background: 'none', border: 'none', color: 'var(--cream)', cursor: 'pointer', fontSize: '0.82rem', textDecoration: 'underline', padding: 0 }}
+              >
+                Privacy Policy
+              </button>
+              <button 
+                type="button" 
+                onClick={() => setTermsModalOpen(true)}
+                style={{ background: 'none', border: 'none', color: 'var(--cream)', cursor: 'pointer', fontSize: '0.82rem', textDecoration: 'underline', padding: 0 }}
+              >
+                Terms of Service
+              </button>
+              <span>Burma Colony, Karaikkudi - 630002</span>
             </div>
           </div>
         </div>
@@ -1277,6 +1275,79 @@ export default function App() {
                 Sends details directly to She GLAM WhatsApp (+91 63813 74330). Instant confirmation!
               </p>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* 14. Privacy Policy Modal */}
+      {privacyModalOpen && (
+        <div className="modal-overlay" onClick={() => setPrivacyModalOpen(false)}>
+          <div className="modal-content-box" style={{ maxWidth: '580px', maxHeight: '85vh', overflowY: 'auto' }} onClick={e => e.stopPropagation()}>
+            <button 
+              className="modal-close-btn" 
+              onClick={() => setPrivacyModalOpen(false)}
+              aria-label="Close modal"
+            >
+              <X size={20} />
+            </button>
+            <h3 style={{ fontSize: '1.4rem', color: 'var(--burgundy-dark)', marginBottom: '12px' }}>Privacy Policy</h3>
+            <p style={{ fontSize: '0.86rem', color: 'var(--text-sub)', marginBottom: '14px' }}>
+              Last updated: October 2026 • She GLAM Salon &amp; Academy, Karaikkudi
+            </p>
+            <div style={{ fontSize: '0.88rem', color: 'var(--text)', lineHeight: 1.6, display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              <p>
+                She GLAM Salon &amp; Academy ("we", "our") respects client privacy and complies with India's Digital Personal Data Protection (DPDP) Act.
+              </p>
+              <h4 style={{ color: 'var(--burgundy)', margin: '4px 0' }}>1. Data Collection</h4>
+              <p>
+                We only collect information necessary to deliver salon treatments, manage appointments, and conduct academy admissions (such as client full name, phone/WhatsApp number, service history, and styling notes).
+              </p>
+              <h4 style={{ color: 'var(--burgundy)', margin: '4px 0' }}>2. Use of Information</h4>
+              <p>
+                Your contact details are solely used for appointment confirmations, scheduling updates, service consultations, and optional loyalty recall reminders. We never sell, lease, or share personal data with external marketing brokers.
+              </p>
+              <h4 style={{ color: 'var(--burgundy)', margin: '4px 0' }}>3. Data Rights &amp; Contact</h4>
+              <p>
+                Clients may request access, updates, or deletion of their appointment records at any time by contacting our desk at Burma Colony, Karaikkudi, or via phone at <strong>+91 63813 74330</strong>.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* 15. Terms of Service Modal */}
+      {termsModalOpen && (
+        <div className="modal-overlay" onClick={() => setTermsModalOpen(false)}>
+          <div className="modal-content-box" style={{ maxWidth: '580px', maxHeight: '85vh', overflowY: 'auto' }} onClick={e => e.stopPropagation()}>
+            <button 
+              className="modal-close-btn" 
+              onClick={() => setTermsModalOpen(false)}
+              aria-label="Close modal"
+            >
+              <X size={20} />
+            </button>
+            <h3 style={{ fontSize: '1.4rem', color: 'var(--burgundy-dark)', marginBottom: '12px' }}>Terms of Service</h3>
+            <p style={{ fontSize: '0.86rem', color: 'var(--text-sub)', marginBottom: '14px' }}>
+              She GLAM Salon &amp; Academy Appointment &amp; Service Terms
+            </p>
+            <div style={{ fontSize: '0.88rem', color: 'var(--text)', lineHeight: 1.6, display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              <h4 style={{ color: 'var(--burgundy)', margin: '4px 0' }}>1. Appointments &amp; Punctuality</h4>
+              <p>
+                We value your time and allocate dedicated salon stations for pre-booked appointments. Please arrive 10 minutes prior to your scheduled time. In case of delay exceeding 15 minutes, the slot may be rescheduled to prevent contention for upcoming clients.
+              </p>
+              <h4 style={{ color: 'var(--burgundy)', margin: '4px 0' }}>2. Consultations &amp; Patch Tests</h4>
+              <p>
+                For chemical hair therapies (Keratin, Botox, Global Color) and intensive facials, our stylists recommend an initial strand or skin patch assessment to verify suitability.
+              </p>
+              <h4 style={{ color: 'var(--burgundy)', margin: '4px 0' }}>3. Academy Courses</h4>
+              <p>
+                Academy courses follow a structured, hands-on curriculum with live model demonstrations. Course schedules and syllabus details are provided during orientation.
+              </p>
+              <h4 style={{ color: 'var(--burgundy)', margin: '4px 0' }}>4. Contact &amp; Grievances</h4>
+              <p>
+                For questions regarding terms or appointments, reach us at <strong>+91 63813 74330</strong> or visit our Karaikkudi salon.
+              </p>
+            </div>
           </div>
         </div>
       )}
