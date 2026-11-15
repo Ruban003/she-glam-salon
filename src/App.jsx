@@ -17,7 +17,11 @@ import {
   ChevronRight,
   ArrowRight,
   Award,
-  ThumbsUp
+  ThumbsUp,
+  Search,
+  BookOpen,
+  LayoutGrid,
+  List
 } from 'lucide-react';
 
 const GoogleIcon = ({ size = 18 }) => (
@@ -51,6 +55,7 @@ const SERVICES_DATA = [
   {
     "id": "combo-1999",
     "category": "hair",
+    "section": "Signature Combos",
     "title": "4-in-1 Mega Glow Combo",
     "price": "\u20b91,999",
     "originalPrice": "\u20b94,500",
@@ -61,6 +66,7 @@ const SERVICES_DATA = [
   {
     "id": "hair-smoothening-med",
     "category": "hair",
+    "section": "Texture Change & Straightening",
     "title": "Hair Smoothening (Medium Hair)",
     "price": "\u20b93,999",
     "description": "Professional salon hair smoothening delivering sleek, silky, and frizz-free manageable hair.",
@@ -69,6 +75,7 @@ const SERVICES_DATA = [
   {
     "id": "hair-smoothening-long",
     "category": "hair",
+    "section": "Texture Change & Straightening",
     "title": "Hair Smoothening (Long Hair)",
     "price": "\u20b94,999",
     "description": "Deep smoothening treatment for long tresses with high-shine mirror finish.",
@@ -77,6 +84,7 @@ const SERVICES_DATA = [
   {
     "id": "hair-rebonding-med",
     "category": "hair",
+    "section": "Texture Change & Straightening",
     "title": "Permanent Rebonding (Medium Hair)",
     "price": "\u20b94,999",
     "description": "Intense permanent straightening and structure reforming for sleek poker-straight locks.",
@@ -85,6 +93,7 @@ const SERVICES_DATA = [
   {
     "id": "hair-rebonding-long",
     "category": "hair",
+    "section": "Texture Change & Straightening",
     "title": "Permanent Rebonding (Long Hair)",
     "price": "\u20b95,999",
     "description": "Ultra-sleek permanent rebonding treatment formulated for long and dense hair.",
@@ -93,6 +102,7 @@ const SERVICES_DATA = [
   {
     "id": "hair-keratin-med",
     "category": "hair",
+    "section": "Texture Change & Straightening",
     "title": "Keratin Protein Treatment (Medium Hair)",
     "price": "\u20b94,999",
     "description": "Hydrolyzed keratin infusion that seals the cuticle, eliminates 95% frizz and restores vitality.",
@@ -102,6 +112,7 @@ const SERVICES_DATA = [
   {
     "id": "hair-keratin-long",
     "category": "hair",
+    "section": "Texture Change & Straightening",
     "title": "Keratin Protein Treatment (Long Hair)",
     "price": "\u20b95,999",
     "description": "Full protein restoration and silk seal for long frizz-prone hair lasting months.",
@@ -110,6 +121,7 @@ const SERVICES_DATA = [
   {
     "id": "hair-botox-med",
     "category": "hair",
+    "section": "Texture Change & Straightening",
     "title": "Deep Hair Botox Rejuvenation (Medium Hair)",
     "price": "\u20b96,999",
     "description": "Deep restorative anti-aging botox therapy restoring elasticity, moisture, and intense gloss.",
@@ -119,6 +131,7 @@ const SERVICES_DATA = [
   {
     "id": "hair-botox-long",
     "category": "hair",
+    "section": "Texture Change & Straightening",
     "title": "Deep Hair Botox Rejuvenation (Long Hair)",
     "price": "\u20b96,999",
     "description": "Maximum fiber repair for heat & color treated long hair with premium botox peptides.",
@@ -127,6 +140,7 @@ const SERVICES_DATA = [
   {
     "id": "hair-perming-med",
     "category": "hair",
+    "section": "Texture Change & Straightening",
     "title": "Hair Perming (Medium Hair)",
     "price": "\u20b95,999",
     "description": "Bespoke curls, spirals, or beach wave texture perming with volume retention.",
@@ -135,6 +149,7 @@ const SERVICES_DATA = [
   {
     "id": "hair-perming-long",
     "category": "hair",
+    "section": "Texture Change & Straightening",
     "title": "Hair Perming (Long Hair)",
     "price": "\u20b96,999",
     "description": "Voluminous cascade curls and long-lasting permanent curl definition for long hair.",
@@ -143,6 +158,7 @@ const SERVICES_DATA = [
   {
     "id": "hair-cut-one-length",
     "category": "hair",
+    "section": "Hair Cuts & Styling",
     "title": "One Length Precision Cut (with Blast Dry)",
     "price": "\u20b9299",
     "description": "Clean, crisp baseline trim and split-end clearing finished with blast dry.",
@@ -151,6 +167,7 @@ const SERVICES_DATA = [
   {
     "id": "hair-cut-layer",
     "category": "hair",
+    "section": "Hair Cuts & Styling",
     "title": "Layer Cut (with Blow Dry Styling)",
     "price": "\u20b9599",
     "description": "Dimensional face-framing layer cut with professional salon blow dry and bounce.",
@@ -160,6 +177,7 @@ const SERVICES_DATA = [
   {
     "id": "hair-cut-feather",
     "category": "hair",
+    "section": "Hair Cuts & Styling",
     "title": "Feather Cut (with Blow Dry Styling)",
     "price": "\u20b9599",
     "description": "Soft winged feather texture providing airy movement and face-contouring elegance.",
@@ -168,6 +186,7 @@ const SERVICES_DATA = [
   {
     "id": "hair-cut-step",
     "category": "hair",
+    "section": "Hair Cuts & Styling",
     "title": "Step Cut (with Blow Dry Styling)",
     "price": "\u20b9599",
     "description": "Defined graduated steps adding instant body, volume, and shape.",
@@ -176,6 +195,7 @@ const SERVICES_DATA = [
   {
     "id": "hair-cut-adv-layer",
     "category": "hair",
+    "section": "Hair Cuts & Styling",
     "title": "Advanced Multi-Tier Layer Cut",
     "price": "\u20b9699",
     "description": "Customized precision haircut blending internal textures with luxury blowout styling.",
@@ -184,6 +204,7 @@ const SERVICES_DATA = [
   {
     "id": "hair-cut-bangs",
     "category": "hair",
+    "section": "Hair Cuts & Styling",
     "title": "Bangs & Fringe Styling",
     "price": "\u20b9149",
     "description": "Curtain bangs, wispy fringe, or blunt brow styling tailored to your face silhouette.",
@@ -192,6 +213,7 @@ const SERVICES_DATA = [
   {
     "id": "hair-ironing",
     "category": "hair",
+    "section": "Hair Cuts & Styling",
     "title": "Thermal Hair Ironing",
     "price": "\u20b9999",
     "description": "High-gloss thermal ceramic straightening with heat-shield nourishing serum.",
@@ -200,6 +222,7 @@ const SERVICES_DATA = [
   {
     "id": "hair-tong-styling",
     "category": "hair",
+    "section": "Hair Cuts & Styling",
     "title": "Tong Curls & Hollywood Waves",
     "price": "\u20b91,299",
     "description": "Glamorous red-carpet curls, effortless mermaid waves, or structured barrel rolls.",
@@ -208,6 +231,7 @@ const SERVICES_DATA = [
   {
     "id": "hair-spa-loreal-nourish",
     "category": "hair",
+    "section": "Hair Spas & Head Therapy",
     "title": "L'Or\u00e9al Professionnel Nourishing Hair Spa",
     "price": "\u20b91,199",
     "description": "Deep creambath with scalp massage, steam infusion, and essential lipid restoration.",
@@ -216,6 +240,7 @@ const SERVICES_DATA = [
   {
     "id": "hair-spa-loreal-frizz",
     "category": "hair",
+    "section": "Hair Spas & Head Therapy",
     "title": "L'Or\u00e9al Professionnel Frizz Control Treatment",
     "price": "\u20b91,299",
     "description": "Pro-Keratin smoothing treatment that eliminates humidity frizz and detangles hair.",
@@ -224,6 +249,7 @@ const SERVICES_DATA = [
   {
     "id": "hair-spa-loreal-repair",
     "category": "hair",
+    "section": "Hair Spas & Head Therapy",
     "title": "L'Or\u00e9al Absolut Repair Damage Spa",
     "price": "\u20b91,199",
     "description": "Gold quinoa & protein restructuring therapy for chemically stressed brittle hair.",
@@ -232,6 +258,7 @@ const SERVICES_DATA = [
   {
     "id": "hair-spa-loreal-color",
     "category": "hair",
+    "section": "Hair Spas & Head Therapy",
     "title": "L'Or\u00e9al Colour Sealing Radiance Spa",
     "price": "\u20b91,299",
     "description": "Resveratrol color-locking formula preserving hue vibrancy and mirror-like shine.",
@@ -240,6 +267,7 @@ const SERVICES_DATA = [
   {
     "id": "hair-spa-moroccan",
     "category": "hair",
+    "section": "Hair Spas & Head Therapy",
     "title": "Luxury Moroccan Argan Oil Hair Spa",
     "price": "\u20b91,299",
     "description": "Pure Moroccan argan oil bath restoring deep moisture, softness, and scalp balance.",
@@ -248,6 +276,7 @@ const SERVICES_DATA = [
   {
     "id": "hair-anti-dandruff",
     "category": "hair",
+    "section": "Hair Spas & Head Therapy",
     "title": "Scalp Anti-Dandruff Exfoliation Treatment",
     "price": "\u20b9599",
     "description": "Targeted scalp clearing treatment removing flakes, reducing itchiness, and balancing sebum.",
@@ -256,6 +285,7 @@ const SERVICES_DATA = [
   {
     "id": "hair-massage-aroma",
     "category": "hair",
+    "section": "Hair Spas & Head Therapy",
     "title": "Therapeutic Head Massage with Aroma Oil",
     "price": "\u20b9699",
     "description": "Deep acupressure Indian scalp massage with calming essential oils to relieve stress and fatigue.",
@@ -264,6 +294,7 @@ const SERVICES_DATA = [
   {
     "id": "color-root-regular",
     "category": "hair",
+    "section": "Hair Colouring & Highlights",
     "title": "Root Touch-Up (Regular)",
     "price": "\u20b9999",
     "description": "100% grey coverage root restoration matching your exact natural shade.",
@@ -272,6 +303,7 @@ const SERVICES_DATA = [
   {
     "id": "color-root-ammonia-free",
     "category": "hair",
+    "section": "Hair Colouring & Highlights",
     "title": "Root Touch-Up (Ammonia-Free)",
     "price": "\u20b91,199",
     "description": "Scalp-gentle ammonia-free root color infused with nourishing conditioning oils.",
@@ -280,6 +312,7 @@ const SERVICES_DATA = [
   {
     "id": "color-global-base-med",
     "category": "hair",
+    "section": "Hair Colouring & Highlights",
     "title": "Global Base Hair Color (Short / Medium)",
     "price": "\u20b92,999",
     "description": "Rich all-over dimensional hair coloring in warm chestnuts, rich chocolates, and natural blacks.",
@@ -288,6 +321,7 @@ const SERVICES_DATA = [
   {
     "id": "color-global-base-long",
     "category": "hair",
+    "section": "Hair Colouring & Highlights",
     "title": "Global Base Hair Color (Long Hair)",
     "price": "\u20b93,999",
     "description": "Full-length luxurious hair color coverage with even tone and radiant reflection.",
@@ -296,6 +330,7 @@ const SERVICES_DATA = [
   {
     "id": "color-balayage",
     "category": "hair",
+    "section": "Hair Colouring & Highlights",
     "title": "Bespoke Balayage & Ombre Artistry",
     "price": "\u20b94,999",
     "description": "Hand-painted seamless sun-kissed gradients, caramel melting, and multidimensional dimension.",
@@ -305,6 +340,7 @@ const SERVICES_DATA = [
   {
     "id": "color-highlights-per-streak",
     "category": "hair",
+    "section": "Hair Colouring & Highlights",
     "title": "Foil Highlights / Streaks (Per Streak)",
     "price": "\u20b9299",
     "description": "Custom accent foil highlights in honey, copper, ash blonde, or fashion pigments.",
@@ -313,6 +349,7 @@ const SERVICES_DATA = [
   {
     "id": "color-bond-strengthening",
     "category": "hair",
+    "section": "Hair Colouring & Highlights",
     "title": "Bond Strengthening Fortifier Treatment",
     "price": "\u20b91,200",
     "description": "Structural bond repair preventing breakage during and after color processing.",
@@ -321,6 +358,7 @@ const SERVICES_DATA = [
   {
     "id": "skin-threading-brows",
     "category": "skin",
+    "section": "Threading & Facial Waxing",
     "title": "Eyebrow Precision Threading",
     "price": "\u20b949",
     "description": "Clean eyebrow shaping, arch definition, and stray hair removal.",
@@ -329,6 +367,7 @@ const SERVICES_DATA = [
   {
     "id": "skin-threading-fullface",
     "category": "skin",
+    "section": "Threading & Facial Waxing",
     "title": "Full Face Threading",
     "price": "\u20b9149",
     "description": "Complete facial hair clearing including eyebrows, forehead, upper lip, chin, and cheeks.",
@@ -337,6 +376,7 @@ const SERVICES_DATA = [
   {
     "id": "skin-wax-cartridge-fullarms",
     "category": "skin",
+    "section": "Threading & Facial Waxing",
     "title": "Roll-On Cartridge Waxing (Full Arms)",
     "price": "\u20b9399",
     "description": "Hygienic, mess-free Italian cartridge waxing for silky smooth skin.",
@@ -345,6 +385,7 @@ const SERVICES_DATA = [
   {
     "id": "skin-wax-cartridge-fulllegs",
     "category": "skin",
+    "section": "Threading & Facial Waxing",
     "title": "Roll-On Cartridge Waxing (Full Legs)",
     "price": "\u20b9599",
     "description": "Fast, gentle cartridge waxing leaving legs thoroughly smooth and hydrated.",
@@ -353,6 +394,7 @@ const SERVICES_DATA = [
   {
     "id": "skin-wax-brazilian-underarms",
     "category": "skin",
+    "section": "Threading & Facial Waxing",
     "title": "Brazilian Stripless Wax (Underarms)",
     "price": "\u20b9399",
     "description": "Low-temperature stripless wax designed for sensitive zones, minimizing pain.",
@@ -361,6 +403,7 @@ const SERVICES_DATA = [
   {
     "id": "skin-detan-faceneck",
     "category": "skin",
+    "section": "De-Tan & Clean-Up",
     "title": "Instant De-Tan Pack (Face & Neck)",
     "price": "\u20b9499",
     "description": "Fruit enzyme formulation removing sun tanning and hyperpigmentation instantly.",
@@ -369,6 +412,7 @@ const SERVICES_DATA = [
   {
     "id": "skin-detan-goldmask",
     "category": "skin",
+    "section": "De-Tan & Clean-Up",
     "title": "Luxury Gold Peel-Off De-Tan Mask",
     "price": "\u20b9699",
     "description": "Radiance-infusing gold peel-off mask tightening pores and restoring luminosity.",
@@ -377,6 +421,7 @@ const SERVICES_DATA = [
   {
     "id": "skin-cleanup-regular",
     "category": "skin",
+    "section": "De-Tan & Clean-Up",
     "title": "Deep Pore Essential Clean-Up",
     "price": "\u20b9499",
     "description": "Cleansing, gentle exfoliation, steam, blackhead removal, and pore-tightening pack.",
@@ -385,6 +430,7 @@ const SERVICES_DATA = [
   {
     "id": "skin-cleanup-detan",
     "category": "skin",
+    "section": "De-Tan & Clean-Up",
     "title": "De-Tan Herbal Botanical Clean-Up",
     "price": "\u20b9699",
     "description": "Exfoliating botanical peel combined with deep pore extraction for immediate brightness.",
@@ -394,6 +440,7 @@ const SERVICES_DATA = [
   {
     "id": "skin-cleanup-whitening",
     "category": "skin",
+    "section": "De-Tan & Clean-Up",
     "title": "Insta Whitening & Vitamin C Clean-Up",
     "price": "\u20b9999",
     "description": "High-potency ascorbic acid infusion eliminating dullness for camera-ready clarity.",
@@ -402,6 +449,7 @@ const SERVICES_DATA = [
   {
     "id": "facial-fresh-fruit",
     "category": "skin",
+    "section": "Luxury Facials",
     "title": "Fresh Seasonal Fruit Organic Facial",
     "price": "\u20b9599",
     "description": "All-natural seasonal fruit pulp packed with AHAs and enzymes for gentle, refreshed skin.",
@@ -410,6 +458,7 @@ const SERVICES_DATA = [
   {
     "id": "facial-clean-glow",
     "category": "skin",
+    "section": "Luxury Facials",
     "title": "Clean & Glow Luminous Facial",
     "price": "\u20b9799",
     "description": "Pore purifying massage and botanical pack revealing natural healthy glow.",
@@ -418,6 +467,7 @@ const SERVICES_DATA = [
   {
     "id": "facial-pearl-shine",
     "category": "skin",
+    "section": "Luxury Facials",
     "title": "Pearl Shine Micro-Crystal Facial",
     "price": "\u20b91,299",
     "description": "Real pearl bhasma peptides for silky smooth complexion and unified tone.",
@@ -426,6 +476,7 @@ const SERVICES_DATA = [
   {
     "id": "facial-hydra-boost",
     "category": "skin",
+    "section": "Luxury Facials",
     "title": "Hydra Boost Deep Moisture Facial",
     "price": "\u20b91,499",
     "description": "Multi-molecular hyaluronic acid infusion plumping dehydrated skin with dewy moisture.",
@@ -435,6 +486,7 @@ const SERVICES_DATA = [
   {
     "id": "facial-acne-clear",
     "category": "skin",
+    "section": "Luxury Facials",
     "title": "Acne Clear Salicylic Purifying Facial",
     "price": "\u20b91,499",
     "description": "Therapeutic tea tree and salicylic clearing for active blemishes, oil control, and calm skin.",
@@ -443,6 +495,7 @@ const SERVICES_DATA = [
   {
     "id": "facial-instant-brightening",
     "category": "skin",
+    "section": "Luxury Facials",
     "title": "Instant Brightening Cellular Facial",
     "price": "\u20b91,999",
     "description": "Advanced antioxidant treatment fading stubborn tan lines and dark spots.",
@@ -451,6 +504,7 @@ const SERVICES_DATA = [
   {
     "id": "facial-gold-radiance",
     "category": "skin",
+    "section": "Luxury Facials",
     "title": "24K Gold Radiance Luxury Facial",
     "price": "\u20b92,999",
     "description": "Colloidal 24K gold dust that revitalizes skin collagen, imparting timeless bridal glow.",
@@ -460,6 +514,7 @@ const SERVICES_DATA = [
   {
     "id": "facial-skin-whitening",
     "category": "skin",
+    "section": "Luxury Facials",
     "title": "Advanced Skin Whitening & Peptides Facial",
     "price": "\u20b92,999",
     "description": "Medical-grade aesthetic actives targeting deep melanin deposits for a porcelain finish.",
@@ -468,6 +523,7 @@ const SERVICES_DATA = [
   {
     "id": "facial-oxygen-infusion",
     "category": "skin",
+    "section": "Luxury Facials",
     "title": "Hyperbaric Oxygen Infusion Facial",
     "price": "\u20b92,999",
     "description": "Pressurized pure oxygen micro-mist delivering hyaluronic serum deep into dermis.",
@@ -476,6 +532,7 @@ const SERVICES_DATA = [
   {
     "id": "facial-bridal-glow",
     "category": "bridal",
+    "section": "Chettinad Bridal Lounge",
     "title": "She GLAM Signature Ultra-Luxe Bridal Facial",
     "price": "\u20b93,999",
     "description": "Our pinnacle multi-step bridal therapy: diamond microdermabrasion, gold mask, and neck-to-d\u00e9collet\u00e9 glow.",
@@ -485,6 +542,7 @@ const SERVICES_DATA = [
   {
     "id": "muhurtham-bridal",
     "category": "bridal",
+    "section": "Chettinad Bridal Lounge",
     "title": "Traditional Muhurtham HD Bridal Makeover",
     "price": "Custom Package",
     "description": "Long-wearing sweat-proof HD makeup for wedding rituals, customized contouring, and flawless finish.",
@@ -493,6 +551,7 @@ const SERVICES_DATA = [
   {
     "id": "reception-glam",
     "category": "bridal",
+    "section": "Chettinad Bridal Lounge",
     "title": "Contemporary Reception & Engagement Glam",
     "price": "Custom Package",
     "description": "Sculpted glamour, statement shimmer eyes, dewy glass-skin complexion, and custom hair design.",
@@ -501,6 +560,7 @@ const SERVICES_DATA = [
   {
     "id": "saree-draping",
     "category": "bridal",
+    "section": "Chettinad Bridal Lounge",
     "title": "Kanjeevaram Saree Draping & Fresh Flower Art",
     "price": "From \u20b9999",
     "description": "Razor-sharp pleats for heavy pure silk sarees, jewelry pinning, and traditional jasmine styling.",
@@ -509,6 +569,7 @@ const SERVICES_DATA = [
   {
     "id": "pre-bridal",
     "category": "bridal",
+    "section": "Chettinad Bridal Lounge",
     "title": "Complete 30-Day Pre-Bridal Radiance Suite",
     "price": "Consult For Pricing",
     "description": "Full bride transformation: body polishing, gold facial, hair botox, luxury mani-pedi, and organic waxing.",
@@ -517,6 +578,7 @@ const SERVICES_DATA = [
   {
     "id": "nail-polish-gel",
     "category": "nails",
+    "section": "Nail Extensions & Gel Polish",
     "title": "Chip-Free UV Gel Polish",
     "price": "\u20b9499",
     "description": "High-shine UV LED cured gel polish lasting up to 3 weeks without chipping or peeling.",
@@ -525,6 +587,7 @@ const SERVICES_DATA = [
   {
     "id": "nail-ext-softgel",
     "category": "nails",
+    "section": "Nail Extensions & Gel Polish",
     "title": "Soft Gel Nail Extensions (with Gel Polish)",
     "price": "\u20b91,499",
     "description": "Lightweight, flexible full-cover soft gel tips finished with premium gel polish.",
@@ -534,6 +597,7 @@ const SERVICES_DATA = [
   {
     "id": "nail-ext-acrylic",
     "category": "nails",
+    "section": "Nail Extensions & Gel Polish",
     "title": "Sculpted Acrylic Nail Extensions (with Gel Polish)",
     "price": "\u20b92,499",
     "description": "Ultra-durable sculpted acrylic extensions with seamless cuticle blending and gel color.",
@@ -542,6 +606,7 @@ const SERVICES_DATA = [
   {
     "id": "nail-ext-toenail",
     "category": "nails",
+    "section": "Nail Extensions & Gel Polish",
     "title": "Toe Nail Extensions (with Gel Polish)",
     "price": "\u20b9999",
     "description": "Toenail reshaping, extension reconstruction, and long-lasting gel lacquer.",
@@ -550,6 +615,7 @@ const SERVICES_DATA = [
   {
     "id": "nail-art-addons",
     "category": "nails",
+    "section": "Nail Extensions & Gel Polish",
     "title": "Designer Nail Art (Cat Eye / Chrome / Crystals)",
     "price": "From \u20b920 / nail",
     "description": "Chrome glazing, 3D rhinestones, velvet magnetic cat-eye shimmer, and fine line art.",
@@ -558,6 +624,7 @@ const SERVICES_DATA = [
   {
     "id": "mani-pedi-coco",
     "category": "nails",
+    "section": "Manicure & Pedicure Spas",
     "title": "Coco Butter Manicure & Pedicure",
     "price": "\u20b9599",
     "description": "Warm organic coconut butter scrub, cuticle restoration, gentle massage, and nail buffing.",
@@ -566,6 +633,7 @@ const SERVICES_DATA = [
   {
     "id": "mani-pedi-paraffin",
     "category": "nails",
+    "section": "Manicure & Pedicure Spas",
     "title": "Luxury Paraffin Wax Spa Manicure & Pedicure",
     "price": "\u20b9699",
     "description": "Warm therapeutic paraffin wax boots & mittens deeply softening cracked heels and dry hands.",
@@ -574,6 +642,7 @@ const SERVICES_DATA = [
   {
     "id": "mani-pedi-crystal",
     "category": "nails",
+    "section": "Manicure & Pedicure Spas",
     "title": "Crystal Spa Relaxation Manicure & Pedicure",
     "price": "\u20b9999",
     "description": "Sensory crystal bead jelly bath, fruit exfoliation, and tension-melting reflexology massage.",
@@ -582,6 +651,7 @@ const SERVICES_DATA = [
   {
     "id": "mani-pedi-icecream",
     "category": "nails",
+    "section": "Manicure & Pedicure Spas",
     "title": "Aromatic Ice Cream Sundae Spa Mani-Pedi",
     "price": "\u20b91,099",
     "description": "Delightful whipped body souffl\u00e9 scrub, aromatic ice cream scoop mask, and luxury gloss buffing.",
@@ -664,6 +734,10 @@ const REVIEWS_DATA = [
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('all');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [viewMode, setViewMode] = useState('menu'); // 'menu' for clean compact price sheet, 'cards' for visual cards
+  const [showAllCards, setShowAllCards] = useState(false);
+  const [isBookletModalOpen, setIsBookletModalOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const headerRef = useRef(null);
@@ -749,9 +823,24 @@ export default function App() {
     setIsModalOpen(false);
   };
 
-  const filteredServices = activeTab === 'all' 
-    ? SERVICES_DATA 
-    : SERVICES_DATA.filter((s) => s.category === activeTab);
+  const filteredServices = SERVICES_DATA.filter((s) => {
+    const matchesCategory = activeTab === 'all' || s.category === activeTab;
+    const q = searchQuery.toLowerCase().trim();
+    if (!q) return matchesCategory;
+    const matchesQuery = s.title.toLowerCase().includes(q) || 
+      (s.description && s.description.toLowerCase().includes(q)) ||
+      (s.section && s.section.toLowerCase().includes(q)) ||
+      (s.tag && s.tag.toLowerCase().includes(q));
+    return matchesCategory && matchesQuery;
+  });
+
+  // Group services by section for authentic menu sheet layout
+  const groupedSections = filteredServices.reduce((acc, service) => {
+    const sec = service.section || 'General Services';
+    if (!acc[sec]) acc[sec] = [];
+    acc[sec].push(service);
+    return acc;
+  }, {});
 
   return (
     <div className="she-glam-app">
@@ -1005,77 +1094,201 @@ export default function App() {
       {/* 5. Services Menu & Filtering */}
       <section className="section" id="services">
         <div className="container">
-          <div className="section-editorial-header">
-            <span className="pill-tag pill-dusty">OUR SERVICES • MENU</span>
-            <h2>Curated Salon <em>Experiences</em></h2>
+          <div className="section-editorial-header text-center">
+            <span className="pill-tag pill-dusty">OUR SERVICES • OFFICIAL PRICE MENU</span>
+            <h2>Curated Salon <em>Menu</em></h2>
             <p>
-              From science-backed hair rejuvenation to bridal couture and nail art, explore personalized care tailored for you in Burma Colony, Karaikkudi.
+              Explore our transparent, net-priced service catalog in Karaikkudi. All prices are final with zero hidden taxes or surprise add-ons.
             </p>
           </div>
 
+          {/* Interactive Search & Control Bar */}
+          <div className="services-control-bar">
+            <div className="services-search-wrapper">
+              <Search size={18} className="services-search-icon" />
+              <input 
+                type="text"
+                className="services-search-input"
+                placeholder="Search 95+ salon services (e.g., 'Botox', 'Keratin', 'Facial', 'Waxing', 'Gel Nails')..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+              {searchQuery && (
+                <button 
+                  className="services-search-clear" 
+                  onClick={() => setSearchQuery('')}
+                  title="Clear search"
+                >
+                  <X size={16} />
+                </button>
+              )}
+            </div>
+
+            {searchQuery && (
+              <span className="search-results-badge">
+                Found {filteredServices.length} {filteredServices.length === 1 ? 'service' : 'services'} matching &quot;{searchQuery}&quot;
+              </span>
+            )}
+
+            <div className="view-controls-wrapper">
+              <div className="view-mode-toggle">
+                <button 
+                  type="button"
+                  className={`view-mode-btn ${viewMode === 'menu' ? 'active' : ''}`}
+                  onClick={() => setViewMode('menu')}
+                >
+                  <List size={15} />
+                  <span>Menu Sheet</span>
+                </button>
+                <button 
+                  type="button"
+                  className={`view-mode-btn ${viewMode === 'cards' ? 'active' : ''}`}
+                  onClick={() => setViewMode('cards')}
+                >
+                  <LayoutGrid size={15} />
+                  <span>Editorial Cards</span>
+                </button>
+              </div>
+
+              <button 
+                type="button"
+                className="btn-open-booklet"
+                onClick={() => setIsBookletModalOpen(true)}
+              >
+                <BookOpen size={16} />
+                <span>Full Menu Booklet (All 95)</span>
+              </button>
+            </div>
+          </div>
+
+          {/* Category Filter Pills */}
           <div className="filter-pills">
             <button 
               className={`filter-btn ${activeTab === 'all' ? 'active' : ''}`}
-              onClick={() => setActiveTab('all')}
+              onClick={() => { setActiveTab('all'); setShowAllCards(false); }}
             >
-              All Services
+              All Services ({SERVICES_DATA.length})
             </button>
             <button 
               className={`filter-btn ${activeTab === 'hair' ? 'active' : ''}`}
-              onClick={() => setActiveTab('hair')}
+              onClick={() => { setActiveTab('hair'); setShowAllCards(false); }}
             >
-              Hair & Botox
+              Hair &amp; Botox ({SERVICES_DATA.filter(s => s.category === 'hair').length})
             </button>
             <button 
               className={`filter-btn ${activeTab === 'skin' ? 'active' : ''}`}
-              onClick={() => setActiveTab('skin')}
+              onClick={() => { setActiveTab('skin'); setShowAllCards(false); }}
             >
-              Skin & Facials
+              Skin &amp; Facials ({SERVICES_DATA.filter(s => s.category === 'skin').length})
             </button>
             <button 
               className={`filter-btn ${activeTab === 'bridal' ? 'active' : ''}`}
-              onClick={() => setActiveTab('bridal')}
+              onClick={() => { setActiveTab('bridal'); setShowAllCards(false); }}
             >
-              Bridal & Muhurtham
+              Bridal Lounge ({SERVICES_DATA.filter(s => s.category === 'bridal').length})
             </button>
             <button 
               className={`filter-btn ${activeTab === 'nails' ? 'active' : ''}`}
-              onClick={() => setActiveTab('nails')}
+              onClick={() => { setActiveTab('nails'); setShowAllCards(false); }}
             >
-              Nails & Spa
+              Nails &amp; Spa ({SERVICES_DATA.filter(s => s.category === 'nails').length})
             </button>
           </div>
 
-          <div className="editorial-services-grid">
-            {filteredServices.map((service) => (
-              <div key={service.id} className="service-box">
-                <div>
-                  <div className="service-box-tag">{service.tag}</div>
-                  <h3>{service.title}</h3>
-                  <p>{service.description}</p>
-                </div>
-
-                <div className="service-box-footer">
-                  <div>
-                    <span className="service-box-price">{service.price}</span>
-                    {service.originalPrice && (
-                      <span style={{ fontSize: '0.85rem', color: 'var(--text-sub)', textDecoration: 'line-through', marginLeft: '6px' }}>
-                        {service.originalPrice}
-                      </span>
-                    )}
-                  </div>
-                  <button 
-                    className="btn btn-outline-burgundy" 
-                    style={{ padding: '7px 16px', fontSize: '0.82rem' }}
-                    onClick={() => openBookingWithService(`${service.title} (${service.price})`)}
-                  >
-                    <span>Book</span>
-                    <ChevronRight size={14} />
+          {/* View 1: Authentic Salon Menu Sheet (Fast, Organized, Compact) */}
+          {viewMode === 'menu' && (
+            <div className="menu-card-sheet">
+              {Object.keys(groupedSections).length === 0 ? (
+                <div style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '40px 20px', color: 'var(--text-sub)' }}>
+                  <p style={{ fontSize: '1.1rem', marginBottom: '8px' }}>No services found matching &quot;{searchQuery}&quot;</p>
+                  <button className="btn btn-outline-burgundy" onClick={() => { setSearchQuery(''); setActiveTab('all'); }}>
+                    Clear Filters
                   </button>
                 </div>
+              ) : (
+                Object.entries(groupedSections).map(([secTitle, items]) => (
+                  <div key={secTitle} className="menu-section-block">
+                    <div className="menu-section-header">
+                      <h3>{secTitle}</h3>
+                      <span className="menu-section-count">{items.length} {items.length === 1 ? 'item' : 'items'}</span>
+                    </div>
+                    <div className="menu-section-list">
+                      {items.map((service) => (
+                        <div key={service.id} className="menu-item-row">
+                          <div className="menu-item-info">
+                            <span className="menu-item-name">{service.title}</span>
+                            {service.description && (
+                              <span className="menu-item-desc">{service.description}</span>
+                            )}
+                          </div>
+                          <div className="menu-item-right">
+                            <span className="menu-item-price">{service.price}</span>
+                            <button 
+                              type="button"
+                              className="btn-book-quick"
+                              onClick={() => openBookingWithService(`${service.title} (${service.price})`)}
+                            >
+                              Book
+                            </button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))
+              )}
+            </div>
+          )}
+
+          {/* View 2: Editorial Cards Grid (Visual Highlights) */}
+          {viewMode === 'cards' && (
+            <>
+              <div className="editorial-services-grid">
+                {(showAllCards || searchQuery ? filteredServices : filteredServices.slice(0, 9)).map((service) => (
+                  <div key={service.id} className="service-box">
+                    <div>
+                      <div className="service-box-tag">{service.tag}</div>
+                      <h3>{service.title}</h3>
+                      <p>{service.description}</p>
+                    </div>
+
+                    <div className="service-box-footer">
+                      <div>
+                        <span className="service-box-price">{service.price}</span>
+                        {service.originalPrice && (
+                          <span style={{ fontSize: '0.85rem', color: 'var(--text-sub)', textDecoration: 'line-through', marginLeft: '6px' }}>
+                            {service.originalPrice}
+                          </span>
+                        )}
+                      </div>
+                      <button 
+                        type="button"
+                        className="btn btn-outline-burgundy" 
+                        style={{ padding: '7px 16px', fontSize: '0.82rem' }}
+                        onClick={() => openBookingWithService(`${service.title} (${service.price})`)}
+                      >
+                        <span>Book</span>
+                        <ChevronRight size={14} />
+                      </button>
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
+
+              {!searchQuery && filteredServices.length > 9 && (
+                <div className="show-more-container">
+                  <button 
+                    type="button"
+                    className="btn-show-more"
+                    onClick={() => setShowAllCards(!showAllCards)}
+                  >
+                    <span>{showAllCards ? '✦ Show Less Cards' : `✦ View All ${filteredServices.length} Cards`}</span>
+                    <ChevronRight size={16} style={{ transform: showAllCards ? 'rotate(-90deg)' : 'rotate(90deg)', transition: 'transform 0.2s' }} />
+                  </button>
+                </div>
+              )}
+            </>
+          )}
         </div>
       </section>
 
