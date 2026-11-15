@@ -2126,9 +2126,6 @@ export default function App() {
                 Done Browsing Booklet
               </button>
             </div>
-                Done Browsing Booklet
-              </button>
-            </div>
           </div>
         </div>
       )}
