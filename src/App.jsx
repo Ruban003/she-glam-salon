@@ -48,143 +48,545 @@ const InstagramIcon = ({ size = 20, className = "" }) => (
 );
 
 const SERVICES_DATA = [
-  // Viral Combo
   {
-    id: 'combo-1999',
-    category: 'hair',
-    title: '4-in-1 Mega Glow Combo',
-    price: '₹1,999',
-    originalPrice: '₹4,500',
-    description: 'Our most viral Karaikkudi package: Deep Hair Spa + Skin Lightening Facial + Pro Haircut & Blowdry + Eyebrow Threading.',
-    tag: 'Limited Festive Offer',
-    popular: true
-  },
-  // Hair
-  {
-    id: 'hair-botox',
-    category: 'hair',
-    title: 'Hair Botox Deep Rejuvenation',
-    price: 'From ₹2,499',
-    description: 'Intense moisture infusion that repairs extreme chemical & heat damage, eliminates frizz, and imparts mirror-glass shine.',
-    tag: 'Signature Hair'
+    "id": "combo-1999",
+    "category": "hair",
+    "title": "4-in-1 Mega Glow Combo",
+    "price": "\u20b91,999",
+    "originalPrice": "\u20b94,500",
+    "description": "Our signature viral package: L'Or\u00e9al Deep Hair Spa + Skin Brightening Cleanup + Precision Haircut & Styling + Eyebrow Threading.",
+    "tag": "Limited Special",
+    "popular": true
   },
   {
-    id: 'keratin-treatment',
-    category: 'hair',
-    title: 'Keratin Silk Smooth Therapy',
-    price: 'From ₹2,999',
-    description: 'Semi-permanent protein treatment delivering sleek, straight, manageable hair lasting up to 5 months.',
-    tag: 'Client Favorite'
+    "id": "hair-smoothening-med",
+    "category": "hair",
+    "title": "Hair Smoothening (Medium Hair)",
+    "price": "\u20b93,999",
+    "description": "Professional salon hair smoothening delivering sleek, silky, and frizz-free manageable hair.",
+    "tag": "Texture Change"
   },
   {
-    id: 'hair-spa',
-    category: 'hair',
-    title: 'Nourishing Herbal Hair Spa',
-    price: 'From ₹799',
-    description: 'Deep conditioning scalp acupressure massage, herbal steam bath, and intense restorative protein mask.',
-    tag: 'Scalp Detox'
+    "id": "hair-smoothening-long",
+    "category": "hair",
+    "title": "Hair Smoothening (Long Hair)",
+    "price": "\u20b94,999",
+    "description": "Deep smoothening treatment for long tresses with high-shine mirror finish.",
+    "tag": "Texture Change"
   },
   {
-    id: 'hair-color',
-    category: 'hair',
-    title: 'Global Color & Balayage Highlights',
-    price: 'From ₹1,499',
-    description: 'Ammonia-free multidimensional color artistry. Caramel, chocolate, hazelnut, and bespoke fashion hues.',
-    tag: 'Hair Color'
+    "id": "hair-rebonding-med",
+    "category": "hair",
+    "title": "Permanent Rebonding (Medium Hair)",
+    "price": "\u20b94,999",
+    "description": "Intense permanent straightening and structure reforming for sleek poker-straight locks.",
+    "tag": "Rebonding"
   },
   {
-    id: 'layer-haircut',
-    category: 'hair',
-    title: 'Precision Layer Cut & Signature Blowdry',
-    price: '₹450',
-    description: 'Face-framing haircut customized to your jawline, finished with high-volume blowout and shine serum.',
-    tag: 'Daily Glam'
-  },
-
-  // Skin & Facials
-  {
-    id: 'glow-facial',
-    category: 'skin',
-    title: 'She GLAM Signature Brightening Facial',
-    price: '₹1,299',
-    description: 'Gentle exfoliation, vitamin-rich serum massage, and brightening botanical mask that eliminates dullness and tan.',
-    tag: 'Glow Therapy'
+    "id": "hair-rebonding-long",
+    "category": "hair",
+    "title": "Permanent Rebonding (Long Hair)",
+    "price": "\u20b95,999",
+    "description": "Ultra-sleek permanent rebonding treatment formulated for long and dense hair.",
+    "tag": "Rebonding"
   },
   {
-    id: 'hydra-facial',
-    category: 'skin',
-    title: 'Hydra Deep Pore Cleanse & Hydration',
-    price: '₹1,899',
-    description: 'Painless vortex pore extraction, blackhead clearing, and hyaluronic acid infusion for healthy glass skin.',
-    tag: 'Deep Cleanse'
+    "id": "hair-keratin-med",
+    "category": "hair",
+    "title": "Keratin Protein Treatment (Medium Hair)",
+    "price": "\u20b94,999",
+    "description": "Hydrolyzed keratin infusion that seals the cuticle, eliminates 95% frizz and restores vitality.",
+    "tag": "Client Favorite",
+    "popular": true
   },
   {
-    id: 'detan-cleanup',
-    category: 'skin',
-    title: 'Instant De-Tan & Herbal Cleanup',
-    price: '₹699',
-    description: 'Targeted sun damage reversal, dead skin removal, and cooling pack for instant freshness and even skin tone.',
-    tag: 'Express Care'
+    "id": "hair-keratin-long",
+    "category": "hair",
+    "title": "Keratin Protein Treatment (Long Hair)",
+    "price": "\u20b95,999",
+    "description": "Full protein restoration and silk seal for long frizz-prone hair lasting months.",
+    "tag": "Signature Care"
   },
   {
-    id: 'gold-facial',
-    category: 'skin',
-    title: '24K Gold Luxury Pre-Bridal Facial',
-    price: '₹2,199',
-    description: 'Pure gold bio-peptides that stimulate collagen synthesis, fine line softening, and lasting wedding-ready glow.',
-    tag: 'Luxury Bridal'
-  },
-
-  // Bridal & Makeover
-  {
-    id: 'muhurtham-bridal',
-    category: 'bridal',
-    title: 'Traditional Muhurtham Bridal HD Makeover',
-    price: 'Custom Package',
-    description: 'Waterproof, sweat-resistant HD bridal makeup tailored for weddings. Flawless through long rituals.',
-    tag: 'Muhurtham Bridal'
+    "id": "hair-botox-med",
+    "category": "hair",
+    "title": "Deep Hair Botox Rejuvenation (Medium Hair)",
+    "price": "\u20b96,999",
+    "description": "Deep restorative anti-aging botox therapy restoring elasticity, moisture, and intense gloss.",
+    "tag": "Luxury Hair Care",
+    "popular": true
   },
   {
-    id: 'reception-glam',
-    category: 'bridal',
-    title: 'Contemporary Reception & Engagement Glam',
-    price: 'Custom Package',
-    description: 'Sculpted soft-matte contouring, statement eyes, glass-skin radiant finish, and high-fashion bridal hairdo.',
-    tag: 'Evening Reception'
+    "id": "hair-botox-long",
+    "category": "hair",
+    "title": "Deep Hair Botox Rejuvenation (Long Hair)",
+    "price": "\u20b96,999",
+    "description": "Maximum fiber repair for heat & color treated long hair with premium botox peptides.",
+    "tag": "Luxury Hair Care"
   },
   {
-    id: 'saree-draping',
-    category: 'bridal',
-    title: 'Kanjeevaram Saree Draping & Hair Flowers',
-    price: 'From ₹999',
-    description: 'Crisp, perfectly pinned pleats for traditional silk sarees, temple jewelry pinning, and fresh jasmine flower art.',
-    tag: 'Saree Draping Art'
+    "id": "hair-perming-med",
+    "category": "hair",
+    "title": "Hair Perming (Medium Hair)",
+    "price": "\u20b95,999",
+    "description": "Bespoke curls, spirals, or beach wave texture perming with volume retention.",
+    "tag": "Curls & Volume"
   },
   {
-    id: 'pre-bridal',
-    category: 'bridal',
-    title: 'Complete 30-Day Pre-Bridal Glow Suite',
-    price: 'Consult For Pricing',
-    description: 'Holistic bridal preparation: full body polishing, gold facials, hair botox, luxury mani-pedi, and organic waxing.',
-    tag: 'All-in-One Bride'
-  },
-
-  // Nails & Spa
-  {
-    id: 'gel-extensions',
-    category: 'nails',
-    title: 'Acrylic & UV Gel Nail Extensions',
-    price: 'From ₹1,499',
-    description: 'Flawless nail extensions with long-lasting gel polish, ombre blush tones, chrome sheen, and minimal nail art.',
-    tag: 'Trending Nails'
+    "id": "hair-perming-long",
+    "category": "hair",
+    "title": "Hair Perming (Long Hair)",
+    "price": "\u20b96,999",
+    "description": "Voluminous cascade curls and long-lasting permanent curl definition for long hair.",
+    "tag": "Curls & Volume"
   },
   {
-    id: 'spa-pedicure',
-    category: 'nails',
-    title: 'Rose Petal Spa Pedicure & Manicure',
-    price: '₹899',
-    description: 'Warm rose petal herbal foot soak, gentle callus buffing, stress-relief essential oil massage, and nail buffing.',
-    tag: 'Relaxation'
+    "id": "hair-cut-one-length",
+    "category": "hair",
+    "title": "One Length Precision Cut (with Blast Dry)",
+    "price": "\u20b9299",
+    "description": "Clean, crisp baseline trim and split-end clearing finished with blast dry.",
+    "tag": "Essential Cut"
+  },
+  {
+    "id": "hair-cut-layer",
+    "category": "hair",
+    "title": "Layer Cut (with Blow Dry Styling)",
+    "price": "\u20b9599",
+    "description": "Dimensional face-framing layer cut with professional salon blow dry and bounce.",
+    "tag": "Popular Cut",
+    "popular": true
+  },
+  {
+    "id": "hair-cut-feather",
+    "category": "hair",
+    "title": "Feather Cut (with Blow Dry Styling)",
+    "price": "\u20b9599",
+    "description": "Soft winged feather texture providing airy movement and face-contouring elegance.",
+    "tag": "Styling Cut"
+  },
+  {
+    "id": "hair-cut-step",
+    "category": "hair",
+    "title": "Step Cut (with Blow Dry Styling)",
+    "price": "\u20b9599",
+    "description": "Defined graduated steps adding instant body, volume, and shape.",
+    "tag": "Styling Cut"
+  },
+  {
+    "id": "hair-cut-adv-layer",
+    "category": "hair",
+    "title": "Advanced Multi-Tier Layer Cut",
+    "price": "\u20b9699",
+    "description": "Customized precision haircut blending internal textures with luxury blowout styling.",
+    "tag": "Master Stylist"
+  },
+  {
+    "id": "hair-cut-bangs",
+    "category": "hair",
+    "title": "Bangs & Fringe Styling",
+    "price": "\u20b9149",
+    "description": "Curtain bangs, wispy fringe, or blunt brow styling tailored to your face silhouette.",
+    "tag": "Front Style"
+  },
+  {
+    "id": "hair-ironing",
+    "category": "hair",
+    "title": "Thermal Hair Ironing",
+    "price": "\u20b9999",
+    "description": "High-gloss thermal ceramic straightening with heat-shield nourishing serum.",
+    "tag": "Event Styling"
+  },
+  {
+    "id": "hair-tong-styling",
+    "category": "hair",
+    "title": "Tong Curls & Hollywood Waves",
+    "price": "\u20b91,299",
+    "description": "Glamorous red-carpet curls, effortless mermaid waves, or structured barrel rolls.",
+    "tag": "Glam Styling"
+  },
+  {
+    "id": "hair-spa-loreal-nourish",
+    "category": "hair",
+    "title": "L'Or\u00e9al Professionnel Nourishing Hair Spa",
+    "price": "\u20b91,199",
+    "description": "Deep creambath with scalp massage, steam infusion, and essential lipid restoration.",
+    "tag": "Hair Spa"
+  },
+  {
+    "id": "hair-spa-loreal-frizz",
+    "category": "hair",
+    "title": "L'Or\u00e9al Professionnel Frizz Control Treatment",
+    "price": "\u20b91,299",
+    "description": "Pro-Keratin smoothing treatment that eliminates humidity frizz and detangles hair.",
+    "tag": "Hair Spa"
+  },
+  {
+    "id": "hair-spa-loreal-repair",
+    "category": "hair",
+    "title": "L'Or\u00e9al Absolut Repair Damage Spa",
+    "price": "\u20b91,199",
+    "description": "Gold quinoa & protein restructuring therapy for chemically stressed brittle hair.",
+    "tag": "Repair Therapy"
+  },
+  {
+    "id": "hair-spa-loreal-color",
+    "category": "hair",
+    "title": "L'Or\u00e9al Colour Sealing Radiance Spa",
+    "price": "\u20b91,299",
+    "description": "Resveratrol color-locking formula preserving hue vibrancy and mirror-like shine.",
+    "tag": "Color Care"
+  },
+  {
+    "id": "hair-spa-moroccan",
+    "category": "hair",
+    "title": "Luxury Moroccan Argan Oil Hair Spa",
+    "price": "\u20b91,299",
+    "description": "Pure Moroccan argan oil bath restoring deep moisture, softness, and scalp balance.",
+    "tag": "Luxury Spa"
+  },
+  {
+    "id": "hair-anti-dandruff",
+    "category": "hair",
+    "title": "Scalp Anti-Dandruff Exfoliation Treatment",
+    "price": "\u20b9599",
+    "description": "Targeted scalp clearing treatment removing flakes, reducing itchiness, and balancing sebum.",
+    "tag": "Scalp Health"
+  },
+  {
+    "id": "hair-massage-aroma",
+    "category": "hair",
+    "title": "Therapeutic Head Massage with Aroma Oil",
+    "price": "\u20b9699",
+    "description": "Deep acupressure Indian scalp massage with calming essential oils to relieve stress and fatigue.",
+    "tag": "Head Therapy"
+  },
+  {
+    "id": "color-root-regular",
+    "category": "hair",
+    "title": "Root Touch-Up (Regular)",
+    "price": "\u20b9999",
+    "description": "100% grey coverage root restoration matching your exact natural shade.",
+    "tag": "Root Touch-Up"
+  },
+  {
+    "id": "color-root-ammonia-free",
+    "category": "hair",
+    "title": "Root Touch-Up (Ammonia-Free)",
+    "price": "\u20b91,199",
+    "description": "Scalp-gentle ammonia-free root color infused with nourishing conditioning oils.",
+    "tag": "Gentle Color"
+  },
+  {
+    "id": "color-global-base-med",
+    "category": "hair",
+    "title": "Global Base Hair Color (Short / Medium)",
+    "price": "\u20b92,999",
+    "description": "Rich all-over dimensional hair coloring in warm chestnuts, rich chocolates, and natural blacks.",
+    "tag": "Global Color"
+  },
+  {
+    "id": "color-global-base-long",
+    "category": "hair",
+    "title": "Global Base Hair Color (Long Hair)",
+    "price": "\u20b93,999",
+    "description": "Full-length luxurious hair color coverage with even tone and radiant reflection.",
+    "tag": "Global Color"
+  },
+  {
+    "id": "color-balayage",
+    "category": "hair",
+    "title": "Bespoke Balayage & Ombre Artistry",
+    "price": "\u20b94,999",
+    "description": "Hand-painted seamless sun-kissed gradients, caramel melting, and multidimensional dimension.",
+    "tag": "Trending Color",
+    "popular": true
+  },
+  {
+    "id": "color-highlights-per-streak",
+    "category": "hair",
+    "title": "Foil Highlights / Streaks (Per Streak)",
+    "price": "\u20b9299",
+    "description": "Custom accent foil highlights in honey, copper, ash blonde, or fashion pigments.",
+    "tag": "Color Accent"
+  },
+  {
+    "id": "color-bond-strengthening",
+    "category": "hair",
+    "title": "Bond Strengthening Fortifier Treatment",
+    "price": "\u20b91,200",
+    "description": "Structural bond repair preventing breakage during and after color processing.",
+    "tag": "Plex Therapy"
+  },
+  {
+    "id": "skin-threading-brows",
+    "category": "skin",
+    "title": "Eyebrow Precision Threading",
+    "price": "\u20b949",
+    "description": "Clean eyebrow shaping, arch definition, and stray hair removal.",
+    "tag": "Express Care"
+  },
+  {
+    "id": "skin-threading-fullface",
+    "category": "skin",
+    "title": "Full Face Threading",
+    "price": "\u20b9149",
+    "description": "Complete facial hair clearing including eyebrows, forehead, upper lip, chin, and cheeks.",
+    "tag": "Complete Facial"
+  },
+  {
+    "id": "skin-wax-cartridge-fullarms",
+    "category": "skin",
+    "title": "Roll-On Cartridge Waxing (Full Arms)",
+    "price": "\u20b9399",
+    "description": "Hygienic, mess-free Italian cartridge waxing for silky smooth skin.",
+    "tag": "Hygienic Wax"
+  },
+  {
+    "id": "skin-wax-cartridge-fulllegs",
+    "category": "skin",
+    "title": "Roll-On Cartridge Waxing (Full Legs)",
+    "price": "\u20b9599",
+    "description": "Fast, gentle cartridge waxing leaving legs thoroughly smooth and hydrated.",
+    "tag": "Hygienic Wax"
+  },
+  {
+    "id": "skin-wax-brazilian-underarms",
+    "category": "skin",
+    "title": "Brazilian Stripless Wax (Underarms)",
+    "price": "\u20b9399",
+    "description": "Low-temperature stripless wax designed for sensitive zones, minimizing pain.",
+    "tag": "Painless Wax"
+  },
+  {
+    "id": "skin-detan-faceneck",
+    "category": "skin",
+    "title": "Instant De-Tan Pack (Face & Neck)",
+    "price": "\u20b9499",
+    "description": "Fruit enzyme formulation removing sun tanning and hyperpigmentation instantly.",
+    "tag": "Sun Repair"
+  },
+  {
+    "id": "skin-detan-goldmask",
+    "category": "skin",
+    "title": "Luxury Gold Peel-Off De-Tan Mask",
+    "price": "\u20b9699",
+    "description": "Radiance-infusing gold peel-off mask tightening pores and restoring luminosity.",
+    "tag": "Luxe Glow"
+  },
+  {
+    "id": "skin-cleanup-regular",
+    "category": "skin",
+    "title": "Deep Pore Essential Clean-Up",
+    "price": "\u20b9499",
+    "description": "Cleansing, gentle exfoliation, steam, blackhead removal, and pore-tightening pack.",
+    "tag": "Daily Freshness"
+  },
+  {
+    "id": "skin-cleanup-detan",
+    "category": "skin",
+    "title": "De-Tan Herbal Botanical Clean-Up",
+    "price": "\u20b9699",
+    "description": "Exfoliating botanical peel combined with deep pore extraction for immediate brightness.",
+    "tag": "Glow Clean-Up",
+    "popular": true
+  },
+  {
+    "id": "skin-cleanup-whitening",
+    "category": "skin",
+    "title": "Insta Whitening & Vitamin C Clean-Up",
+    "price": "\u20b9999",
+    "description": "High-potency ascorbic acid infusion eliminating dullness for camera-ready clarity.",
+    "tag": "Express Bright"
+  },
+  {
+    "id": "facial-fresh-fruit",
+    "category": "skin",
+    "title": "Fresh Seasonal Fruit Organic Facial",
+    "price": "\u20b9599",
+    "description": "All-natural seasonal fruit pulp packed with AHAs and enzymes for gentle, refreshed skin.",
+    "tag": "Organic Care"
+  },
+  {
+    "id": "facial-clean-glow",
+    "category": "skin",
+    "title": "Clean & Glow Luminous Facial",
+    "price": "\u20b9799",
+    "description": "Pore purifying massage and botanical pack revealing natural healthy glow.",
+    "tag": "Signature Glow"
+  },
+  {
+    "id": "facial-pearl-shine",
+    "category": "skin",
+    "title": "Pearl Shine Micro-Crystal Facial",
+    "price": "\u20b91,299",
+    "description": "Real pearl bhasma peptides for silky smooth complexion and unified tone.",
+    "tag": "Radiance Facial"
+  },
+  {
+    "id": "facial-hydra-boost",
+    "category": "skin",
+    "title": "Hydra Boost Deep Moisture Facial",
+    "price": "\u20b91,499",
+    "description": "Multi-molecular hyaluronic acid infusion plumping dehydrated skin with dewy moisture.",
+    "tag": "Glass Skin",
+    "popular": true
+  },
+  {
+    "id": "facial-acne-clear",
+    "category": "skin",
+    "title": "Acne Clear Salicylic Purifying Facial",
+    "price": "\u20b91,499",
+    "description": "Therapeutic tea tree and salicylic clearing for active blemishes, oil control, and calm skin.",
+    "tag": "Blemish Therapy"
+  },
+  {
+    "id": "facial-instant-brightening",
+    "category": "skin",
+    "title": "Instant Brightening Cellular Facial",
+    "price": "\u20b91,999",
+    "description": "Advanced antioxidant treatment fading stubborn tan lines and dark spots.",
+    "tag": "Complexion Revive"
+  },
+  {
+    "id": "facial-gold-radiance",
+    "category": "skin",
+    "title": "24K Gold Radiance Luxury Facial",
+    "price": "\u20b92,999",
+    "description": "Colloidal 24K gold dust that revitalizes skin collagen, imparting timeless bridal glow.",
+    "tag": "Luxury Gold",
+    "popular": true
+  },
+  {
+    "id": "facial-skin-whitening",
+    "category": "skin",
+    "title": "Advanced Skin Whitening & Peptides Facial",
+    "price": "\u20b92,999",
+    "description": "Medical-grade aesthetic actives targeting deep melanin deposits for a porcelain finish.",
+    "tag": "Skin Brightening"
+  },
+  {
+    "id": "facial-oxygen-infusion",
+    "category": "skin",
+    "title": "Hyperbaric Oxygen Infusion Facial",
+    "price": "\u20b92,999",
+    "description": "Pressurized pure oxygen micro-mist delivering hyaluronic serum deep into dermis.",
+    "tag": "Aesthetic Technology"
+  },
+  {
+    "id": "facial-bridal-glow",
+    "category": "bridal",
+    "title": "She GLAM Signature Ultra-Luxe Bridal Facial",
+    "price": "\u20b93,999",
+    "description": "Our pinnacle multi-step bridal therapy: diamond microdermabrasion, gold mask, and neck-to-d\u00e9collet\u00e9 glow.",
+    "tag": "Pinnacle Bridal",
+    "popular": true
+  },
+  {
+    "id": "muhurtham-bridal",
+    "category": "bridal",
+    "title": "Traditional Muhurtham HD Bridal Makeover",
+    "price": "Custom Package",
+    "description": "Long-wearing sweat-proof HD makeup for wedding rituals, customized contouring, and flawless finish.",
+    "tag": "Muhurtham Master"
+  },
+  {
+    "id": "reception-glam",
+    "category": "bridal",
+    "title": "Contemporary Reception & Engagement Glam",
+    "price": "Custom Package",
+    "description": "Sculpted glamour, statement shimmer eyes, dewy glass-skin complexion, and custom hair design.",
+    "tag": "Evening Reception"
+  },
+  {
+    "id": "saree-draping",
+    "category": "bridal",
+    "title": "Kanjeevaram Saree Draping & Fresh Flower Art",
+    "price": "From \u20b9999",
+    "description": "Razor-sharp pleats for heavy pure silk sarees, jewelry pinning, and traditional jasmine styling.",
+    "tag": "Saree Draping Art"
+  },
+  {
+    "id": "pre-bridal",
+    "category": "bridal",
+    "title": "Complete 30-Day Pre-Bridal Radiance Suite",
+    "price": "Consult For Pricing",
+    "description": "Full bride transformation: body polishing, gold facial, hair botox, luxury mani-pedi, and organic waxing.",
+    "tag": "Full Bridal Suite"
+  },
+  {
+    "id": "nail-polish-gel",
+    "category": "nails",
+    "title": "Chip-Free UV Gel Polish",
+    "price": "\u20b9499",
+    "description": "High-shine UV LED cured gel polish lasting up to 3 weeks without chipping or peeling.",
+    "tag": "Trending Nails"
+  },
+  {
+    "id": "nail-ext-softgel",
+    "category": "nails",
+    "title": "Soft Gel Nail Extensions (with Gel Polish)",
+    "price": "\u20b91,499",
+    "description": "Lightweight, flexible full-cover soft gel tips finished with premium gel polish.",
+    "tag": "Extensions",
+    "popular": true
+  },
+  {
+    "id": "nail-ext-acrylic",
+    "category": "nails",
+    "title": "Sculpted Acrylic Nail Extensions (with Gel Polish)",
+    "price": "\u20b92,499",
+    "description": "Ultra-durable sculpted acrylic extensions with seamless cuticle blending and gel color.",
+    "tag": "Extensions"
+  },
+  {
+    "id": "nail-ext-toenail",
+    "category": "nails",
+    "title": "Toe Nail Extensions (with Gel Polish)",
+    "price": "\u20b9999",
+    "description": "Toenail reshaping, extension reconstruction, and long-lasting gel lacquer.",
+    "tag": "Pedicure Glam"
+  },
+  {
+    "id": "nail-art-addons",
+    "category": "nails",
+    "title": "Designer Nail Art (Cat Eye / Chrome / Crystals)",
+    "price": "From \u20b920 / nail",
+    "description": "Chrome glazing, 3D rhinestones, velvet magnetic cat-eye shimmer, and fine line art.",
+    "tag": "Nail Art"
+  },
+  {
+    "id": "mani-pedi-coco",
+    "category": "nails",
+    "title": "Coco Butter Manicure & Pedicure",
+    "price": "\u20b9599",
+    "description": "Warm organic coconut butter scrub, cuticle restoration, gentle massage, and nail buffing.",
+    "tag": "Spa Care"
+  },
+  {
+    "id": "mani-pedi-paraffin",
+    "category": "nails",
+    "title": "Luxury Paraffin Wax Spa Manicure & Pedicure",
+    "price": "\u20b9699",
+    "description": "Warm therapeutic paraffin wax boots & mittens deeply softening cracked heels and dry hands.",
+    "tag": "Intense Softening"
+  },
+  {
+    "id": "mani-pedi-crystal",
+    "category": "nails",
+    "title": "Crystal Spa Relaxation Manicure & Pedicure",
+    "price": "\u20b9999",
+    "description": "Sensory crystal bead jelly bath, fruit exfoliation, and tension-melting reflexology massage.",
+    "tag": "Ultimate Relaxation"
+  },
+  {
+    "id": "mani-pedi-icecream",
+    "category": "nails",
+    "title": "Aromatic Ice Cream Sundae Spa Mani-Pedi",
+    "price": "\u20b91,099",
+    "description": "Delightful whipped body souffl\u00e9 scrub, aromatic ice cream scoop mask, and luxury gloss buffing.",
+    "tag": "Sensory Luxury",
+    "popular": true
   }
 ];
 
