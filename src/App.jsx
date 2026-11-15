@@ -21,7 +21,8 @@ import {
   Search,
   BookOpen,
   LayoutGrid,
-  List
+  List,
+  ArrowLeft
 } from 'lucide-react';
 
 const GoogleIcon = ({ size = 18 }) => (
@@ -873,10 +874,23 @@ function GlitterCursor() {
 }
 
 export default function App() {
+  const [currentPage, setCurrentPage] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const path = window.location.pathname.toLowerCase();
+      const hash = window.location.hash.toLowerCase();
+      if (path === '/menu' || path.startsWith('/menu') || hash === '#menu' || hash === '#menu-sheet') {
+        return 'menu';
+      }
+    }
+    return 'home';
+  });
+
+  const [menuSearchQuery, setMenuSearchQuery] = useState('');
+  const [menuActiveTab, setMenuActiveTab] = useState('all');
+
   const [activeTab, setActiveTab] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
-  const [viewMode, setViewMode] = useState('cards'); // 'cards' (Editorial Cards) or 'menu' (Menu Sheet)
-  const [visibleCount, setVisibleCount] = useState(12); // Show only 10-15 on landing page!
+  const [visibleCount, setVisibleCount] = useState(12); // Show top 12 cards on landing page grid!
   const [isBookletModalOpen, setIsBookletModalOpen] = useState(false);
   const [bookletPage, setBookletPage] = useState(1);
   const [bookletCategory, setBookletCategory] = useState('all');
@@ -884,6 +898,47 @@ export default function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const headerRef = useRef(null);
+
+  const navigateTo = (page, anchor = '') => {
+    setCurrentPage(page);
+    setMobileMenuOpen(false);
+    if (typeof window !== 'undefined') {
+      if (page === 'menu') {
+        window.history.pushState({ page: 'menu' }, '', '/menu');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        window.history.pushState({ page: 'home' }, '', '/' + (anchor ? `#${anchor}` : ''));
+        if (anchor) {
+          setTimeout(() => {
+            const el = document.getElementById(anchor);
+            if (el) el.scrollIntoView({ behavior: 'smooth' });
+            else window.scrollTo({ top: 0, behavior: 'smooth' });
+          }, 60);
+        } else {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      }
+    }
+  };
+
+  useEffect(() => {
+    const handlePopState = () => {
+      const path = window.location.pathname.toLowerCase();
+      const hash = window.location.hash.toLowerCase();
+      if (path === '/menu' || path.startsWith('/menu') || hash === '#menu' || hash === '#menu-sheet') {
+        setCurrentPage('menu');
+      } else {
+        setCurrentPage('home');
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    window.addEventListener('hashchange', handlePopState);
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+      window.removeEventListener('hashchange', handlePopState);
+    };
+  }, []);
 
   useEffect(() => {
     if (!mobileMenuOpen) return;
@@ -982,20 +1037,32 @@ export default function App() {
     ? filteredServices
     : filteredServices.slice(0, visibleCount);
 
-  // Group landing displayed services by section for authentic menu sheet layout
-  const groupedSections = landingDisplayedServices.reduce((acc, service) => {
+  // Dedicated Menu Sheet Page (All 95+ services categorized by section)
+  const menuFilteredServices = SERVICES_DATA.filter((s) => {
+    const matchesCategory = menuActiveTab === 'all' || s.category === menuActiveTab;
+    const q = menuSearchQuery.toLowerCase().trim();
+    if (!q) return matchesCategory;
+    return matchesCategory && (
+      s.title.toLowerCase().includes(q) ||
+      (s.description && s.description.toLowerCase().includes(q)) ||
+      (s.section && s.section.toLowerCase().includes(q)) ||
+      (s.tag && s.tag.toLowerCase().includes(q))
+    );
+  });
+
+  const menuGroupedSections = menuFilteredServices.reduce((acc, service) => {
     const sec = service.section || 'General Services';
     if (!acc[sec]) acc[sec] = [];
     acc[sec].push(service);
     return acc;
   }, {});
 
-  const sectionEntries = Object.entries(groupedSections);
-  const col1 = [];
-  const col2 = [];
-  sectionEntries.forEach((item, index) => {
-    if (index % 2 === 0) col1.push(item);
-    else col2.push(item);
+  const menuSectionEntries = Object.entries(menuGroupedSections);
+  const menuCol1 = [];
+  const menuCol2 = [];
+  menuSectionEntries.forEach((item, index) => {
+    if (index % 2 === 0) menuCol1.push(item);
+    else menuCol2.push(item);
   });
 
   // Dedicated Full Menu Booklet: paginated 20 by 20
@@ -1033,17 +1100,21 @@ export default function App() {
       {/* 2. Header & Nav */}
       <header className="header" ref={headerRef}>
         <div className="nav-container">
-          <a href="#" className="brand-logo-link" aria-label="She GLAM Home">
+          <button type="button" className="brand-logo-link" onClick={() => navigateTo('home')} aria-label="She GLAM Home" style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer' }}>
             <img src={logoImg} alt="She GLAM Salon & Academy" className="brand-logo-img" />
-          </a>
+          </button>
 
           <nav className="nav-menu">
-            <a href="#offers">Special Offers</a>
-            <a href="#services">Services</a>
-            <a href="#bridal">Bridal Lounge</a>
-            <a href="#academy">Academy</a>
-            <a href="#reviews">Reviews</a>
-            <a href="#location">Find Us</a>
+            <a href="#offers" onClick={(e) => { e.preventDefault(); navigateTo('home', 'offers'); }}>Special Offers</a>
+            <a href="#services" onClick={(e) => { e.preventDefault(); navigateTo('home', 'services'); }}>Services</a>
+            <button type="button" className="nav-link-btn" onClick={() => navigateTo('menu')}>
+              <span>Menu Sheet</span>
+              <span className="nav-badge-pill">List View</span>
+            </button>
+            <a href="#bridal" onClick={(e) => { e.preventDefault(); navigateTo('home', 'bridal'); }}>Bridal Lounge</a>
+            <a href="#academy" onClick={(e) => { e.preventDefault(); navigateTo('home', 'academy'); }}>Academy</a>
+            <a href="#reviews" onClick={(e) => { e.preventDefault(); navigateTo('home', 'reviews'); }}>Reviews</a>
+            <a href="#location" onClick={(e) => { e.preventDefault(); navigateTo('home', 'location'); }}>Find Us</a>
           </nav>
 
           <div className="nav-actions">
@@ -1078,28 +1149,35 @@ export default function App() {
 
         {mobileMenuOpen && (
           <div className="mobile-drawer" role="dialog" aria-modal="true" aria-label="Mobile navigation menu">
-            <a href="#offers" onClick={() => setMobileMenuOpen(false)}>
+            <button type="button" className="drawer-btn-highlight" onClick={() => navigateTo('menu')}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <List size={18} color="var(--burgundy)" />
+                <span style={{ fontWeight: 700, color: 'var(--burgundy)' }}>Full Menu Sheet (List View)</span>
+              </div>
+              <span className="nav-badge-pill">NEW PAGE</span>
+            </button>
+            <a href="#offers" onClick={() => navigateTo('home', 'offers')}>
               <span>Special ₹1,999 Offer</span>
               <ChevronRight size={16} />
             </a>
-            <a href="#services" onClick={() => setMobileMenuOpen(false)}>
-              <span>Services Menu</span>
+            <a href="#services" onClick={() => navigateTo('home', 'services')}>
+              <span>Services (Grid Overview)</span>
               <ChevronRight size={16} />
             </a>
-            <a href="#bridal" onClick={() => setMobileMenuOpen(false)}>
-              <span>Bridal & Muhurtham</span>
+            <a href="#bridal" onClick={() => navigateTo('home', 'bridal')}>
+              <span>Bridal &amp; Muhurtham</span>
               <ChevronRight size={16} />
             </a>
-            <a href="#academy" onClick={() => setMobileMenuOpen(false)}>
+            <a href="#academy" onClick={() => navigateTo('home', 'academy')}>
               <span>Beauty Academy Courses</span>
               <ChevronRight size={16} />
             </a>
-            <a href="#reviews" onClick={() => setMobileMenuOpen(false)}>
+            <a href="#reviews" onClick={() => navigateTo('home', 'reviews')}>
               <span>Client Testimonials</span>
               <ChevronRight size={16} />
             </a>
-            <a href="#location" onClick={() => setMobileMenuOpen(false)}>
-              <span>Location & Timings</span>
+            <a href="#location" onClick={() => navigateTo('home', 'location')}>
+              <span>Location &amp; Timings</span>
               <ChevronRight size={16} />
             </a>
           </div>
@@ -1116,8 +1194,191 @@ export default function App() {
         />
       )}
 
-      {/* 3. Hero Section (Editorial Minimalist) */}
-      <section className="hero-editorial">
+      {/* Dynamic Main Content: Dedicated Menu Sheet Page vs Home Page */}
+      {currentPage === 'menu' ? (
+        <div className="menu-sheet-page-container">
+          <section className="menu-page-hero">
+            <div className="container">
+              <div style={{ marginBottom: '16px' }}>
+                <button type="button" className="btn-back-breadcrumb" onClick={() => navigateTo('home')}>
+                  <ArrowLeft size={16} />
+                  <span>Back to Home</span>
+                </button>
+              </div>
+
+              <div className="text-center" style={{ maxWidth: '820px', margin: '0 auto' }}>
+                <span className="pill-tag pill-dusty">SHE GLAM OFFICIAL PRICE CATALOG • KARAIKUDI</span>
+                <h1 style={{ fontSize: 'clamp(2.3rem, 4.5vw, 3.6rem)', margin: '14px 0 12px' }}>
+                  Salon Service &amp; <em>Price Menu</em>
+                </h1>
+                <p style={{ color: 'var(--text-sub)', fontSize: '1.02rem', lineHeight: '1.6', maxWidth: '640px', margin: '0 auto' }}>
+                  Every treatment, ritual, and transparent price at your fingertips. All prices are final net rates with zero surprise add-ons.
+                </p>
+              </div>
+
+              {/* Search & Category Filter Controls */}
+              <div className="menu-page-controls" style={{ marginTop: '28px' }}>
+                <div className="services-search-wrapper" style={{ maxWidth: '640px', margin: '0 auto 18px' }}>
+                  <Search size={18} className="services-search-icon" />
+                  <input 
+                    type="text"
+                    className="services-search-input"
+                    placeholder="Search 95+ salon services (e.g., 'Keratin', 'Botox', 'Facial', 'Waxing', 'Nails')..."
+                    value={menuSearchQuery}
+                    onChange={(e) => setMenuSearchQuery(e.target.value)}
+                  />
+                  {menuSearchQuery && (
+                    <button className="services-search-clear" onClick={() => setMenuSearchQuery('')}>
+                      <X size={16} />
+                    </button>
+                  )}
+                </div>
+
+                {menuSearchQuery && (
+                  <div style={{ textAlign: 'center', marginBottom: '14px' }}>
+                    <span className="search-results-badge">
+                      Found {menuFilteredServices.length} {menuFilteredServices.length === 1 ? 'service' : 'services'} matching &quot;{menuSearchQuery}&quot;
+                    </span>
+                  </div>
+                )}
+
+                <div className="filter-pills" style={{ justifyContent: 'center' }}>
+                  <button 
+                    className={`filter-btn ${menuActiveTab === 'all' ? 'active' : ''}`}
+                    onClick={() => setMenuActiveTab('all')}
+                  >
+                    All Services ({SERVICES_DATA.length})
+                  </button>
+                  <button 
+                    className={`filter-btn ${menuActiveTab === 'hair' ? 'active' : ''}`}
+                    onClick={() => setMenuActiveTab('hair')}
+                  >
+                    Hair &amp; Botox ({SERVICES_DATA.filter(s => s.category === 'hair').length})
+                  </button>
+                  <button 
+                    className={`filter-btn ${menuActiveTab === 'skin' ? 'active' : ''}`}
+                    onClick={() => setMenuActiveTab('skin')}
+                  >
+                    Skin &amp; Facials ({SERVICES_DATA.filter(s => s.category === 'skin').length})
+                  </button>
+                  <button 
+                    className={`filter-btn ${menuActiveTab === 'bridal' ? 'active' : ''}`}
+                    onClick={() => setMenuActiveTab('bridal')}
+                  >
+                    Bridal Lounge ({SERVICES_DATA.filter(s => s.category === 'bridal').length})
+                  </button>
+                  <button 
+                    className={`filter-btn ${menuActiveTab === 'nails' ? 'active' : ''}`}
+                    onClick={() => setMenuActiveTab('nails')}
+                  >
+                    Nails &amp; Spa ({SERVICES_DATA.filter(s => s.category === 'nails').length})
+                  </button>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Authentic Salon Menu Sheet (List View) */}
+          <section className="section" style={{ paddingTop: '20px', paddingBottom: '70px' }}>
+            <div className="container">
+              <div className="menu-card-sheet">
+                {menuSectionEntries.length === 0 ? (
+                  <div style={{ width: '100%', textAlign: 'center', padding: '60px 20px', color: 'var(--text-sub)' }}>
+                    <p style={{ fontSize: '1.15rem', marginBottom: '12px' }}>No services found matching &quot;{menuSearchQuery}&quot;</p>
+                    <button className="btn btn-outline-burgundy" onClick={() => { setMenuSearchQuery(''); setMenuActiveTab('all'); }}>
+                      Reset Filters
+                    </button>
+                  </div>
+                ) : (
+                  <>
+                    <div className="menu-sheet-col">
+                      {menuCol1.map(([secTitle, items]) => (
+                        <div key={secTitle} className="menu-section-block">
+                          <div className="menu-section-header">
+                            <h3>{secTitle}</h3>
+                            <span className="menu-section-count">{items.length} {items.length === 1 ? 'item' : 'items'}</span>
+                          </div>
+                          <div className="menu-section-list">
+                            {items.map((service) => (
+                              <div key={service.id} className="menu-item-row">
+                                <div className="menu-item-info">
+                                  <span className="menu-item-name">{service.title}</span>
+                                  {service.description && (
+                                    <span className="menu-item-desc">{service.description}</span>
+                                  )}
+                                </div>
+                                <div className="menu-item-right">
+                                  <span className="menu-item-price">{service.price}</span>
+                                  <button 
+                                    type="button"
+                                    className="btn-book-quick"
+                                    onClick={() => openBookingWithService(`${service.title} (${service.price})`)}
+                                  >
+                                    Book
+                                  </button>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="menu-sheet-col">
+                      {menuCol2.map(([secTitle, items]) => (
+                        <div key={secTitle} className="menu-section-block">
+                          <div className="menu-section-header">
+                            <h3>{secTitle}</h3>
+                            <span className="menu-section-count">{items.length} {items.length === 1 ? 'item' : 'items'}</span>
+                          </div>
+                          <div className="menu-section-list">
+                            {items.map((service) => (
+                              <div key={service.id} className="menu-item-row">
+                                <div className="menu-item-info">
+                                  <span className="menu-item-name">{service.title}</span>
+                                  {service.description && (
+                                    <span className="menu-item-desc">{service.description}</span>
+                                  )}
+                                </div>
+                                <div className="menu-item-right">
+                                  <span className="menu-item-price">{service.price}</span>
+                                  <button 
+                                    type="button"
+                                    className="btn-book-quick"
+                                    onClick={() => openBookingWithService(`${service.title} (${service.price})`)}
+                                  >
+                                    Book
+                                  </button>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </>
+                )}
+              </div>
+
+              {/* Bottom Back Button */}
+              <div style={{ textAlign: 'center', marginTop: '48px' }}>
+                <button 
+                  type="button" 
+                  className="btn btn-outline-burgundy" 
+                  onClick={() => navigateTo('home')}
+                  style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '12px 32px' }}
+                >
+                  <ArrowLeft size={16} />
+                  <span>Return to Home Page</span>
+                </button>
+              </div>
+            </div>
+          </section>
+        </div>
+      ) : (
+        <>
+          {/* 3. Hero Section (Editorial Minimalist) */}
+          <section className="hero-editorial">
         <div className="container">
           <div className="hero-editorial-grid">
             <div>
@@ -1308,33 +1569,16 @@ export default function App() {
               </span>
             )}
 
-            <div className="view-controls-wrapper">
-              <div className="view-mode-toggle">
-                <button 
-                  type="button"
-                  className={`view-mode-btn ${viewMode === 'cards' ? 'active' : ''}`}
-                  onClick={() => setViewMode('cards')}
-                >
-                  <LayoutGrid size={15} />
-                  <span>Grid Overview</span>
-                </button>
-                <button 
-                  type="button"
-                  className={`view-mode-btn ${viewMode === 'menu' ? 'active' : ''}`}
-                  onClick={() => setViewMode('menu')}
-                >
-                  <List size={15} />
-                  <span>Menu Sheet</span>
-                </button>
-              </div>
-
+            <div className="view-controls-wrapper" style={{ justifyContent: 'center' }}>
               <button 
                 type="button"
-                className="btn-open-booklet"
-                onClick={() => setIsBookletModalOpen(true)}
+                className="btn-open-menu-sheet btn-shimmer"
+                onClick={() => navigateTo('menu')}
+                title="Open authentic two-column salon menu sheet page"
               >
-                <BookOpen size={16} />
-                <span>Full Menu Booklet (All 95)</span>
+                <List size={16} />
+                <span>Open Full Menu Sheet (List View)</span>
+                <ArrowRight size={14} />
               </button>
             </div>
           </div>
@@ -1373,122 +1617,38 @@ export default function App() {
             </button>
           </div>
 
-          {/* View 1: Authentic Salon Menu Sheet (Fast, Organized, Compact) */}
-          {viewMode === 'menu' && (
-            <div className="menu-card-sheet">
-              {sectionEntries.length === 0 ? (
-                <div style={{ width: '100%', textAlign: 'center', padding: '40px 20px', color: 'var(--text-sub)' }}>
-                  <p style={{ fontSize: '1.1rem', marginBottom: '8px' }}>No services found matching &quot;{searchQuery}&quot;</p>
-                  <button className="btn btn-outline-burgundy" onClick={() => { setSearchQuery(''); setActiveTab('all'); }}>
-                    Clear Filters
+          {/* Editorial Cards Grid (Home Page: Visual Highlights) */}
+          <div className="editorial-services-grid">
+            {landingDisplayedServices.map((service) => (
+              <div key={service.id} className={`service-box ${service.popular ? 'popular' : ''}`}>
+                <div>
+                  <div className="service-box-tag">{service.tag}</div>
+                  <h3>{service.title}</h3>
+                  <p>{service.description}</p>
+                </div>
+
+                <div className="service-box-footer">
+                  <div>
+                    <span className="service-box-price">{service.price}</span>
+                    {service.originalPrice && (
+                      <span style={{ fontSize: '0.85rem', color: 'var(--text-sub)', textDecoration: 'line-through', marginLeft: '6px' }}>
+                        {service.originalPrice}
+                      </span>
+                    )}
+                  </div>
+                  <button 
+                    type="button"
+                    className="btn btn-outline-burgundy" 
+                    style={{ padding: '7px 16px', fontSize: '0.82rem' }}
+                    onClick={() => openBookingWithService(`${service.title} (${service.price})`)}
+                  >
+                    <span>Book</span>
+                    <ChevronRight size={14} />
                   </button>
                 </div>
-              ) : (
-                <>
-                  <div className="menu-sheet-col">
-                    {col1.map(([secTitle, items]) => (
-                      <div key={secTitle} className="menu-section-block">
-                        <div className="menu-section-header">
-                          <h3>{secTitle}</h3>
-                          <span className="menu-section-count">{items.length} {items.length === 1 ? 'item' : 'items'}</span>
-                        </div>
-                        <div className="menu-section-list">
-                          {items.map((service) => (
-                            <div key={service.id} className="menu-item-row">
-                              <div className="menu-item-info">
-                                <span className="menu-item-name">{service.title}</span>
-                                {service.description && (
-                                  <span className="menu-item-desc">{service.description}</span>
-                                )}
-                              </div>
-                              <div className="menu-item-right">
-                                <span className="menu-item-price">{service.price}</span>
-                                <button 
-                                  type="button"
-                                  className="btn-book-quick"
-                                  onClick={() => openBookingWithService(`${service.title} (${service.price})`)}
-                                >
-                                  Book
-                                </button>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-
-                  <div className="menu-sheet-col">
-                    {col2.map(([secTitle, items]) => (
-                      <div key={secTitle} className="menu-section-block">
-                        <div className="menu-section-header">
-                          <h3>{secTitle}</h3>
-                          <span className="menu-section-count">{items.length} {items.length === 1 ? 'item' : 'items'}</span>
-                        </div>
-                        <div className="menu-section-list">
-                          {items.map((service) => (
-                            <div key={service.id} className="menu-item-row">
-                              <div className="menu-item-info">
-                                <span className="menu-item-name">{service.title}</span>
-                                {service.description && (
-                                  <span className="menu-item-desc">{service.description}</span>
-                                )}
-                              </div>
-                              <div className="menu-item-right">
-                                <span className="menu-item-price">{service.price}</span>
-                                <button 
-                                  type="button"
-                                  className="btn-book-quick"
-                                  onClick={() => openBookingWithService(`${service.title} (${service.price})`)}
-                                >
-                                  Book
-                                </button>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </>
-              )}
-            </div>
-          )}
-
-          {/* View 2: Editorial Cards Grid (Visual Highlights) */}
-          {viewMode === 'cards' && (
-            <div className="editorial-services-grid">
-              {landingDisplayedServices.map((service) => (
-                <div key={service.id} className="service-box">
-                  <div>
-                    <div className="service-box-tag">{service.tag}</div>
-                    <h3>{service.title}</h3>
-                    <p>{service.description}</p>
-                  </div>
-
-                  <div className="service-box-footer">
-                    <div>
-                      <span className="service-box-price">{service.price}</span>
-                      {service.originalPrice && (
-                        <span style={{ fontSize: '0.85rem', color: 'var(--text-sub)', textDecoration: 'line-through', marginLeft: '6px' }}>
-                          {service.originalPrice}
-                        </span>
-                      )}
-                    </div>
-                    <button 
-                      type="button"
-                      className="btn btn-outline-burgundy" 
-                      style={{ padding: '7px 16px', fontSize: '0.82rem' }}
-                      onClick={() => openBookingWithService(`${service.title} (${service.price})`)}
-                    >
-                      <span>Book</span>
-                      <ChevronRight size={14} />
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
+              </div>
+            ))}
+          </div>
 
           {/* Universal View More Services (+20) Button */}
           {!searchQuery && visibleCount < filteredServices.length && (
@@ -1519,6 +1679,31 @@ export default function App() {
               </button>
             </div>
           )}
+
+          {/* Dedicated Menu Sheet Page Callout Banner */}
+          <div className="menu-page-link-banner" style={{ marginTop: '42px' }}>
+            <div className="menu-page-banner-content">
+              <div className="menu-page-banner-text">
+                <span className="pill-tag pill-gold" style={{ marginBottom: '8px', display: 'inline-block' }}>AUTHENTIC SALON MENU SHEET</span>
+                <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.45rem', color: 'var(--burgundy-dark)', margin: '4px 0 6px' }}>
+                  Looking for our complete salon price list?
+                </h3>
+                <p style={{ color: 'var(--text-sub)', fontSize: '0.92rem', margin: 0 }}>
+                  View all 95+ salon services categorized by section in our authentic two-column price sheet with instant booking.
+                </p>
+              </div>
+              <button 
+                type="button" 
+                className="btn btn-burgundy btn-shimmer"
+                onClick={() => navigateTo('menu')}
+                style={{ padding: '12px 28px', whiteSpace: 'nowrap', display: 'inline-flex', alignItems: 'center', gap: '8px', fontSize: '0.92rem' }}
+              >
+                <List size={16} />
+                <span>Open Full Menu Sheet Page</span>
+                <ArrowRight size={15} />
+              </button>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -1853,15 +2038,22 @@ export default function App() {
           </div>
         </div>
       </section>
+        </>
+      )}
 
       {/* 10. Minimalist Editorial Footer */}
       <footer className="footer-editorial">
         <div className="container">
           <div className="footer-editorial-grid">
             <div>
-              <a href="#" className="brand-logo-link" style={{ display: 'inline-block', marginBottom: '16px' }}>
+              <button 
+                type="button" 
+                onClick={() => navigateTo('home')} 
+                aria-label="She GLAM Home" 
+                style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', display: 'inline-block', marginBottom: '16px' }}
+              >
                 <img src={logoImg} alt="She GLAM Salon" className="brand-logo-img" />
-              </a>
+              </button>
               <p style={{ color: 'var(--dusty-pink)', fontSize: '0.88rem', lineHeight: '1.6', marginBottom: '20px' }}>
                 Karaikkudi’s destination for luxury hair botox, skin brightening facials, traditional Tamil Nadu bridal makeovers, and certified beautician masterclasses.
               </p>
@@ -1899,11 +2091,22 @@ export default function App() {
             <div>
               <h4 className="footer-title">Salon Menu</h4>
               <ul className="footer-nav">
-                <li><a href="#offers">₹1,999 Glow Combo</a></li>
-                <li><a href="#services">Hair Botox Therapy</a></li>
-                <li><a href="#services">Keratin Silk Treatment</a></li>
-                <li><a href="#services">Signature Facials</a></li>
-                <li><a href="#bridal">Bridal Packages</a></li>
+                <li>
+                  <button 
+                    type="button" 
+                    className="footer-link-btn" 
+                    onClick={() => navigateTo('menu')}
+                    style={{ fontWeight: 700, color: '#f7d382', display: 'flex', alignItems: 'center', gap: '6px' }}
+                  >
+                    <span>★ Full Menu Sheet</span>
+                    <span className="nav-badge-pill" style={{ fontSize: '0.55rem', padding: '1px 5px' }}>ALL 95</span>
+                  </button>
+                </li>
+                <li><a href="#offers" onClick={(e) => { e.preventDefault(); navigateTo('home', 'offers'); }}>₹1,999 Glow Combo</a></li>
+                <li><a href="#services" onClick={(e) => { e.preventDefault(); navigateTo('home', 'services'); }}>Hair Botox Therapy</a></li>
+                <li><a href="#services" onClick={(e) => { e.preventDefault(); navigateTo('home', 'services'); }}>Keratin Silk Treatment</a></li>
+                <li><a href="#services" onClick={(e) => { e.preventDefault(); navigateTo('home', 'services'); }}>Signature Facials</a></li>
+                <li><a href="#bridal" onClick={(e) => { e.preventDefault(); navigateTo('home', 'bridal'); }}>Bridal Packages</a></li>
               </ul>
             </div>
 
