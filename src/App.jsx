@@ -969,7 +969,7 @@ export default function App() {
 
     // Close if resized to desktop breakpoint
     const handleResize = () => {
-      if (window.innerWidth > 960) {
+      if (window.innerWidth > 1080) {
         setMobileMenuOpen(false);
       }
     };
@@ -1169,16 +1169,16 @@ export default function App() {
           </button>
 
           <nav className="nav-menu">
-            <a href="#offers" onClick={(e) => { e.preventDefault(); navigateTo('home', 'offers'); }}>Special Offers</a>
+            <a href="#offers" onClick={(e) => { e.preventDefault(); navigateTo('home', 'offers'); }}>Offers</a>
             <a href="#services" onClick={(e) => { e.preventDefault(); navigateTo('home', 'services'); }}>Services</a>
             <button type="button" className="nav-link-btn" onClick={() => navigateTo('menu')}>
               <span>Menu Sheet</span>
               <span className="nav-badge-pill">List View</span>
             </button>
-            <a href="#bridal" onClick={(e) => { e.preventDefault(); navigateTo('home', 'bridal'); }}>Bridal Lounge</a>
+            <a href="#bridal" onClick={(e) => { e.preventDefault(); navigateTo('home', 'bridal'); }}>Bridal</a>
             <a href="#academy" onClick={(e) => { e.preventDefault(); navigateTo('home', 'academy'); }}>Academy</a>
             <a href="#reviews" onClick={(e) => { e.preventDefault(); navigateTo('home', 'reviews'); }}>Reviews</a>
-            <a href="#location" onClick={(e) => { e.preventDefault(); navigateTo('home', 'location'); }}>Find Us</a>
+            <a href="#location" onClick={(e) => { e.preventDefault(); navigateTo('home', 'location'); }}>Location</a>
           </nav>
 
           <div className="nav-actions">
@@ -1195,9 +1195,10 @@ export default function App() {
             <button 
               className="btn btn-burgundy btn-shimmer nav-book-btn" 
               onClick={() => setIsModalOpen(true)}
+              aria-label="Book appointment slot"
             >
               <Calendar size={14} />
-              <span>Book</span>
+              <span>Book Now</span>
             </button>
             <button 
               className={`mobile-menu-btn ${mobileMenuOpen ? 'is-active' : ''}`}

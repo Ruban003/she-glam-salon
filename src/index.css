@@ -277,58 +277,81 @@ a {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 28px;
-  max-width: 1200px;
+  padding: 10px 28px;
+  max-width: 1360px;
   margin: 0 auto;
+  gap: 16px;
+}
+
+@media (max-width: 1080px) {
+  .nav-container {
+    padding: 10px 20px;
+  }
 }
 
 @media (max-width: 768px) {
   .nav-container {
-    padding: 11px 18px;
+    padding: 9px 16px;
   }
 }
 
 @media (max-width: 480px) {
   .nav-container {
-    padding: 9px 14px;
+    padding: 8px 12px;
   }
 }
 
+.brand-logo-link {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+
 .brand-logo-img {
-  height: 60px;
+  height: 46px;
   width: auto;
   object-fit: contain;
   mix-blend-mode: multiply;
   display: block;
+  flex-shrink: 0;
 }
 
 @media (max-width: 768px) {
   .brand-logo-img {
-    height: 48px;
+    height: 40px;
   }
 }
 
 @media (max-width: 480px) {
   .brand-logo-img {
-    height: 42px;
+    height: 36px;
   }
 }
 
 .nav-menu {
   display: flex;
   align-items: center;
-  gap: 32px;
+  gap: clamp(10px, 1.3vw, 24px);
   list-style: none;
+  margin: 0;
+  padding: 0;
+  flex-shrink: 1;
 }
 
 .nav-menu a {
-  font-size: 0.88rem;
+  font-size: clamp(0.76rem, 0.85vw, 0.84rem);
   font-weight: 600;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
   color: var(--text-muted);
   text-transform: uppercase;
   transition: var(--transition);
   position: relative;
+  white-space: nowrap;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 0;
 }
 
 .nav-menu a:hover {
@@ -338,10 +361,10 @@ a {
 .nav-menu a::after {
   content: '';
   position: absolute;
-  bottom: -4px;
+  bottom: 0;
   left: 0;
   width: 0;
-  height: 1.5px;
+  height: 2px;
   background: var(--burgundy);
   transition: var(--transition);
 }
@@ -354,16 +377,54 @@ a {
   display: flex;
   align-items: center;
   gap: 10px;
+  flex-shrink: 0;
+}
+
+.nav-call-btn,
+.nav-book-btn {
+  height: 38px;
+  padding: 0 18px;
+  border-radius: var(--radius-full);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  white-space: nowrap;
+  box-sizing: border-box;
+  line-height: 1;
+  text-decoration: none;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: all 0.22s ease;
 }
 
 .nav-call-btn {
-  padding: 9px 18px;
-  font-size: 0.84rem;
+  background: transparent;
+  border: 1.5px solid var(--burgundy);
+  color: var(--burgundy);
+}
+
+.nav-call-btn:hover {
+  background: var(--burgundy);
+  color: var(--cream);
+  transform: translateY(-1px);
 }
 
 .nav-book-btn {
-  padding: 9px 20px;
-  font-size: 0.84rem;
+  background: var(--burgundy);
+  color: var(--cream);
+  border: 1.5px solid var(--burgundy);
+  box-shadow: 0 4px 14px rgba(114, 47, 55, 0.25);
+}
+
+.nav-book-btn:hover {
+  background: var(--burgundy-dark);
+  border-color: var(--burgundy-dark);
+  color: #ffffff;
+  transform: translateY(-1px);
 }
 
 /* Animated Hamburger Menu Button */
@@ -431,7 +492,7 @@ a {
   transform: translateY(-6px) rotate(-45deg);
 }
 
-@media (max-width: 960px) {
+@media (max-width: 1080px) {
   .nav-menu {
     display: none;
   }
@@ -441,14 +502,12 @@ a {
 }
 
 @media (max-width: 768px) {
-  .nav-call-btn {
-    padding: 8px 12px;
-    font-size: 0.8rem;
-    gap: 5px;
-  }
+  .nav-call-btn,
   .nav-book-btn {
-    padding: 8px 14px;
-    font-size: 0.8rem;
+    height: 35px;
+    padding: 0 13px;
+    font-size: 0.78rem;
+    gap: 4px;
   }
 }
 
@@ -457,15 +516,14 @@ a {
     display: none;
   }
   .nav-call-btn {
-    padding: 8px;
-    width: 34px;
-    height: 34px;
+    width: 35px;
+    height: 35px;
+    padding: 0;
     border-radius: 50%;
-    justify-content: center;
   }
   .nav-book-btn {
-    padding: 7px 11px;
-    font-size: 0.78rem;
+    padding: 0 11px;
+    font-size: 0.76rem;
   }
 }
 
@@ -2531,17 +2589,18 @@ a {
 .nav-link-btn {
   background: transparent;
   border: none;
-  font-size: 0.85rem;
+  font-size: clamp(0.76rem, 0.85vw, 0.84rem);
   font-weight: 600;
   color: var(--burgundy-dark);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
   cursor: pointer;
-  padding: 0;
+  padding: 4px 0;
   transition: color 0.2s ease;
+  white-space: nowrap;
 }
 
 .nav-link-btn:hover {
@@ -2551,12 +2610,14 @@ a {
 .nav-badge-pill {
   background: var(--burgundy);
   color: var(--cream);
-  font-size: 0.62rem;
+  font-size: 0.58rem;
   font-weight: 700;
-  padding: 2px 7px;
+  padding: 2px 6px;
   border-radius: 999px;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.03em;
   text-transform: uppercase;
+  white-space: nowrap;
+  line-height: 1.2;
 }
 
 .drawer-btn-highlight {
