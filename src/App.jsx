@@ -732,6 +732,14 @@ const REVIEWS_DATA = [
   },
   {
     id: 7,
+    name: 'Poonthendral Chockalingam',
+    location: 'Google Verified Review',
+    service: 'U-Cut with Face Framing & Styling',
+    date: '7 months ago',
+    comment: 'I had a U-cut with face framing and it turned out beautiful. She was very kind, sweet, and made the whole experience really comfortable. Loved the result!'
+  },
+  {
+    id: 8,
     name: 'Thendralpriya (finnovation)',
     location: 'Google Verified Review',
     service: 'She Glam Academy Keratin Treatment',
@@ -739,7 +747,7 @@ const REVIEWS_DATA = [
     comment: "Hi this is selvam Thendralpriya visited she Glam academy for keratin treatment. Before treatment my hair was so much frizzy and damaged and after the treatment I can't express the feeling ❤️❤️❤️ try their service once, really worth the money."
   },
   {
-    id: 8,
+    id: 9,
     name: 'Devi Shri',
     location: 'Google Verified Review',
     service: 'Layered Cut & Hair Styling',
@@ -747,7 +755,7 @@ const REVIEWS_DATA = [
     comment: "I chose a layered cut nd the service was good and I'm totally satisfied with their work and pricing."
   },
   {
-    id: 9,
+    id: 10,
     name: 'Vino Dhini',
     location: 'Google Verified Review',
     service: 'Salon Care & Customer Handling',
@@ -755,7 +763,7 @@ const REVIEWS_DATA = [
     comment: 'Good service and handling customer in good way.'
   },
   {
-    id: 10,
+    id: 11,
     name: 'Veera Lakshmi',
     location: 'Google Verified Review',
     service: 'Beauty & Hair Care',
@@ -763,7 +771,7 @@ const REVIEWS_DATA = [
     comment: 'Super experience with She Glam. Worth for the penny spent!'
   },
   {
-    id: 11,
+    id: 12,
     name: 'Priyanka Priyanka',
     location: 'Google Verified Review',
     service: 'Hair & Skin Work',
@@ -771,7 +779,7 @@ const REVIEWS_DATA = [
     comment: 'Good service and excellent work.'
   },
   {
-    id: 12,
+    id: 13,
     name: 'Tamil Alagi',
     location: 'Google Verified Review',
     service: 'Precision Haircut',
