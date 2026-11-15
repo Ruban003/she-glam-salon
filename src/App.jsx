@@ -684,51 +684,99 @@ const ACADEMY_COURSES = [
 const REVIEWS_DATA = [
   {
     id: 1,
-    name: 'Priyanka Meenakshi',
-    location: 'Karaikkudi',
-    service: '4-in-1 Mega Glow Combo (₹1,999)',
-    date: '2 weeks ago',
-    comment: 'Booked their ₹1999 4-in-1 combo offer for a family function. The hair spa was deeply relaxing and my skin felt so fresh and glowing immediately! The salon is very clean, calm, and hygienic. Truly the best salon experience in Karaikkudi!'
+    name: 'Kiruthika G',
+    location: 'Google Verified Review',
+    service: 'Baby Shower Makeover & Hairdo',
+    date: '2 months ago',
+    comment: 'Thanks a lot dear. I am really satisfied and happy with the makeover done on my baby shower. U made my day so special. Got a lot of compliments for makeup and hairdo.'
   },
   {
     id: 2,
-    name: 'Sangeetha Ramanathan',
-    location: 'Kottaiyur, Karaikkudi',
-    service: 'Traditional Muhurtham Bridal HD Makeover',
-    date: '1 month ago',
-    comment: 'She GLAM did my wedding muhurtham makeover and my Kanjeevaram saree draping. The makeup was so natural, lightweight, and lasted over 10 hours through all rituals without any patchiness or sweat breakdown. Everyone in our family praised my look!'
+    name: 'Suga Priya',
+    location: 'Google Verified Review',
+    service: 'Neo Plastia Hair Treatment',
+    date: '7 months ago',
+    comment: 'Superb experience, Hair looks very straight and shiny after Neo Plastia. Service and ambience are top-notch. Everyone should try it here 💯'
   },
   {
     id: 3,
-    name: 'Kavitha Devi',
-    location: 'Devakottai / Karaikkudi',
-    service: 'Hair Botox Deep Rejuvenation',
-    date: '3 weeks ago',
-    comment: 'Best hair botox treatment in Karaikkudi! My rough, frizzy curly hair became silky and smooth with mirror shine. Staff is extremely polite, takes good time, and uses only genuine branded products. Highly satisfied!'
+    name: 'Anuragini P',
+    location: 'Google Verified Review',
+    service: 'Hair Wash & Signature Haircut',
+    date: '3 months ago',
+    comment: 'The hair wash and the haircut was exactly what I asked for! The whole process was relaxing and pampering also this one of my best haircut!!! Highly recommend!!'
   },
   {
     id: 4,
-    name: 'Divya Annamalai',
-    location: 'Burma Colony, Karaikkudi',
-    service: 'Hydra Deep Pore Cleanse & Glow',
-    date: '1 month ago',
-    comment: 'Took their Hydra pore cleanse facial. The blackheads were completely removed painlessly and the serum hydration gave me glass skin. Very affordable pricing compared to big city salons and very polite staff!'
+    name: 'Ramya Ram',
+    location: 'Google Verified Review',
+    service: 'Facial & Eyebrow Styling',
+    date: '7 months ago',
+    comment: 'I visited this parlour for facial and eyebrows. The service was good, neat and satisfying. Overall a nice experience.'
   },
   {
     id: 5,
-    name: 'Meena Muthukaruppan',
-    location: 'Karaikkudi',
-    service: 'Academy: Bridal HD Makeup Masterclass',
-    date: '2 months ago',
-    comment: 'Proud student of She GLAM Academy! The 100% practical training on live models gave me full confidence to start my own freelance bridal makeup career. The trainer explains every step with patience and clear guidance.'
+    name: 'Aishwarya Vijayakumar',
+    location: 'Google Verified Review',
+    service: 'Personal Style & Consultation',
+    date: '5 months ago',
+    comment: 'At She Glam Salon, the recommendations perfectly suit our style, delivering wonderful results. The experience is very personal, and the communication is absolutely seamless.'
   },
   {
     id: 6,
-    name: 'Anitha Selvam',
-    location: 'Karaikkudi',
-    service: 'Acrylic & UV Gel Nail Extensions',
-    date: '3 weeks ago',
-    comment: 'Got my nail extensions and chrome nail art done here for my engagement. Still looking brand new after 3 weeks! Very precise work, hygienic tools, and neat finishing. Highly recommended for girls in Karaikkudi!'
+    name: 'Keerthiga B',
+    location: 'Google Verified Review',
+    service: 'Pedicure & Hair Colouring',
+    date: '7 months ago',
+    comment: 'I recently visited Sheglam for a pedicure and hair colouring, and I had such a wonderful experience. The staff were very professional, friendly, and made sure I was comfortable throughout the service. The pedicure was very relaxing.'
+  },
+  {
+    id: 7,
+    name: 'Thendralpriya (finnovation)',
+    location: 'Google Verified Review',
+    service: 'She Glam Academy Keratin Treatment',
+    date: '6 months ago',
+    comment: "Hi this is selvam Thendralpriya visited she Glam academy for keratin treatment. Before treatment my hair was so much frizzy and damaged and after the treatment I can't express the feeling ❤️❤️❤️ try their service once, really worth the money."
+  },
+  {
+    id: 8,
+    name: 'Devi Shri',
+    location: 'Google Verified Review',
+    service: 'Layered Cut & Hair Styling',
+    date: '7 months ago',
+    comment: "I chose a layered cut nd the service was good and I'm totally satisfied with their work and pricing."
+  },
+  {
+    id: 9,
+    name: 'Vino Dhini',
+    location: 'Google Verified Review',
+    service: 'Salon Care & Customer Handling',
+    date: '3 months ago',
+    comment: 'Good service and handling customer in good way.'
+  },
+  {
+    id: 10,
+    name: 'Veera Lakshmi',
+    location: 'Google Verified Review',
+    service: 'Beauty & Hair Care',
+    date: '9 months ago',
+    comment: 'Super experience with She Glam. Worth for the penny spent!'
+  },
+  {
+    id: 11,
+    name: 'Priyanka Priyanka',
+    location: 'Google Verified Review',
+    service: 'Hair & Skin Work',
+    date: '9 months ago',
+    comment: 'Good service and excellent work.'
+  },
+  {
+    id: 12,
+    name: 'Tamil Alagi',
+    location: 'Google Verified Review',
+    service: 'Precision Haircut',
+    date: '7 months ago',
+    comment: 'Thanks for the awesome haircut!'
   }
 ];
 
@@ -863,8 +911,8 @@ export default function App() {
 
   const phoneNumber = '+91 63813 74330';
   const cleanPhone = '916381374330';
-  const locationAddress = 'No: 84/1, Water Tank, Kottaiyur Main Road, Burma Colony, Karaikkudi, Tamil Nadu - 630002';
-  const mapsLink = 'https://maps.app.goo.gl/TJxEHyxhzO81DfRb2';
+  const locationAddress = 'Nattar Layout G-Block, TS 505, Trichy Main Road, PL 4, Pichai Servai Colony, Kottaiyur, Karaikudi, Tamil Nadu - 630002';
+  const mapsLink = 'https://share.google/87DJwngMRYCrM52nM';
   const instagramLink = 'https://www.instagram.com/__she_glam__/';
 
   const openBookingWithService = (serviceName) => {
@@ -1045,7 +1093,7 @@ export default function App() {
             <div>
               <div className="hero-location-badge">
                 <span className="pill-tag pill-dusty">
-                  <MapPin size={12} /> BURMA COLONY, KARAIKKUDI
+                  <MapPin size={12} /> KOTTAIYUR, KARAIKKUDI
                 </span>
                 <span className="pill-tag pill-cream">
                   <Clock size={11} /> DAILY 9:30 AM – 8:30 PM
@@ -1588,7 +1636,7 @@ export default function App() {
             </span>
             <h2>Loved by Karaikkudi <em>Clients</em></h2>
             <p>
-              Real 5-star experiences from our regular clients, brides, and academy students in Burma Colony, Karaikkudi.
+              Real 5.0-star verified Google reviews from our regular clients, brides, and academy students in Kottaiyur, Karaikkudi.
             </p>
           </div>
 
@@ -1610,7 +1658,7 @@ export default function App() {
                     <CheckCircle2 size={13} /> 100% 5-Star Rated
                   </span>
                   <span style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>
-                    Google Business Profile • Burma Colony, Karaikkudi
+                    Google Business Profile • Kottaiyur, Karaikkudi
                   </span>
                 </div>
               </div>
@@ -1683,10 +1731,10 @@ export default function App() {
       <section className="section" id="location" style={{ background: 'var(--cream-card)' }}>
         <div className="container">
           <div className="section-editorial-header">
-            <span className="pill-tag pill-dusty">VISIT US • BURMA COLONY, KARAIKKUDI</span>
+            <span className="pill-tag pill-dusty">VISIT US • KOTTAIYUR, KARAIKKUDI</span>
             <h2>Find Us in <em>Karaikkudi</em></h2>
             <p>
-              Conveniently located at Burma Colony, near the Water Tank on Kottaiyur Main Road.
+              Conveniently located at Nattar Layout G-Block, Trichy Main Road, Pichai Servai Colony, Kottaiyur, Karaikudi.
             </p>
           </div>
 
@@ -1704,7 +1752,7 @@ export default function App() {
                     <p style={{ color: 'var(--text-muted)', fontSize: '0.92rem' }}>
                       {locationAddress}
                     </p>
-                    <span style={{ fontSize: '0.8rem', color: 'var(--burgundy)', fontWeight: 600 }}>Landmark: Near Water Tank, Burma Colony</span>
+                    <span style={{ fontSize: '0.8rem', color: 'var(--burgundy)', fontWeight: 600 }}>Landmark: Trichy Main Road, Pichai Servai Colony, Kottaiyur</span>
                   </div>
                 </div>
 
@@ -1768,7 +1816,7 @@ export default function App() {
             <div className="map-editorial-frame">
               <iframe 
                 title="She GLAM Salon Karaikkudi Location"
-                src="https://maps.google.com/maps?q=Burma%20Colony,%20Kottaiyur%20Main%20Road,%20Karaikkudi,%20Tamil%20Nadu%20630002&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                src="https://maps.google.com/maps?q=She%20GLAM,%20Trichy%20Main%20Road,%20Kottaiyur,%20Karaikudi,%20Tamil%20Nadu%20630002&t=&z=15&ie=UTF8&iwloc=&output=embed"
                 loading="lazy"
               ></iframe>
             </div>
@@ -1842,8 +1890,8 @@ export default function App() {
 
             <div>
               <h4 className="footer-title">Contact</h4>
-              <p style={{ color: 'var(--cream)', fontSize: '0.85rem', marginBottom: '8px' }}>
-                No: 84/1, Water Tank, Kottaiyur Main Road, Burma Colony, Karaikkudi - 630002
+              <p style={{ color: 'var(--cream)', fontSize: '0.85rem', marginBottom: '8px', lineHeight: 1.5 }}>
+                {locationAddress}
               </p>
               <p style={{ color: 'var(--dusty-pink)', fontWeight: 600, fontSize: '0.92rem', marginBottom: '12px' }}>
                 📞 {phoneNumber}
@@ -1873,7 +1921,7 @@ export default function App() {
               >
                 Terms of Service
               </button>
-              <span>Burma Colony, Karaikkudi - 630002</span>
+              <span>Kottaiyur, Karaikudi - 630002</span>
             </div>
           </div>
         </div>
@@ -1937,7 +1985,7 @@ export default function App() {
               <img src={logoImg} alt="She GLAM" style={{ height: '42px', margin: '0 auto 10px', mixBlendMode: 'multiply' }} />
               <h3 style={{ fontSize: '1.6rem', color: 'var(--burgundy-dark)' }}>Book Your Appointment</h3>
               <p style={{ color: 'var(--text-muted)', fontSize: '0.86rem' }}>
-                Burma Colony, Karaikkudi • Direct WhatsApp Confirmation
+                Kottaiyur, Karaikudi • Direct WhatsApp Confirmation
               </p>
             </div>
 
@@ -2222,7 +2270,7 @@ export default function App() {
               </p>
               <h4 style={{ color: 'var(--burgundy)', margin: '4px 0' }}>3. Data Rights &amp; Contact</h4>
               <p>
-                Clients may request access, updates, or deletion of their appointment records at any time by contacting our desk at Burma Colony, Karaikkudi, or via phone at <strong>+91 63813 74330</strong>.
+                Clients may request access, updates, or deletion of their appointment records at any time by contacting our desk at Kottaiyur, Karaikudi, or via phone at <strong>+91 63813 74330</strong>.
               </p>
             </div>
           </div>
