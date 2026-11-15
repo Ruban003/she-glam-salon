@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import logoImg from './assets/logo.png';
 import { 
   Sparkles, 
@@ -873,6 +873,15 @@ function GlitterCursor() {
   );
 }
 
+const FEATURED_SERVICE_IDS = [
+  'combo-1999',
+  'hair-botox-med',
+  'hair-keratin-med',
+  'facial-hydra-boost',
+  'muhurtham-bridal',
+  'nail-ext-acrylic'
+];
+
 export default function App() {
   const [currentPage, setCurrentPage] = useState(() => {
     if (typeof window !== 'undefined') {
@@ -890,7 +899,8 @@ export default function App() {
 
   const [activeTab, setActiveTab] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
-  const [visibleCount, setVisibleCount] = useState(12); // Show top 12 cards on landing page grid!
+  const [visibleCount, setVisibleCount] = useState(6); // Show top 6 best signature cards on home page!
+  const [visibleReviewsCount, setVisibleReviewsCount] = useState(6); // Show top 6 best verified reviews!
   const [isBookletModalOpen, setIsBookletModalOpen] = useState(false);
   const [bookletPage, setBookletPage] = useState(1);
   const [bookletCategory, setBookletCategory] = useState('all');
@@ -1032,10 +1042,23 @@ export default function App() {
     return matchesCategory && matchesQuery;
   });
 
-  // On landing page, show only 12 services initially, or all if searching, or expand by 20 on "View More"
+  // Sort curated featured 6 services to the top of the All Services grid
+  const sortedServices = useMemo(() => {
+    if (activeTab !== 'all' || searchQuery) return filteredServices;
+    const featured = [];
+    const others = [];
+    filteredServices.forEach(s => {
+      if (FEATURED_SERVICE_IDS.includes(s.id)) featured.push(s);
+      else others.push(s);
+    });
+    featured.sort((a, b) => FEATURED_SERVICE_IDS.indexOf(a.id) - FEATURED_SERVICE_IDS.indexOf(b.id));
+    return [...featured, ...others];
+  }, [filteredServices, activeTab, searchQuery]);
+
+  // On home page, show best 6 signature services initially, or all if searching, or expand by 20 on "View More"
   const landingDisplayedServices = searchQuery
     ? filteredServices
-    : filteredServices.slice(0, visibleCount);
+    : sortedServices.slice(0, visibleCount);
 
   // Dedicated Menu Sheet Page (All 95+ services categorized by section)
   const menuFilteredServices = SERVICES_DATA.filter((s) => {
@@ -1587,31 +1610,31 @@ export default function App() {
           <div className="filter-pills">
             <button 
               className={`filter-btn ${activeTab === 'all' ? 'active' : ''}`}
-              onClick={() => { setActiveTab('all'); setVisibleCount(12); }}
+              onClick={() => { setActiveTab('all'); setVisibleCount(6); }}
             >
               All Services ({SERVICES_DATA.length})
             </button>
             <button 
               className={`filter-btn ${activeTab === 'hair' ? 'active' : ''}`}
-              onClick={() => { setActiveTab('hair'); setVisibleCount(12); }}
+              onClick={() => { setActiveTab('hair'); setVisibleCount(6); }}
             >
               Hair &amp; Botox ({SERVICES_DATA.filter(s => s.category === 'hair').length})
             </button>
             <button 
               className={`filter-btn ${activeTab === 'skin' ? 'active' : ''}`}
-              onClick={() => { setActiveTab('skin'); setVisibleCount(12); }}
+              onClick={() => { setActiveTab('skin'); setVisibleCount(6); }}
             >
               Skin &amp; Facials ({SERVICES_DATA.filter(s => s.category === 'skin').length})
             </button>
             <button 
               className={`filter-btn ${activeTab === 'bridal' ? 'active' : ''}`}
-              onClick={() => { setActiveTab('bridal'); setVisibleCount(12); }}
+              onClick={() => { setActiveTab('bridal'); setVisibleCount(6); }}
             >
               Bridal Lounge ({SERVICES_DATA.filter(s => s.category === 'bridal').length})
             </button>
             <button 
               className={`filter-btn ${activeTab === 'nails' ? 'active' : ''}`}
-              onClick={() => { setActiveTab('nails'); setVisibleCount(12); }}
+              onClick={() => { setActiveTab('nails'); setVisibleCount(6); }}
             >
               Nails &amp; Spa ({SERVICES_DATA.filter(s => s.category === 'nails').length})
             </button>
@@ -1667,15 +1690,15 @@ export default function App() {
               </div>
             </div>
           )}
-          {!searchQuery && visibleCount >= filteredServices.length && filteredServices.length > 12 && (
+          {!searchQuery && visibleCount >= filteredServices.length && filteredServices.length > 6 && (
             <div style={{ textAlign: 'center', marginTop: '24px' }}>
               <button 
                 type="button" 
                 className="btn btn-outline-burgundy"
-                onClick={() => setVisibleCount(12)}
+                onClick={() => setVisibleCount(6)}
                 style={{ padding: '8px 24px', fontSize: '0.85rem' }}
               >
-                Show Less (Top 12)
+                Show Less (Top 6)
               </button>
             </div>
           )}
@@ -1893,7 +1916,7 @@ export default function App() {
 
           {/* 5-Star Review Cards Grid */}
           <div className="reviews-grid">
-            {REVIEWS_DATA.map((rev) => (
+            {REVIEWS_DATA.slice(0, visibleReviewsCount).map((rev) => (
               <div key={rev.id} className="review-card">
                 <div>
                   <div className="review-card-top">
@@ -1927,7 +1950,7 @@ export default function App() {
                     <span>Google Review</span>
                   </div>
                   <a 
-                    href={mapsLink}
+                    href={mapsLink} 
                     target="_blank" 
                     rel="noopener noreferrer" 
                     style={{ fontSize: '0.78rem', color: 'var(--burgundy-dark)', textDecoration: 'none', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '4px' }}
@@ -1938,6 +1961,33 @@ export default function App() {
                 </div>
               </div>
             ))}
+          </div>
+
+          {/* View More / Less Reviews Toggle */}
+          <div style={{ textAlign: 'center', marginTop: '32px' }}>
+            {visibleReviewsCount < REVIEWS_DATA.length ? (
+              <button 
+                type="button"
+                className="btn btn-burgundy btn-shimmer"
+                onClick={() => setVisibleReviewsCount(REVIEWS_DATA.length)}
+                style={{ padding: '11px 28px', fontSize: '0.9rem', display: 'inline-flex', alignItems: 'center', gap: '8px' }}
+              >
+                <span>View All {REVIEWS_DATA.length} Verified Google Reviews</span>
+                <ChevronRight size={16} />
+              </button>
+            ) : (
+              <button 
+                type="button"
+                className="btn btn-outline-burgundy"
+                onClick={() => setVisibleReviewsCount(6)}
+                style={{ padding: '8px 24px', fontSize: '0.85rem' }}
+              >
+                Show Less (Top 6)
+              </button>
+            )}
+            <div style={{ marginTop: '10px', fontSize: '0.84rem', color: 'var(--text-sub)' }}>
+              Showing <strong>{Math.min(visibleReviewsCount, REVIEWS_DATA.length)}</strong> of <strong>{REVIEWS_DATA.length}</strong> genuine 5-star Google reviews
+            </div>
           </div>
         </div>
       </section>
