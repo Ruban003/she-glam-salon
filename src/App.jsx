@@ -732,6 +732,68 @@ const REVIEWS_DATA = [
   }
 ];
 
+function GlitterCursor() {
+  const [sparkles, setSparkles] = useState([]);
+  const lastSpawnRef = useRef(0);
+
+  useEffect(() => {
+    if (typeof window === 'undefined' || window.matchMedia('(pointer: coarse)').matches) return;
+
+    const colors = ['#e6ca65', '#d4af37', '#ffffff', '#fce7b2', '#f3d9b1'];
+    const shapes = ['✦', '✧', '★', '•'];
+
+    const handleMouseMove = (e) => {
+      const now = Date.now();
+      if (now - lastSpawnRef.current < 45) return;
+      lastSpawnRef.current = now;
+
+      const id = now + Math.random();
+      const newSparkle = {
+        id,
+        x: e.clientX,
+        y: e.clientY,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        shape: shapes[Math.floor(Math.random() * shapes.length)],
+        size: Math.floor(Math.random() * 8 + 10),
+        driftX: (Math.random() - 0.5) * 22,
+        driftY: Math.random() * 18 + 8
+      };
+
+      setSparkles((prev) => [...prev.slice(-16), newSparkle]);
+
+      setTimeout(() => {
+        setSparkles((prev) => prev.filter((s) => s.id !== id));
+      }, 750);
+    };
+
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
+  if (sparkles.length === 0) return null;
+
+  return (
+    <div className="glitter-trail-container" aria-hidden="true">
+      {sparkles.map((s) => (
+        <span
+          key={s.id}
+          className="glitter-particle"
+          style={{
+            left: `${s.x}px`,
+            top: `${s.y}px`,
+            color: s.color,
+            fontSize: `${s.size}px`,
+            '--drift-x': `${s.driftX}px`,
+            '--drift-y': `${s.driftY}px`,
+          }}
+        >
+          {s.shape}
+        </span>
+      ))}
+    </div>
+  );
+}
+
 export default function App() {
   const [activeTab, setActiveTab] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
@@ -881,6 +943,7 @@ export default function App() {
 
   return (
     <div className="she-glam-app">
+      <GlitterCursor />
       {/* 1. Announcement Bar */}
       <div className="top-bar">
         <span className="top-bar-text">

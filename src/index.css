@@ -1062,8 +1062,35 @@ a {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  transition: var(--transition);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
+  overflow: hidden;
+}
+
+/* Mouseover / Hover Luxury Gold Glitter Sweep */
+.service-box::before {
+  content: '';
+  position: absolute;
+  top: -60%;
+  left: -60%;
+  width: 220%;
+  height: 220%;
+  background: linear-gradient(
+    115deg,
+    transparent 20%,
+    rgba(255, 235, 160, 0.15) 38%,
+    rgba(255, 255, 255, 0.6) 50%,
+    rgba(255, 215, 0, 0.28) 60%,
+    transparent 75%
+  );
+  transform: translateX(-120%) rotate(25deg);
+  transition: transform 0.85s ease;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.service-box:hover::before {
+  transform: translateX(120%) rotate(25deg);
 }
 
 @media (max-width: 640px) {
@@ -1073,9 +1100,47 @@ a {
 }
 
 .service-box:hover {
-  border-color: var(--dusty-pink);
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-card);
+  border-color: rgba(212, 160, 23, 0.65);
+  transform: translateY(-5px);
+  box-shadow: 0 16px 36px rgba(114, 47, 55, 0.12), 0 0 24px rgba(255, 215, 0, 0.22);
+}
+
+/* Interactive Cursor Glitter Trail */
+.glitter-trail-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 99999;
+  overflow: hidden;
+}
+
+.glitter-particle {
+  position: fixed;
+  pointer-events: none;
+  user-select: none;
+  animation: glitterFade 0.75s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.75));
+  line-height: 1;
+  transform: translate(-50%, -50%);
+  display: inline-block;
+}
+
+@keyframes glitterFade {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(0.6) rotate(0deg);
+  }
+  50% {
+    opacity: 0.95;
+    transform: translate(calc(-50% + var(--drift-x)), calc(-50% + var(--drift-y))) scale(1.25) rotate(45deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--drift-x) * 1.6), calc(-50% + var(--drift-y) * 1.6)) scale(0.2) rotate(90deg);
+  }
 }
 
 .service-box-tag {
