@@ -1006,6 +1006,16 @@ export default function App() {
 
   const phoneNumber = '+91 63813 74330';
   const cleanPhone = '916381374330';
+  const telPhone = '+916381374330';
+  const [callToast, setCallToast] = useState(false);
+
+  const handleCallClick = () => {
+    if (typeof navigator !== 'undefined' && navigator.clipboard) {
+      navigator.clipboard.writeText('+91 63813 74330').catch(() => {});
+    }
+    setCallToast(true);
+    setTimeout(() => setCallToast(false), 4500);
+  };
   const locationAddress = 'Nattar Layout G-Block, TS 505, Trichy Main Road, PL 4, Pichai Servai Colony, Kottaiyur, Karaikudi, Tamil Nadu - 630002';
   const mapsLink = 'https://share.google/87DJwngMRYCrM52nM';
   const instagramLink = 'https://www.instagram.com/__she_glam__/';
@@ -1112,6 +1122,37 @@ export default function App() {
   return (
     <div className="she-glam-app">
       <GlitterCursor />
+
+      {/* Quick Call & Copy Feedback Toast */}
+      {callToast && (
+        <div className="call-toast-banner" role="status" aria-live="polite">
+          <div className="call-toast-content">
+            <Phone size={18} className="call-toast-icon" />
+            <div className="call-toast-text">
+              <strong>Calling She GLAM: {phoneNumber}</strong>
+              <span>Number copied to clipboard!</span>
+            </div>
+            <a 
+              href={`https://wa.me/${cleanPhone}`} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="call-toast-wa-btn"
+              title="Chat on WhatsApp"
+            >
+              WhatsApp
+            </a>
+            <button 
+              type="button" 
+              className="call-toast-close" 
+              onClick={() => setCallToast(false)}
+              aria-label="Close notification"
+            >
+              &times;
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* 1. Announcement Bar */}
       <div className="top-bar">
         <span className="top-bar-text">
@@ -1142,8 +1183,11 @@ export default function App() {
 
           <div className="nav-actions">
             <a 
-              href={`tel:${cleanPhone}`} 
+              href={`tel:${telPhone}`} 
               className="btn btn-outline-burgundy nav-call-btn" 
+              onClick={handleCallClick}
+              title={`Call She GLAM: ${phoneNumber} (Click to call or copy)`}
+              aria-label={`Call She GLAM at ${phoneNumber}`}
             >
               <Phone size={14} />
               <span>Call Now</span>
@@ -1203,6 +1247,27 @@ export default function App() {
               <span>Location &amp; Timings</span>
               <ChevronRight size={16} />
             </a>
+
+            <div className="drawer-contact-actions" style={{ marginTop: '16px', paddingTop: '16px', borderTop: '1px solid rgba(114, 47, 55, 0.12)', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              <a 
+                href={`tel:${telPhone}`} 
+                className="drawer-call-btn"
+                onClick={handleCallClick}
+              >
+                <Phone size={16} />
+                <span>Call Now: {phoneNumber}</span>
+              </a>
+              <a 
+                href={`https://wa.me/${cleanPhone}`} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="btn btn-whatsapp"
+                style={{ width: '100%', padding: '11px', fontSize: '0.85rem' }}
+              >
+                <Sparkles size={16} />
+                <span>Chat on WhatsApp</span>
+              </a>
+            </div>
           </div>
         )}
       </header>
@@ -2025,7 +2090,12 @@ export default function App() {
                   <Phone className="location-info-icon" />
                   <div>
                     <strong style={{ display: 'block', color: 'var(--burgundy-dark)', marginBottom: '4px' }}>Phone / WhatsApp</strong>
-                    <a href={`tel:${cleanPhone}`} style={{ color: 'var(--burgundy)', fontWeight: 700, fontSize: '1.05rem', display: 'block' }}>
+                    <a 
+                      href={`tel:${telPhone}`} 
+                      onClick={handleCallClick}
+                      style={{ color: 'var(--burgundy)', fontWeight: 700, fontSize: '1.05rem', display: 'block' }}
+                      title={`Click to call or copy ${phoneNumber}`}
+                    >
                       {phoneNumber}
                     </a>
                   </div>
@@ -2059,6 +2129,14 @@ export default function App() {
               </div>
 
               <div className="location-actions">
+                <a 
+                  href={`tel:${telPhone}`} 
+                  className="btn btn-outline-burgundy"
+                  onClick={handleCallClick}
+                  title={`Call She GLAM: ${phoneNumber}`}
+                >
+                  <Phone size={16} /> Call Now
+                </a>
                 <a 
                   href={mapsLink} 
                   target="_blank" 
@@ -2213,12 +2291,13 @@ export default function App() {
       {/* 11. Sticky Mobile Bottom Action Bar */}
       <div className={`mobile-bottom-bar ${mobileMenuOpen ? 'drawer-is-open' : ''}`}>
         <a 
-          href={`tel:${cleanPhone}`} 
+          href={`tel:${telPhone}`} 
           className="bottom-bar-btn btn-call"
-          aria-label="Call She GLAM"
+          aria-label={`Call She GLAM: ${phoneNumber}`}
+          onClick={handleCallClick}
         >
           <Phone size={18} />
-          <span>Call</span>
+          <span>Call Now</span>
         </a>
         <a 
           href={`https://wa.me/${cleanPhone}?text=${encodeURIComponent('Hello She GLAM, I would like to inquire about your salon services and appointments.')}`}

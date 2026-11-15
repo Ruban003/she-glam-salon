@@ -442,15 +442,27 @@ a {
 
 @media (max-width: 768px) {
   .nav-call-btn {
-    display: none; /* Accessible in persistent mobile bottom action bar */
+    padding: 8px 12px;
+    font-size: 0.8rem;
+    gap: 5px;
   }
   .nav-book-btn {
-    padding: 8px 15px;
-    font-size: 0.82rem;
+    padding: 8px 14px;
+    font-size: 0.8rem;
   }
 }
 
-@media (max-width: 420px) {
+@media (max-width: 440px) {
+  .nav-call-btn span {
+    display: none;
+  }
+  .nav-call-btn {
+    padding: 8px;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    justify-content: center;
+  }
   .nav-book-btn {
     padding: 7px 11px;
     font-size: 0.78rem;
@@ -2790,4 +2802,127 @@ a {
   padding: 24px 28px;
   overflow-y: auto;
   flex: 1;
+}
+
+/* ==========================================================================
+   CALL ACTION ENHANCEMENTS: DRAWER CALL BUTTON & TOAST NOTIFICATION
+   ========================================================================== */
+.drawer-call-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 12px 18px;
+  background: var(--burgundy);
+  color: #ffffff !important;
+  border-radius: var(--radius-full);
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgba(114, 47, 55, 0.25);
+  transition: all 0.2s ease;
+}
+
+.drawer-call-btn:hover,
+.drawer-call-btn:active {
+  background: var(--burgundy-dark);
+  color: #ffffff !important;
+  transform: translateY(-1px);
+}
+
+/* Call Toast Banner */
+.call-toast-banner {
+  position: fixed;
+  top: 76px;
+  right: 24px;
+  z-index: 1200;
+  animation: slideInDown 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 10px 30px rgba(114, 47, 55, 0.3);
+  border-radius: var(--radius-full);
+}
+
+.call-toast-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #2A171B;
+  color: #ffffff;
+  padding: 10px 18px;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(212, 175, 55, 0.5);
+}
+
+.call-toast-icon {
+  color: #fbbf24;
+  flex-shrink: 0;
+  animation: pulse 1.4s infinite;
+}
+
+.call-toast-text {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.82rem;
+  line-height: 1.25;
+}
+
+.call-toast-text strong {
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.call-toast-text span {
+  font-size: 0.74rem;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.call-toast-wa-btn {
+  background: #25D366;
+  color: #ffffff !important;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 5px 12px;
+  border-radius: 999px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.call-toast-wa-btn:hover {
+  background: #20bd5a;
+  transform: scale(1.04);
+}
+
+.call-toast-close {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.25rem;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.call-toast-close:hover {
+  color: #ffffff;
+}
+
+@media (max-width: 600px) {
+  .call-toast-banner {
+    top: 68px;
+    right: 12px;
+    left: 12px;
+    border-radius: 14px;
+  }
+  .call-toast-content {
+    border-radius: 14px;
+    padding: 10px 14px;
+    gap: 8px;
+  }
 }
