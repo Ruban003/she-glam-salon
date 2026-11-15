@@ -793,37 +793,59 @@ function GlitterCursor() {
   const lastSpawnRef = useRef(0);
 
   useEffect(() => {
-    if (typeof window === 'undefined' || window.matchMedia('(pointer: coarse)').matches) return;
+    if (typeof window === 'undefined') return;
 
     const colors = ['#e6ca65', '#d4af37', '#ffffff', '#fce7b2', '#f3d9b1'];
     const shapes = ['✦', '✧', '★', '•'];
 
-    const handleMouseMove = (e) => {
+    const spawnSparkle = (clientX, clientY, isTouch = false) => {
       const now = Date.now();
-      if (now - lastSpawnRef.current < 45) return;
+      const throttleMs = isTouch ? 65 : 45;
+      if (now - lastSpawnRef.current < throttleMs) return;
       lastSpawnRef.current = now;
 
       const id = now + Math.random();
       const newSparkle = {
         id,
-        x: e.clientX,
-        y: e.clientY,
+        x: clientX,
+        y: clientY,
         color: colors[Math.floor(Math.random() * colors.length)],
         shape: shapes[Math.floor(Math.random() * shapes.length)],
-        size: Math.floor(Math.random() * 8 + 10),
-        driftX: (Math.random() - 0.5) * 22,
-        driftY: Math.random() * 18 + 8
+        size: isTouch ? Math.floor(Math.random() * 6 + 12) : Math.floor(Math.random() * 8 + 10),
+        driftX: (Math.random() - 0.5) * (isTouch ? 28 : 22),
+        driftY: (Math.random() - 0.5) * (isTouch ? 24 : 14) + (isTouch ? 0 : 8)
       };
 
-      setSparkles((prev) => [...prev.slice(-16), newSparkle]);
+      setSparkles((prev) => [...prev.slice(isTouch ? -12 : -16), newSparkle]);
 
       setTimeout(() => {
         setSparkles((prev) => prev.filter((s) => s.id !== id));
-      }, 750);
+      }, 700);
+    };
+
+    const handleMouseMove = (e) => {
+      spawnSparkle(e.clientX, e.clientY, false);
+    };
+
+    const handleTouchMove = (e) => {
+      if (!e.touches || e.touches.length === 0) return;
+      spawnSparkle(e.touches[0].clientX, e.touches[0].clientY, true);
+    };
+
+    const handleTouchStart = (e) => {
+      if (!e.touches || e.touches.length === 0) return;
+      spawnSparkle(e.touches[0].clientX, e.touches[0].clientY, true);
     };
 
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    window.addEventListener('touchmove', handleTouchMove, { passive: true });
+    window.addEventListener('touchstart', handleTouchStart, { passive: true });
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('touchmove', handleTouchMove);
+      window.removeEventListener('touchstart', handleTouchStart);
+    };
   }, []);
 
   if (sparkles.length === 0) return null;

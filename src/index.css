@@ -1067,7 +1067,7 @@ a {
   overflow: hidden;
 }
 
-/* Mouseover / Hover Luxury Gold Glitter Sweep */
+/* Mouseover / Touch Tap Luxury Gold Glitter Sweep */
 .service-box::before {
   content: '';
   position: absolute;
@@ -1089,17 +1089,37 @@ a {
   z-index: 3;
 }
 
-.service-box:hover::before {
+.service-box:hover::before,
+.service-box:active::before {
   transform: translateX(120%) rotate(25deg);
 }
 
 @media (max-width: 640px) {
   .service-box {
     padding: 20px 18px;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Automatic gentle gold shimmer sweep for popular cards on mobile */
+  .service-box.popular::before {
+    animation: mobileCardGlimmer 6s ease-in-out infinite;
   }
 }
 
-.service-box:hover {
+@keyframes mobileCardGlimmer {
+  0%, 75% {
+    transform: translateX(-120%) rotate(25deg);
+  }
+  88% {
+    transform: translateX(120%) rotate(25deg);
+  }
+  100% {
+    transform: translateX(120%) rotate(25deg);
+  }
+}
+
+.service-box:hover,
+.service-box:active {
   border-color: rgba(212, 160, 23, 0.65);
   transform: translateY(-5px);
   box-shadow: 0 16px 36px rgba(114, 47, 55, 0.12), 0 0 24px rgba(255, 215, 0, 0.22);
