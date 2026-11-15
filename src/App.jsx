@@ -735,9 +735,12 @@ const REVIEWS_DATA = [
 export default function App() {
   const [activeTab, setActiveTab] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
-  const [viewMode, setViewMode] = useState('menu'); // 'menu' for clean compact price sheet, 'cards' for visual cards
-  const [showAllCards, setShowAllCards] = useState(false);
+  const [viewMode, setViewMode] = useState('cards'); // 'cards' (Editorial Cards) or 'menu' (Menu Sheet)
+  const [visibleCount, setVisibleCount] = useState(12); // Show only 10-15 on landing page!
   const [isBookletModalOpen, setIsBookletModalOpen] = useState(false);
+  const [bookletPage, setBookletPage] = useState(1);
+  const [bookletCategory, setBookletCategory] = useState('all');
+  const [bookletSearch, setBookletSearch] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const headerRef = useRef(null);
@@ -834,8 +837,13 @@ export default function App() {
     return matchesCategory && matchesQuery;
   });
 
-  // Group services by section for authentic menu sheet layout
-  const groupedSections = filteredServices.reduce((acc, service) => {
+  // On landing page, show only 12 services initially, or all if searching, or expand by 20 on "View More"
+  const landingDisplayedServices = searchQuery
+    ? filteredServices
+    : filteredServices.slice(0, visibleCount);
+
+  // Group landing displayed services by section for authentic menu sheet layout
+  const groupedSections = landingDisplayedServices.reduce((acc, service) => {
     const sec = service.section || 'General Services';
     if (!acc[sec]) acc[sec] = [];
     acc[sec].push(service);
@@ -849,6 +857,27 @@ export default function App() {
     if (index % 2 === 0) col1.push(item);
     else col2.push(item);
   });
+
+  // Dedicated Full Menu Booklet: paginated 20 by 20
+  const BOOKLET_PAGE_SIZE = 20;
+  const bookletFilteredServices = SERVICES_DATA.filter((s) => {
+    const matchesCategory = bookletCategory === 'all' || s.category === bookletCategory;
+    const q = bookletSearch.toLowerCase().trim();
+    if (!q) return matchesCategory;
+    return matchesCategory && (
+      s.title.toLowerCase().includes(q) ||
+      (s.description && s.description.toLowerCase().includes(q)) ||
+      (s.section && s.section.toLowerCase().includes(q)) ||
+      (s.tag && s.tag.toLowerCase().includes(q))
+    );
+  });
+
+  const bookletTotalPages = Math.max(1, Math.ceil(bookletFilteredServices.length / BOOKLET_PAGE_SIZE));
+  const currentBookletPage = Math.min(bookletPage, bookletTotalPages);
+  const bookletPageServices = bookletFilteredServices.slice(
+    (currentBookletPage - 1) * BOOKLET_PAGE_SIZE,
+    currentBookletPage * BOOKLET_PAGE_SIZE
+  );
 
   return (
     <div className="she-glam-app">
@@ -1287,52 +1316,67 @@ export default function App() {
 
           {/* View 2: Editorial Cards Grid (Visual Highlights) */}
           {viewMode === 'cards' && (
-            <>
-              <div className="editorial-services-grid">
-                {(showAllCards || searchQuery ? filteredServices : filteredServices.slice(0, 9)).map((service) => (
-                  <div key={service.id} className="service-box">
-                    <div>
-                      <div className="service-box-tag">{service.tag}</div>
-                      <h3>{service.title}</h3>
-                      <p>{service.description}</p>
-                    </div>
-
-                    <div className="service-box-footer">
-                      <div>
-                        <span className="service-box-price">{service.price}</span>
-                        {service.originalPrice && (
-                          <span style={{ fontSize: '0.85rem', color: 'var(--text-sub)', textDecoration: 'line-through', marginLeft: '6px' }}>
-                            {service.originalPrice}
-                          </span>
-                        )}
-                      </div>
-                      <button 
-                        type="button"
-                        className="btn btn-outline-burgundy" 
-                        style={{ padding: '7px 16px', fontSize: '0.82rem' }}
-                        onClick={() => openBookingWithService(`${service.title} (${service.price})`)}
-                      >
-                        <span>Book</span>
-                        <ChevronRight size={14} />
-                      </button>
-                    </div>
+            <div className="editorial-services-grid">
+              {landingDisplayedServices.map((service) => (
+                <div key={service.id} className="service-box">
+                  <div>
+                    <div className="service-box-tag">{service.tag}</div>
+                    <h3>{service.title}</h3>
+                    <p>{service.description}</p>
                   </div>
-                ))}
-              </div>
 
-              {!searchQuery && filteredServices.length > 9 && (
-                <div className="show-more-container">
-                  <button 
-                    type="button"
-                    className="btn-show-more"
-                    onClick={() => setShowAllCards(!showAllCards)}
-                  >
-                    <span>{showAllCards ? '✦ Show Less Cards' : `✦ View All ${filteredServices.length} Cards`}</span>
-                    <ChevronRight size={16} style={{ transform: showAllCards ? 'rotate(-90deg)' : 'rotate(90deg)', transition: 'transform 0.2s' }} />
-                  </button>
+                  <div className="service-box-footer">
+                    <div>
+                      <span className="service-box-price">{service.price}</span>
+                      {service.originalPrice && (
+                        <span style={{ fontSize: '0.85rem', color: 'var(--text-sub)', textDecoration: 'line-through', marginLeft: '6px' }}>
+                          {service.originalPrice}
+                        </span>
+                      )}
+                    </div>
+                    <button 
+                      type="button"
+                      className="btn btn-outline-burgundy" 
+                      style={{ padding: '7px 16px', fontSize: '0.82rem' }}
+                      onClick={() => openBookingWithService(`${service.title} (${service.price})`)}
+                    >
+                      <span>Book</span>
+                      <ChevronRight size={14} />
+                    </button>
+                  </div>
                 </div>
-              )}
-            </>
+              ))}
+            </div>
+          )}
+
+          {/* Universal View More Services (+20) Button */}
+          {!searchQuery && visibleCount < filteredServices.length && (
+            <div className="view-more-container" style={{ textAlign: 'center', marginTop: '36px' }}>
+              <button 
+                type="button" 
+                className="btn btn-burgundy btn-shimmer"
+                onClick={() => setVisibleCount(prev => prev + 20)}
+                style={{ padding: '13px 34px', fontSize: '0.96rem', display: 'inline-flex', alignItems: 'center', gap: '8px' }}
+              >
+                <span>View More Services (+20)</span>
+                <ChevronRight size={16} />
+              </button>
+              <div style={{ marginTop: '10px', fontSize: '0.85rem', color: 'var(--text-sub)' }}>
+                Showing <strong>{Math.min(visibleCount, filteredServices.length)}</strong> of <strong>{filteredServices.length}</strong> services
+              </div>
+            </div>
+          )}
+          {!searchQuery && visibleCount >= filteredServices.length && filteredServices.length > 12 && (
+            <div style={{ textAlign: 'center', marginTop: '24px' }}>
+              <button 
+                type="button" 
+                className="btn btn-outline-burgundy"
+                onClick={() => setVisibleCount(12)}
+                style={{ padding: '8px 24px', fontSize: '0.85rem' }}
+              >
+                Show Less (Top 12)
+              </button>
+            </div>
           )}
         </div>
       </section>
@@ -1950,60 +1994,138 @@ export default function App() {
             >
               <X size={20} />
             </button>
-            <div style={{ textAlign: 'center', marginBottom: '24px' }}>
+            <div style={{ textAlign: 'center', marginBottom: '20px' }}>
               <span className="pill-tag pill-dusty" style={{ marginBottom: '8px' }}>OFFICIAL SALON PRICE LIST • KARAIKKUDI</span>
               <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '2rem', color: 'var(--burgundy)', margin: '6px 0' }}>
                 She GLAM <em>Complete Service Booklet</em>
               </h2>
               <p style={{ fontSize: '0.88rem', color: 'var(--text-sub)' }}>
-                All 95 authentic salon treatments with final net pricing. No hidden taxes or surprise charges.
+                All 95 authentic salon treatments with final net pricing. Paginated 20 items per page for effortless reading.
               </p>
             </div>
 
-            <div className="booklet-sections-grid">
-              {Object.entries(
-                SERVICES_DATA.reduce((acc, s) => {
-                  const sec = s.section || 'General Services';
-                  if (!acc[sec]) acc[sec] = [];
-                  acc[sec].push(s);
-                  return acc;
-                }, {})
-              ).map(([secTitle, items]) => (
-                <div key={secTitle} style={{ marginBottom: '20px', background: '#faf8f5', padding: '16px 20px', borderRadius: '12px', border: '1px solid rgba(114, 47, 55, 0.1)' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', borderBottom: '1.5px solid var(--burgundy)', paddingBottom: '6px', marginBottom: '10px' }}>
-                    <h4 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.2rem', color: 'var(--burgundy)', margin: 0 }}>{secTitle}</h4>
-                    <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-sub)' }}>{items.length} items</span>
-                  </div>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                    {items.map(s => (
-                      <div key={s.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '6px 0', borderBottom: '1px dashed rgba(0,0,0,0.06)' }}>
-                        <div style={{ flex: 1, minWidth: 0, paddingRight: '12px' }}>
-                          <span style={{ fontWeight: 600, fontSize: '0.9rem', color: 'var(--text-main)', display: 'block' }}>{s.title}</span>
-                          {s.description && <span style={{ fontSize: '0.76rem', color: 'var(--text-sub)' }}>{s.description}</span>}
-                        </div>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexShrink: 0 }}>
-                          <span style={{ fontWeight: 700, fontSize: '0.95rem', color: 'var(--burgundy-primary)' }}>{s.price}</span>
-                          <button
-                            type="button"
-                            className="btn btn-outline-burgundy"
-                            style={{ padding: '4px 10px', fontSize: '0.78rem' }}
-                            onClick={() => {
-                              setIsBookletModalOpen(false);
-                              openBookingWithService(`${s.title} (${s.price})`);
-                            }}
-                          >
-                            Book
-                          </button>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              ))}
+            {/* Booklet Filter & Search Bar */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '22px' }}>
+              <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', justifyContent: 'center' }}>
+                {[
+                  { id: 'all', label: 'All Services' },
+                  { id: 'hair', label: 'Hair Care' },
+                  { id: 'skin', label: 'Skin & Facial' },
+                  { id: 'spa', label: 'Body Spa & Wax' },
+                  { id: 'bridal', label: 'Bridal & Makeup' },
+                  { id: 'nails', label: 'Nails & Mani-Pedi' }
+                ].map(cat => (
+                  <button
+                    key={cat.id}
+                    type="button"
+                    onClick={() => { setBookletCategory(cat.id); setBookletPage(1); }}
+                    style={{
+                      padding: '6px 14px',
+                      borderRadius: '999px',
+                      fontSize: '0.82rem',
+                      fontWeight: 600,
+                      cursor: 'pointer',
+                      border: bookletCategory === cat.id ? '1px solid var(--burgundy)' : '1px solid rgba(0,0,0,0.12)',
+                      background: bookletCategory === cat.id ? 'var(--burgundy)' : '#fff',
+                      color: bookletCategory === cat.id ? '#fff' : 'var(--text-main)',
+                      transition: 'all 0.15s'
+                    }}
+                  >
+                    {cat.label}
+                  </button>
+                ))}
+              </div>
+              <div style={{ position: 'relative', maxWidth: '420px', width: '100%', margin: '0 auto' }}>
+                <input
+                  type="text"
+                  placeholder="Search in booklet (e.g. Hydra, Hair Spa, Waxing)..."
+                  value={bookletSearch}
+                  onChange={(e) => { setBookletSearch(e.target.value); setBookletPage(1); }}
+                  style={{
+                    width: '100%',
+                    padding: '8px 14px',
+                    borderRadius: '8px',
+                    border: '1px solid rgba(114, 47, 55, 0.25)',
+                    fontSize: '0.88rem',
+                    background: '#fff'
+                  }}
+                />
+              </div>
             </div>
+
+            {/* Booklet Services (20 per page) */}
+            <div className="booklet-page-container">
+              {bookletPageServices.length === 0 ? (
+                <div style={{ textAlign: 'center', padding: '40px 20px', color: 'var(--text-sub)' }}>
+                  No services found matching your filter.
+                </div>
+              ) : (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', background: '#faf8f5', padding: '16px 20px', borderRadius: '12px', border: '1px solid rgba(114, 47, 55, 0.1)' }}>
+                  {bookletPageServices.map((s, idx) => (
+                    <div key={s.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px 0', borderBottom: idx < bookletPageServices.length - 1 ? '1px dashed rgba(0,0,0,0.08)' : 'none' }}>
+                      <div style={{ flex: 1, minWidth: 0, paddingRight: '14px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                          <span style={{ fontWeight: 600, fontSize: '0.92rem', color: 'var(--text-main)' }}>{s.title}</span>
+                          {s.section && (
+                            <span style={{ fontSize: '0.72rem', background: 'rgba(114, 47, 55, 0.08)', color: 'var(--burgundy)', padding: '2px 8px', borderRadius: '4px', fontWeight: 600 }}>
+                              {s.section}
+                            </span>
+                          )}
+                        </div>
+                        {s.description && <span style={{ fontSize: '0.78rem', color: 'var(--text-sub)', marginTop: '2px', display: 'block' }}>{s.description}</span>}
+                      </div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexShrink: 0 }}>
+                        <span style={{ fontWeight: 700, fontSize: '1rem', color: 'var(--burgundy-primary)' }}>{s.price}</span>
+                        <button
+                          type="button"
+                          className="btn btn-outline-burgundy"
+                          style={{ padding: '5px 12px', fontSize: '0.8rem' }}
+                          onClick={() => {
+                            setIsBookletModalOpen(false);
+                            openBookingWithService(`${s.title} (${s.price})`);
+                          }}
+                        >
+                          Book
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Booklet Pagination Controls (20 and 20) */}
+            {bookletTotalPages > 1 && (
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '20px', padding: '12px 16px', background: '#fff', borderRadius: '10px', border: '1px solid rgba(0,0,0,0.08)', flexWrap: 'wrap', gap: '12px' }}>
+                <button
+                  type="button"
+                  className="btn btn-outline-burgundy"
+                  disabled={currentBookletPage <= 1}
+                  onClick={() => setBookletPage(prev => Math.max(1, prev - 1))}
+                  style={{ padding: '6px 16px', fontSize: '0.85rem', opacity: currentBookletPage <= 1 ? 0.4 : 1, cursor: currentBookletPage <= 1 ? 'not-allowed' : 'pointer' }}
+                >
+                  ← Previous 20
+                </button>
+                <span style={{ fontSize: '0.88rem', fontWeight: 600, color: 'var(--text-main)' }}>
+                  Page <strong>{currentBookletPage}</strong> of <strong>{bookletTotalPages}</strong> ({bookletFilteredServices.length} Total Services)
+                </span>
+                <button
+                  type="button"
+                  className="btn btn-outline-burgundy"
+                  disabled={currentBookletPage >= bookletTotalPages}
+                  onClick={() => setBookletPage(prev => Math.min(bookletTotalPages, prev + 1))}
+                  style={{ padding: '6px 16px', fontSize: '0.85rem', opacity: currentBookletPage >= bookletTotalPages ? 0.4 : 1, cursor: currentBookletPage >= bookletTotalPages ? 'not-allowed' : 'pointer' }}
+                >
+                  Next 20 →
+                </button>
+              </div>
+            )}
 
             <div style={{ textAlign: 'center', marginTop: '20px', borderTop: '1px solid rgba(0,0,0,0.08)', paddingTop: '16px' }}>
               <button className="btn btn-burgundy" onClick={() => setIsBookletModalOpen(false)}>
+                Done Browsing Booklet
+              </button>
+            </div>
                 Done Browsing Booklet
               </button>
             </div>
