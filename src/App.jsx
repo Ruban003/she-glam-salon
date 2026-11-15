@@ -1171,19 +1171,19 @@ export default function App() {
               <div className="view-mode-toggle">
                 <button 
                   type="button"
+                  className={`view-mode-btn ${viewMode === 'cards' ? 'active' : ''}`}
+                  onClick={() => setViewMode('cards')}
+                >
+                  <LayoutGrid size={15} />
+                  <span>Grid Overview</span>
+                </button>
+                <button 
+                  type="button"
                   className={`view-mode-btn ${viewMode === 'menu' ? 'active' : ''}`}
                   onClick={() => setViewMode('menu')}
                 >
                   <List size={15} />
                   <span>Menu Sheet</span>
-                </button>
-                <button 
-                  type="button"
-                  className={`view-mode-btn ${viewMode === 'cards' ? 'active' : ''}`}
-                  onClick={() => setViewMode('cards')}
-                >
-                  <LayoutGrid size={15} />
-                  <span>Editorial Cards</span>
                 </button>
               </div>
 
@@ -1202,31 +1202,31 @@ export default function App() {
           <div className="filter-pills">
             <button 
               className={`filter-btn ${activeTab === 'all' ? 'active' : ''}`}
-              onClick={() => { setActiveTab('all'); setShowAllCards(false); }}
+              onClick={() => { setActiveTab('all'); setVisibleCount(12); }}
             >
               All Services ({SERVICES_DATA.length})
             </button>
             <button 
               className={`filter-btn ${activeTab === 'hair' ? 'active' : ''}`}
-              onClick={() => { setActiveTab('hair'); setShowAllCards(false); }}
+              onClick={() => { setActiveTab('hair'); setVisibleCount(12); }}
             >
               Hair &amp; Botox ({SERVICES_DATA.filter(s => s.category === 'hair').length})
             </button>
             <button 
               className={`filter-btn ${activeTab === 'skin' ? 'active' : ''}`}
-              onClick={() => { setActiveTab('skin'); setShowAllCards(false); }}
+              onClick={() => { setActiveTab('skin'); setVisibleCount(12); }}
             >
               Skin &amp; Facials ({SERVICES_DATA.filter(s => s.category === 'skin').length})
             </button>
             <button 
               className={`filter-btn ${activeTab === 'bridal' ? 'active' : ''}`}
-              onClick={() => { setActiveTab('bridal'); setShowAllCards(false); }}
+              onClick={() => { setActiveTab('bridal'); setVisibleCount(12); }}
             >
               Bridal Lounge ({SERVICES_DATA.filter(s => s.category === 'bridal').length})
             </button>
             <button 
               className={`filter-btn ${activeTab === 'nails' ? 'active' : ''}`}
-              onClick={() => { setActiveTab('nails'); setShowAllCards(false); }}
+              onClick={() => { setActiveTab('nails'); setVisibleCount(12); }}
             >
               Nails &amp; Spa ({SERVICES_DATA.filter(s => s.category === 'nails').length})
             </button>
